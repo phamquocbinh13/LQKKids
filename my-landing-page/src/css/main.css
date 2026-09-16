@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #fff8f5;
+  --color-surface-dim: #f1d4c5;
+  --color-surface-bright: #fff8f5;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #fff1ea;
+  --color-surface-container: #ffeadf;
+  --color-surface-container-high: #ffe3d3;
+  --color-surface-container-highest: #faddcd;
+  --color-on-surface: #27180f;
+  --color-on-surface-variant: #41474f;
+  --color-inverse-surface: #3e2d22;
+  --color-inverse-on-surface: #ffede4;
+  --color-outline: #717880;
+  --color-outline-variant: #c1c7d1;
+  --color-surface-tint: #136299;
+  --color-primary: #136299;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #5b9bd5;
+  --color-on-primary-container: #003151;
+  --color-inverse-primary: #98cbff;
+  --color-secondary: #785a00;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #feca4a;
+  --color-on-secondary-container: #725500;
+  --color-tertiary: #40690b;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #76a342;
+  --color-on-tertiary-container: #1c3500;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-primary-fixed: #cfe5ff;
+  --color-primary-fixed-dim: #98cbff;
+  --color-on-primary-fixed: #001d33;
+  --color-on-primary-fixed-variant: #004a77;
+  --color-secondary-fixed: #ffdf9b;
+  --color-secondary-fixed-dim: #f2bf40;
+  --color-on-secondary-fixed: #251a00;
+  --color-on-secondary-fixed-variant: #5b4300;
+  --color-tertiary-fixed: #c0f287;
+  --color-tertiary-fixed-dim: #a4d56e;
+  --color-on-tertiary-fixed: #0f2000;
+  --color-on-tertiary-fixed-variant: #2d5000;
+  --color-background: #fff8f5;
+  --color-on-background: #27180f;
+  --color-surface-variant: #faddcd;
+
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+}
+
+@layer base {
+  html, body {
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+  }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Custom Safe Area Inset utilities */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
