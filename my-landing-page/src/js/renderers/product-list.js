@@ -122,11 +122,11 @@ function renderGrid(products) {
     const isEager = idx < 4;
 
     const badgeColorMap = {
-      'error': 'bg-error-container text-on-error-container',
-      'secondary': 'bg-secondary-container text-on-secondary-container',
-      'tertiary': 'bg-tertiary-fixed text-on-tertiary-fixed',
-      'success': 'bg-emerald-100 text-emerald-800 border border-emerald-300/50',
-      'primary': 'bg-primary-container text-on-primary-container'
+      'error': 'bg-red-500 text-white shadow-xs',
+      'secondary': 'bg-amber-500 text-slate-950 shadow-xs',
+      'tertiary': 'bg-purple-600 text-white shadow-xs',
+      'success': 'bg-emerald-500 text-white shadow-xs',
+      'primary': 'bg-sky-600 text-white shadow-xs'
     };
     const badgeStyle = badgeColorMap[product.badgeColor] || 'bg-secondary-container text-on-secondary-container';
 
