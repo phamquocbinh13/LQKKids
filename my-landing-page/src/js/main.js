@@ -6,6 +6,7 @@
 import { initContentRenderer } from './modules/content-renderer.js';
 import { initMobileMenu } from './modules/mobile-menu.js';
 import { initFormHandler } from './modules/form-handler.js';
+import { initTikTokPlayer } from './modules/tiktok-player.js';
 
 import { initProductList } from './renderers/product-list.js';
 import { initProductDetailModal } from './renderers/product-detail.js';
@@ -20,6 +21,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 3. Initialize Size Form Handler
   initFormHandler();
+
+  // 4. Initialize Interactive TikTok Shorts Player
+  initTikTokPlayer();
 
   // 4. Fetch Products JSON & Render Catalog (Check Admin Overrides)
   try {

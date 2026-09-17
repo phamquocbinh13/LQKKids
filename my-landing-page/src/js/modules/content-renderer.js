@@ -92,4 +92,14 @@ function hydrateElements(data) {
       link.href = value;
     }
   });
+
+  // Hydrate TikTok Video URLs for cards if present in CMS
+  if (data.realImages && Array.isArray(data.realImages.gallery)) {
+    data.realImages.gallery.forEach((item, idx) => {
+      const card = document.querySelector(`.tiktok-card[data-tiktok-card="${idx}"]`);
+      if (card && item.videoUrl) {
+        card.setAttribute('data-tiktok-url', item.videoUrl);
+      }
+    });
+  }
 }
