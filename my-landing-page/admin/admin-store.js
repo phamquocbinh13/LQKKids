@@ -57,6 +57,23 @@ export function requireAdminAuth() {
 
 export async function getAdminProducts() {
   try {
+    // 1. First attempt to read products stored inside Supabase site_content document
+    const resContent = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
+      headers: {
+        'apikey': SUPABASE_CONFIG.anonKey,
+        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+      }
+    });
+    if (resContent.ok) {
+      const rows = await resContent.json();
+      if (rows && rows.length > 0 && rows[0].content_data && Array.isArray(rows[0].content_data.products)) {
+        const dbProducts = rows[0].content_data.products;
+        localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(dbProducts));
+        return dbProducts;
+      }
+    }
+    
+    // 2. Fallback attempt to read from standalone products table if present
     const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?select=*`, {
       headers: {
         'apikey': SUPABASE_CONFIG.anonKey,
@@ -66,40 +83,38 @@ export async function getAdminProducts() {
     if (res.ok) {
       const dbProducts = await res.json();
       if (dbProducts && dbProducts.length > 0) {
-        localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(dbProducts));
         return dbProducts;
       }
     }
   } catch (err) {
-    console.warn('Supabase fetch products error, falling back to local/static data', err);
+    console.error('Supabase fetch products error:', err);
   }
 
-  const localData = localStorage.getItem(STORAGE_PRODUCTS_KEY);
-  if (localData) {
-    try {
-      return JSON.parse(localData);
-    } catch (e) {
-      console.error('Error parsing admin products from localStorage', e);
-    }
-  }
-
-  try {
-    const res = await fetch('../src/data/products.json');
-    const defaultProducts = await res.json();
-    localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(defaultProducts));
-    return defaultProducts;
-  } catch (e) {
-    console.error('Error fetching default products.json', e);
-    return [];
-  }
+  return [];
 }
 
 export async function saveAdminProducts(products) {
   localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(products));
 
-  // Async sync to Supabase Cloud REST Database
+  // Sync to Supabase Cloud JSON Store (site_content) to support all dynamic product fields (gallery, sizes, colors, etc.)
   try {
-    await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products`, {
+    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
+      headers: {
+        'apikey': SUPABASE_CONFIG.anonKey,
+        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+      }
+    });
+    let currentContent = {};
+    if (res.ok) {
+      const rows = await res.json();
+      if (rows && rows.length > 0 && rows[0].content_data) {
+        currentContent = rows[0].content_data;
+      }
+    }
+
+    currentContent.products = products;
+
+    await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content`, {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_CONFIG.anonKey,
@@ -107,7 +122,11 @@ export async function saveAdminProducts(products) {
         'Content-Type': 'application/json',
         'Prefer': 'resolution=merge-duplicates'
       },
-      body: JSON.stringify(products)
+      body: JSON.stringify({
+        id: 'default',
+        content_data: currentContent,
+        updated_at: new Date().toISOString()
+      })
     });
   } catch (e) {
     console.error('Failed to sync products to Supabase cloud', e);

@@ -12,8 +12,6 @@ import { initProductList } from './renderers/product-list.js';
 import { initProductDetailModal } from './renderers/product-detail.js';
 import { initCartDrawer } from './renderers/zalo-cart.js';
 
-import defaultProductsData from '../data/products.json';
-
 const SUPABASE_CONFIG = {
   url: 'https://ycniwxepxlhgtvsmzsfk.supabase.co',
   anonKey: 'sb_publishable_J4W7j-jiaOCehXj4Btb23w_jnDGlLoU'
@@ -32,12 +30,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 4. Initialize Interactive TikTok Shorts Player
   initTikTokPlayer();
 
-  // 5. Fetch Products Catalog (Supabase Cloud DB -> LocalStorage Cache -> Bundled JSON Fallback)
+  // 5. Fetch Products Catalog directly from Supabase Cloud DB
   try {
-    let products = null;
+    let products = [];
 
-    // A. Try Supabase Cloud Database (Real-time products saved from Admin)
-    try {
+    // A. Fetch from Supabase site_content store
+    const resContent = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
+      headers: {
+        'apikey': SUPABASE_CONFIG.anonKey,
+        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+      }
+    });
+    if (resContent.ok) {
+      const rows = await resContent.json();
+      if (rows && rows.length > 0 && rows[0].content_data && Array.isArray(rows[0].content_data.products)) {
+        products = rows[0].content_data.products;
+      }
+    }
+
+    // B. Fetch from Supabase standalone products table if site_content product list is empty
+    if (!products || products.length === 0) {
       const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?select=*`, {
         headers: {
           'apikey': SUPABASE_CONFIG.anonKey,
@@ -48,31 +60,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const rows = await res.json();
         if (rows && rows.length > 0) {
           products = rows;
-          localStorage.setItem('lqk_kids_admin_products_v1', JSON.stringify(products));
-        }
-      }
-    } catch (err) {
-      console.warn('Supabase products fetch warning:', err);
-    }
-
-    // B. Try LocalStorage Cache
-    if (!products) {
-      const adminProducts = localStorage.getItem('lqk_kids_admin_products_v1');
-      if (adminProducts) {
-        try {
-          products = JSON.parse(adminProducts);
-        } catch (e) {
-          console.error('Failed to parse admin products cache', e);
         }
       }
     }
 
-    // C. Bundled Default Fallback (Guaranteed to work 100% on Vercel & Mobile)
-    if (!products || products.length === 0) {
-      products = defaultProductsData;
-    }
-
-    // Render Catalog Grid
+    // Render Catalog Grid with exact DB Products
     initProductList(products);
 
     // Initialize Detail Modal
@@ -82,7 +74,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initCartDrawer();
 
   } catch (error) {
-    console.error('App initialization error:', error);
+    console.error('App database initialization error:', error);
   }
 });
 
