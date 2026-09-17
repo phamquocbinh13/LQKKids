@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LQK Kids Admin - Chỉnh Sửa Nội Dung Website & Kênh Mua Hàng</title>
+  <title>LQK Kids Admin - Landing Page Edit (Chỉnh Sửa Toàn Bộ Trang Chủ)</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,8 +21,8 @@
         <span class="material-symbols-outlined text-[20px]">arrow_back</span>
       </a>
       <div>
-        <h1 class="text-sm font-extrabold text-white tracking-tight leading-none">QUẢN LÝ NỘI DUNG & LIÊN KẾT KÊNH MUA HÀNG</h1>
-        <span class="text-[11px] text-slate-400">LQK Kids Admin Workspace</span>
+        <h1 class="text-sm font-extrabold text-white tracking-tight leading-none">LANDING PAGE EDIT (CHỈNH SỬA TOÀN BỘ NỘI DUNG & ẢNH TRANG CHỦ)</h1>
+        <span class="text-[11px] text-slate-400">LQK Kids CMS Workspace</span>
       </div>
     </div>
   </header>
@@ -31,11 +31,87 @@
   <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto w-full">
     <form id="content-form" class="flex flex-col gap-6">
       
-      <!-- Social & Channel Links Section -->
+      <!-- 1. General Header & Contact Info Section -->
+      <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 flex flex-col gap-4 shadow-md">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-slate-700/60 pb-3">
+          <span class="material-symbols-outlined text-[18px]">contact_phone</span>
+          1. Thông Tin Thương Hiệu, Hotline & Địa Chỉ
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Tiêu đề SEO Trang web (Title)</label>
+            <input type="text" id="site-title" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Slogan Logo Subtitle</label>
+            <input type="text" id="site-logo-subtitle" placeholder="Thời trang bé yêu" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">SĐT Hotline 1 (Chính)</label>
+            <input type="text" id="phone-1" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">SĐT Hotline 2 (Phụ)</label>
+            <input type="text" id="phone-2" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Địa Chỉ Shop Trực Tiếp</label>
+          <input type="text" id="site-address" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+        </div>
+      </div>
+
+      <!-- 2. Hero Section Edit -->
+      <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 flex flex-col gap-4 shadow-md">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-slate-700/60 pb-3">
+          <span class="material-symbols-outlined text-[18px]">view_carousel</span>
+          2. Khu Vực Hero Banner (Đầu Trang)
+        </h2>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Badge Nhãn Nhỏ</label>
+          <input type="text" id="hero-badge" placeholder="LQK KIDS" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Headline Chính (H1)</label>
+          <input type="text" id="hero-headline" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Subheadline Phụ</label>
+          <input type="text" id="hero-subheadline" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Đoạn Giới Thiệu Ngắn</label>
+          <textarea id="hero-description" rows="3" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Hình Ảnh Hero Banner Chính (Tải ảnh hoặc dán URL)</label>
+          <div class="flex items-center gap-3">
+            <input type="text" id="hero-image" class="flex-1 h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+            <label class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors shrink-0">
+              <span>Tải ảnh lên</span>
+              <input type="file" id="hero-image-file" accept="image/*" class="hidden" />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Social Links & Shopping Channels Section -->
       <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 flex flex-col gap-4 shadow-md">
         <h2 class="text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-slate-700/60 pb-3">
           <span class="material-symbols-outlined text-[18px]">link</span>
-          Cấu Hình Liên Kết Các Kênh Mua Hàng & Mạng Xã Hội
+          3. Cấu Hình Liên Kết Các Kênh Mua Hàng & Mạng Xã Hội
         </h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -68,62 +144,32 @@
         </div>
       </div>
 
-      <!-- Contact Info Section -->
+      <!-- 4. Final Banner Section -->
       <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 flex flex-col gap-4 shadow-md">
         <h2 class="text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-slate-700/60 pb-3">
-          <span class="material-symbols-outlined text-[18px]">contact_phone</span>
-          Thông Tin Liên Hệ & Hotline
-        </h2>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1.5">SĐT Hotline 1 (Chính)</label>
-            <input type="text" id="phone-1" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1.5">SĐT Hotline 2 (Phụ)</label>
-            <input type="text" id="phone-2" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1.5">Địa Chỉ Shop Trực Tiếp</label>
-          <input type="text" id="site-address" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
-        </div>
-      </div>
-
-      <!-- Hero Banner Section -->
-      <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 flex flex-col gap-4 shadow-md">
-        <h2 class="text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-slate-700/60 pb-3">
-          <span class="material-symbols-outlined text-[18px]">view_carousel</span>
-          Khu Vực Hero Banner Đầu Trang
+          <span class="material-symbols-outlined text-[18px]">verified</span>
+          4. Khu Vực Banner Cuối Trang (Final CTA)
         </h2>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1.5">Headline Chính</label>
-          <input type="text" id="hero-headline" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Tiêu Đề Banner Cuối</label>
+          <input type="text" id="final-title" placeholder="ĐẸP CHO BÉ – AN TÂM CHO MẸ" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1.5">Subheadline Phụ</label>
-          <input type="text" id="hero-subheadline" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1.5">Đoạn Giới Thiệu Ngắn</label>
-          <textarea id="hero-description" rows="3" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Lời Cảm Ơn / Lời Chúc</label>
+          <textarea id="final-desc" rows="3" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
         </div>
       </div>
 
-      <!-- Action Buttons -->
+      <!-- Action Buttons Bar -->
       <div class="flex items-center justify-end gap-3 pt-2">
         <a href="index.html" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition-colors">
           Hủy Bỏ
         </a>
         <button type="submit" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs shadow-lg active:scale-95 transition-all flex items-center gap-2">
           <span class="material-symbols-outlined text-[18px]">save</span>
-          <span>LƯU NỘI DUNG & LINK CẤU HÌNH</span>
+          <span>LƯU TẤT CẢ NỘI DUNG LANDING PAGE</span>
         </button>
       </div>
 
@@ -131,7 +177,7 @@
   </main>
 
   <script type="module">
-    import { getAdminContent, saveAdminContent, requireAdminAuth } from './admin-store.js';
+    import { getAdminContent, saveAdminContent, requireAdminAuth, compressAndProcessImage } from './admin-store.js';
 
     let contentData = {};
 
@@ -141,11 +187,25 @@
       contentData = await getAdminContent();
       populateForm(contentData);
 
+      // Hero image file compress upload
+      const heroFileInput = document.getElementById('hero-image-file');
+      if (heroFileInput) {
+        heroFileInput.addEventListener('change', async (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const compressed = await compressAndProcessImage(file, 1200, 0.85);
+            document.getElementById('hero-image').value = compressed;
+          }
+        });
+      }
+
       document.getElementById('content-form').addEventListener('submit', handleFormSubmit);
     });
 
     function populateForm(data) {
       if (data.site) {
+        document.getElementById('site-title').value = data.site.title || '';
+        document.getElementById('site-logo-subtitle').value = data.site.logoSubtitle || '';
         document.getElementById('phone-1').value = data.site.phonePrimary || '';
         document.getElementById('phone-2').value = data.site.phoneSecondary || '';
         document.getElementById('site-address').value = data.site.address || '';
@@ -157,40 +217,49 @@
       }
 
       if (data.hero) {
+        document.getElementById('hero-badge').value = data.hero.badge || '';
         document.getElementById('hero-headline').value = data.hero.headline || '';
         document.getElementById('hero-subheadline').value = data.hero.subheadline || '';
         document.getElementById('hero-description').value = data.hero.description || '';
+        document.getElementById('hero-image').value = data.hero.image || '';
+      }
+
+      if (data.finalCta) {
+        document.getElementById('final-title').value = data.finalCta.title || '';
+        document.getElementById('final-desc').value = data.finalCta.description || '';
       }
     }
 
-    function handleFormSubmit(e) {
+    async function handleFormSubmit(e) {
       e.preventDefault();
 
       if (!contentData.site) contentData.site = {};
       if (!contentData.hero) contentData.hero = {};
+      if (!contentData.finalCta) contentData.finalCta = {};
 
+      contentData.site.title = document.getElementById('site-title').value.trim();
+      contentData.site.logoSubtitle = document.getElementById('site-logo-subtitle').value.trim();
       contentData.site.phonePrimary = document.getElementById('phone-1').value.trim();
       contentData.site.phoneSecondary = document.getElementById('phone-2').value.trim();
       contentData.site.address = document.getElementById('site-address').value.trim();
 
-      const tiktok = document.getElementById('link-tiktok').value.trim();
-      const shopee = document.getElementById('link-shopee').value.trim();
-      const fb = document.getElementById('link-facebook').value.trim();
-      const fbGrp = document.getElementById('link-facebook-group').value.trim();
-      const zalo = document.getElementById('link-zalo').value.trim();
+      contentData.site.tiktokUrl = document.getElementById('link-tiktok').value.trim();
+      contentData.site.shopeeUrl = document.getElementById('link-shopee').value.trim();
+      contentData.site.facebookUrl = document.getElementById('link-facebook').value.trim();
+      contentData.site.facebookGroupUrl = document.getElementById('link-facebook-group').value.trim();
+      contentData.site.zaloUrl = document.getElementById('link-zalo').value.trim();
 
-      contentData.site.tiktokUrl = tiktok;
-      contentData.site.shopeeUrl = shopee;
-      contentData.site.facebookUrl = fb;
-      contentData.site.facebookGroupUrl = fbGrp;
-      contentData.site.zaloUrl = zalo;
-
+      contentData.hero.badge = document.getElementById('hero-badge').value.trim();
       contentData.hero.headline = document.getElementById('hero-headline').value.trim();
       contentData.hero.subheadline = document.getElementById('hero-subheadline').value.trim();
       contentData.hero.description = document.getElementById('hero-description').value.trim();
+      contentData.hero.image = document.getElementById('hero-image').value.trim();
 
-      saveAdminContent(contentData);
-      alert('Đã cập nhật cấu hình liên kết & nội dung website!');
+      contentData.finalCta.title = document.getElementById('final-title').value.trim();
+      contentData.finalCta.description = document.getElementById('final-desc').value.trim();
+
+      await saveAdminContent(contentData);
+      alert('Đã cập nhật toàn bộ nội dung & hình ảnh Landing Page thành công!');
       window.location.href = 'index.html';
     }
   </script>

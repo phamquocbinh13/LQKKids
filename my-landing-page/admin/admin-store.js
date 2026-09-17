@@ -115,6 +115,24 @@ export async function saveAdminProducts(products) {
 }
 
 export async function getAdminContent() {
+  try {
+    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
+      headers: {
+        'apikey': SUPABASE_CONFIG.anonKey,
+        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+      }
+    });
+    if (res.ok) {
+      const rows = await res.json();
+      if (rows && rows.length > 0 && rows[0].content_data) {
+        localStorage.setItem(STORAGE_CONTENT_KEY, JSON.stringify(rows[0].content_data));
+        return rows[0].content_data;
+      }
+    }
+  } catch (err) {
+    console.warn('Supabase fetch site content error', err);
+  }
+
   const localData = localStorage.getItem(STORAGE_CONTENT_KEY);
   if (localData) {
     try {
@@ -135,8 +153,27 @@ export async function getAdminContent() {
   }
 }
 
-export function saveAdminContent(content) {
+export async function saveAdminContent(content) {
   localStorage.setItem(STORAGE_CONTENT_KEY, JSON.stringify(content));
+
+  try {
+    await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_CONFIG.anonKey,
+        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates'
+      },
+      body: JSON.stringify({
+        id: 'default',
+        content_data: content,
+        updated_at: new Date().toISOString()
+      })
+    });
+  } catch (e) {
+    console.error('Failed to sync site content to Supabase cloud', e);
+  }
 }
 
 /**
