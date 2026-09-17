@@ -1,71 +1,66 @@
-# LQK Kids Landing Page (2026 Production Standard)
+# LQK Kids Unified Web Application (2026 Production Standard)
 
-Modern, high-performance, responsive landing page for **LQK Kids - Thời trang trẻ em**. Built with Vite, Tailwind CSS v4, and a Decoupled CMS-Ready Architecture where all content, image references, and action URLs are hydrated dynamically from `src/data/content.json`.
+Unified, responsive Kids Fashion E-Commerce Landing & Catalog Web Application integrating **Product Catalog ("danh muc san pham")**, **Product Detail Modal ("chi tiet san pham")**, and **Zalo Cart / Checkout Flow ("gio hang Zalo")**.
 
 ---
 
 ## 🛠 Tech Stack
 
-- **Build Tool:** [Vite](https://vitejs.dev/) (Vanilla JS ES Modules template)
+- **Build Tool:** [Vite](https://vitejs.dev/) (Vanilla ES Modules template)
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
-- **Architecture:** Decoupled JSON Data-Driven (CMS & Admin Panel Ready)
+- **State Management:** Decoupled JSON Data-Driven Architecture + Reactive LocalStorage Store
 - **Icons:** Google Material Symbols Outlined
 
 ---
 
-## 📁 Project Structure
+## 📁 Architecture & Folder Map
 
 ```
 my-landing-page/
-├── package.json              # Project dependencies & npm scripts
-├── vite.config.js            # Vite setup with Tailwind v4 plugin
-├── index.html                # Semantic HTML5 entry point with SEO metadata
+├── package.json
+├── vite.config.js
+├── index.html                # Unified HTML entry point containing Catalog Grid, Detail Modal & Zalo Cart Drawer
 ├── src/
 │   ├── css/
-│   │   └── main.css          # Tailwind CSS imports & custom theme tokens
+│   │   └── main.css          # Tailwind CSS imports & color theme tokens
 │   ├── data/
-│   │   └── content.json      # Central JSON data file (Dynamic content)
+│   │   ├── content.json      # Site copy & branding text metadata
+│   │   └── products.json     # Central product catalog data file
 │   ├── js/
-│   │   ├── modules/
-│   │   │   ├── content-renderer.js # CMS Hydration logic (data-cms attributes)
-│   │   │   ├── form-handler.js     # Form validation & async submission handler
-│   │   │   └── mobile-menu.js      # Mobile menu toggle & smooth scroll
-│   │   └── main.js           # Main JS entry module
+│   │   ├── store.js          # Reactive cart store & localStorage persistence
+│   │   ├── renderers/
+│   │   │   ├── product-list.js   # Category filtering & search grid renderer
+│   │   │   ├── product-detail.js # Product detail modal & size/color selector
+│   │   │   └── zalo-cart.js      # Cart drawer, customer info form & Zalo deep-link redirect
+│   │   └── main.js           # Main application entry point
 │   └── assets/
-│       ├── images/           # Local image assets
-│       └── icons/            # SVG / icon assets
-└── README.md                 # Setup & running guide
+│       └── images/           # Local product images
+└── README.md
 ```
 
 ---
 
-## 🚀 Quick Start (Local Testing)
+## 🔗 Integrated Features & User Flows
 
-### 1. Install Dependencies
+1. **Product Category Filtering (`product-list.js`)**:
+   - Filter catalog dynamically by: **Tất cả**, **Bé Trai**, **Bé Gái**, **Set Đồ**, **Phụ Kiện**.
+   - Live interactive search bar filtering product titles and descriptions without reloading.
+
+2. **Product Detail View (`product-detail.js`)**:
+   - Clicking any product card opens a smooth modal showing image gallery thumbnails, color selector, weight-based size selector, and quantity stepper.
+
+3. **Zalo Cart & Order Flow (`zalo-cart.js`)**:
+   - Items added to cart are stored reactively in `localStorage`.
+   - Cart Drawer summarizes items, subtotal, and collects customer shipping information (*Tên, SĐT Zalo, Địa chỉ, Ghi chú bé*).
+   - Submitting the form formats a clean Zalo order message and redirects directly to Zalo chat via `https://zalo.me/0934498685?text=...`.
+
+---
+
+## 🚀 Local Testing Commands
+
 ```bash
+cd my-landing-page
 npm install
-```
-
-### 2. Start Development Server
-```bash
 npm run dev
 ```
-Open your browser at `http://localhost:3000` (or the URL output by Vite).
-
-### 3. Build for Production
-```bash
-npm run build
-```
-
----
-
-## 💡 How CMS Decoupled Data Works
-
-All text headings, descriptions, image paths, contact numbers, and social links are managed inside `src/data/content.json`.
-
-In `index.html`, elements are tagged using `data-cms` attributes:
-- **Text Content:** `<h1 data-cms="hero.headline"></h1>`
-- **Images:** `<img data-cms-img="hero.image" alt="..." />`
-- **Links:** `<a data-cms-href="site.zaloUrl"></a>`
-
-When the page loads, `content-renderer.js` fetches `content.json` and automatically hydrates the DOM elements. To update any copy or link on the site, simply modify `src/data/content.json` without altering HTML code!
+Open your browser at `http://localhost:3000`.

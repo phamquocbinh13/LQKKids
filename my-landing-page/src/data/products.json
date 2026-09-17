@@ -1,0 +1,206 @@
+[
+  {
+    "id": "lqk-01",
+    "name": "Set Bộ Cotton Pastel Mùa Hè",
+    "category": "set",
+    "categoryName": "Set Đồ",
+    "price": 185000,
+    "originalPrice": 230000,
+    "discount": "-20%",
+    "rating": 4.9,
+    "soldCount": 128,
+    "badge": "Bán chạy",
+    "badgeColor": "secondary",
+    "code": "SP-LQK01",
+    "images": [
+      "./assets/images/category-set.jpg",
+      "./assets/images/category-boy.jpg",
+      "./assets/images/hero-banner.jpg"
+    ],
+    "colors": ["Xanh Pastel Soft", "Kem Sữa", "Vàng Chanh"],
+    "sizeOptions": [
+      { "size": "Size 90", "weight": "8–11kg", "detail": "1-2 tuổi" },
+      { "size": "Size 100", "weight": "11–13kg", "detail": "2-3 tuổi" },
+      { "size": "Size 110", "weight": "13–15kg", "detail": "3-4 tuổi" },
+      { "size": "Size 120", "weight": "15–18kg", "detail": "4-5 tuổi" },
+      { "size": "Size 130", "weight": "18–22kg", "detail": "5-6 tuổi" }
+    ],
+    "description": "Set bộ chất liệu 100% Cotton Organic dịu nhẹ với làn da bé. Thiết kế phong cách Hàn Quốc thoáng mát, thấm hút mồ hôi tối đa cho bé thoải mái vận động cả ngày."
+  },
+  {
+    "id": "lqk-02",
+    "name": "Áo Polo Sọc Thể Thao Bé Trai",
+    "category": "be-trai",
+    "categoryName": "Bé Trai",
+    "price": 165000,
+    "originalPrice": 195000,
+    "discount": "-15%",
+    "rating": 5.0,
+    "soldCount": 96,
+    "badge": "Mới",
+    "badgeColor": "tertiary",
+    "code": "SP-LQK02",
+    "images": [
+      "./assets/images/category-boy.jpg",
+      "./assets/images/hero-banner.jpg"
+    ],
+    "colors": ["Sọc Navy Cam", "Sọc Trắng Xanh", "Sọc Đen Vàng"],
+    "sizeOptions": [
+      { "size": "Size 100", "weight": "10–13kg", "detail": "2-3 tuổi" },
+      { "size": "Size 110", "weight": "13–16kg", "detail": "3-4 tuổi" },
+      { "size": "Size 120", "weight": "16–19kg", "detail": "4-5 tuổi" },
+      { "size": "Size 130", "weight": "19–23kg", "detail": "5-6 tuổi" }
+    ],
+    "description": "Áo polo cổ bẻ lịch sự nhưng năng động, chất thun cotton co giãn 4 chiều mềm mịn, giữ phom cực chuẩn qua nhiều lần giặt."
+  },
+  {
+    "id": "lqk-03",
+    "name": "Váy Hoa Nhí Vintage Xòe Bồng Bé Gái",
+    "category": "be-gai",
+    "categoryName": "Bé Gái",
+    "price": 215000,
+    "originalPrice": 270000,
+    "discount": "-20%",
+    "rating": 4.9,
+    "soldCount": 152,
+    "badge": "Hot",
+    "badgeColor": "error",
+    "code": "SP-LQK03",
+    "images": [
+      "./assets/images/category-girl.jpg",
+      "./assets/images/hero-banner.jpg"
+    ],
+    "colors": ["Vàng Vàng Nhẹ", "Hồng Pastel", "Xanh Mint"],
+    "sizeOptions": [
+      { "size": "Size 90", "weight": "9–11kg", "detail": "1-2 tuổi" },
+      { "size": "Size 100", "weight": "11–14kg", "detail": "2-3 tuổi" },
+      { "size": "Size 110", "weight": "14–17kg", "detail": "3-4 tuổi" },
+      { "size": "Size 120", "weight": "17–20kg", "detail": "4-5 tuổi" }
+    ],
+    "description": "Váy thiết kế xòe bồng nhẹ nhàng phong cách Vintage cổ điển. Vải đũi tơ mềm mát cho bé đi học, đi chơi hay chụp ảnh sinh nhật đều cực xinh."
+  },
+  {
+    "id": "lqk-04",
+    "name": "Set Đôi Anh Em Phong Cách Hàn Quốc",
+    "category": "set",
+    "categoryName": "Set Đồ",
+    "price": 340000,
+    "originalPrice": 420000,
+    "discount": "-19%",
+    "rating": 5.0,
+    "soldCount": 84,
+    "badge": "Bán chạy",
+    "badgeColor": "secondary",
+    "code": "SP-LQK04",
+    "images": [
+      "./assets/images/hero-banner.jpg",
+      "./assets/images/category-set.jpg"
+    ],
+    "colors": ["Set Tone Kem", "Set Tone Be"],
+    "sizeOptions": [
+      { "size": "Size Bé Nhỏ", "weight": "9–13kg", "detail": "1-3 tuổi" },
+      { "size": "Size Bé Lớn", "weight": "14–19kg", "detail": "3-6 tuổi" }
+    ],
+    "description": "Set đôi phối màu tone-sur-tone phong cách Hàn Quốc dễ thương. Phù hợp cho anh em hoặc chị em mặc đôi đi du lịch, chụp hình gia đình."
+  },
+  {
+    "id": "lqk-05",
+    "name": "Quần Short Đũi Thoáng Khí Unisex",
+    "category": "be-trai",
+    "categoryName": "Bé Trai",
+    "price": 125000,
+    "originalPrice": 150000,
+    "discount": "-16%",
+    "rating": 4.8,
+    "soldCount": 210,
+    "badge": "Mềm mát",
+    "badgeColor": "tertiary",
+    "code": "SP-LQK05",
+    "images": [
+      "./assets/images/category-boy.jpg",
+      "./assets/images/category-accessory.jpg"
+    ],
+    "colors": ["Kem Đũi", "Nâu Mocha", "Xanh Ghi"],
+    "sizeOptions": [
+      { "size": "Size 90", "weight": "9–12kg", "detail": "1-2 tuổi" },
+      { "size": "Size 100", "weight": "12–15kg", "detail": "2-3 tuổi" },
+      { "size": "Size 110", "weight": "15–18kg", "detail": "3-4 tuổi" },
+      { "size": "Size 120", "weight": "18–22kg", "detail": "4-6 tuổi" }
+    ],
+    "description": "Quần short đũi lưng thun mềm không gây hằn bụng bé. Vải xơ tự nhiên siêu thoáng khí, phom rộng rãi dễ chịu."
+  },
+  {
+    "id": "lqk-06",
+    "name": "Áo Phông Khủng Long Vui Nhộn",
+    "category": "be-trai",
+    "categoryName": "Bé Trai",
+    "price": 135000,
+    "originalPrice": 160000,
+    "discount": "-15%",
+    "rating": 4.9,
+    "soldCount": 78,
+    "badge": "Mới",
+    "badgeColor": "tertiary",
+    "code": "SP-LQK06",
+    "images": [
+      "./assets/images/category-boy.jpg",
+      "./assets/images/hero-banner.jpg"
+    ],
+    "colors": ["Xanh Bơ", "Trắng Sữa", "Vàng Nghệ"],
+    "sizeOptions": [
+      { "size": "Size 100", "weight": "10–13kg", "detail": "2-3 tuổi" },
+      { "size": "Size 110", "weight": "13–16kg", "detail": "3-4 tuổi" },
+      { "size": "Size 120", "weight": "16–19kg", "detail": "4-5 tuổi" }
+    ],
+    "description": "Áo thun in hình khủng long 3D sắc nét, không bong tróc khi giặt máy. Chất vải cotton 100% co giãn tự nhiên."
+  },
+  {
+    "id": "lqk-07",
+    "name": "Đầm Công Chúa Pastel Dịu Dàng",
+    "category": "be-gai",
+    "categoryName": "Bé Gái",
+    "price": 245000,
+    "originalPrice": 290000,
+    "discount": "-15%",
+    "rating": 5.0,
+    "soldCount": 114,
+    "badge": "Hot",
+    "badgeColor": "error",
+    "code": "SP-LQK07",
+    "images": [
+      "./assets/images/category-girl.jpg",
+      "./assets/images/hero-banner.jpg"
+    ],
+    "colors": ["Hồng Phấn", "Trắng Tinh Khôi"],
+    "sizeOptions": [
+      { "size": "Size 90", "weight": "9–11kg", "detail": "1-2 tuổi" },
+      { "size": "Size 100", "weight": "11–14kg", "detail": "2-3 tuổi" },
+      { "size": "Size 110", "weight": "14–17kg", "detail": "3-4 tuổi" },
+      { "size": "Size 120", "weight": "17–21kg", "detail": "4-5 tuổi" }
+    ],
+    "description": "Váy công chúa phối tay bồng nữ tính, lớp lót cotton bên trong mềm mịn không châm chích da bé."
+  },
+  {
+    "id": "lqk-08",
+    "name": "Mũ Rơm Đi Biển & Túi Đeo Chéo Cho Bé",
+    "category": "phu-kien",
+    "categoryName": "Phụ Kiện",
+    "price": 95000,
+    "originalPrice": 115000,
+    "discount": "-17%",
+    "rating": 4.8,
+    "soldCount": 67,
+    "badge": "Phụ kiện",
+    "badgeColor": "secondary",
+    "code": "SP-LQK08",
+    "images": [
+      "./assets/images/category-accessory.jpg",
+      "./assets/images/hero-banner.jpg"
+    ],
+    "colors": ["Combo Kem nơ trắng", "Combo Nâu nơ nâu"],
+    "sizeOptions": [
+      { "size": "Freesize", "weight": "Freesize", "detail": "2-7 tuổi (Vòng đầu 48-52cm)" }
+    ],
+    "description": "Combo mũ rơm nơ xinh xắn kèm túi đeo chéo nhỏ đựng đồ linh tinh. Phụ kiện hoàn hảo cho bé đi dã ngoại, du lịch biển."
+  }
+]
