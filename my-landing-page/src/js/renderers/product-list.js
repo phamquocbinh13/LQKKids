@@ -23,10 +23,10 @@ function renderCategoryTabs() {
 
   const categories = [
     { id: 'all', label: 'Tất cả', icon: 'widgets' },
-    { id: 'be-trai', label: 'Bé Trai', icon: 'boy', color: 'text-primary' },
-    { id: 'be-gai', label: 'Bé Gái', icon: 'girl', color: 'text-secondary' },
-    { id: 'set', label: 'Set Đồ', icon: 'checkroom', color: 'text-tertiary' },
-    { id: 'phu-kien', label: 'Phụ Kiện', icon: 'shopping_basket', color: 'text-primary-container' }
+    { id: 'ban-chay', label: 'Bán Chạy', icon: 'local_fire_department', color: 'text-amber-500' },
+    { id: 'hang-moi', label: 'Hàng Mới Về', icon: 'auto_awesome', color: 'text-purple-500' },
+    { id: 'be-trai', label: 'Đồ Bé Trai', icon: 'boy', color: 'text-primary' },
+    { id: 'be-gai', label: 'Đồ Bé Gái', icon: 'girl', color: 'text-secondary' }
   ];
 
   tabsContainer.innerHTML = categories.map(cat => {
@@ -81,8 +81,18 @@ function filterAndRenderGrid() {
   const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
   const filtered = allProducts.filter(p => {
-    const matchesCategory = currentCategory === 'all' || p.category === currentCategory;
-    const matchesQuery = !query || p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query);
+    let matchesCategory = false;
+    if (currentCategory === 'all') {
+      matchesCategory = true;
+    } else if (currentCategory === 'ban-chay') {
+      matchesCategory = p.badge && (p.badge.toLowerCase().includes('bán chạy') || p.badge.toLowerCase().includes('hot') || (p.soldCount && parseInt(p.soldCount) >= 100));
+    } else if (currentCategory === 'hang-moi') {
+      matchesCategory = p.badge && (p.badge.toLowerCase().includes('mới') || p.badge.toLowerCase().includes('bst') || p.badgeColor === 'tertiary');
+    } else {
+      matchesCategory = p.category === currentCategory;
+    }
+
+    const matchesQuery = !query || p.name.toLowerCase().includes(query) || (p.description && p.description.toLowerCase().includes(query));
     return matchesCategory && matchesQuery;
   });
 
