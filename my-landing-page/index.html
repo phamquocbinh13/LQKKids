@@ -678,12 +678,20 @@
             Phố Hoa Lâm, Phường Việt Hưng, Hà Nội. Nếu bạn ở khu vực Hà Nội và muốn liên hệ trực tiếp với LQK Kids, vui lòng gọi điện hoặc nhắn Zalo trước khi đến để được hỗ trợ.
           </p>
 
-          <!-- Interactive Google Maps Display -->
-          <div class="w-full h-48 rounded-2xl bg-cover bg-center shadow-inner relative overflow-hidden group border border-surface-container-high" data-cms-bg="site.mapLocationImage" style="background-image: url('./assets/images/map-location.jpg');">
-            <div class="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-              <a href="https://maps.google.com/?q=Hoa+Lam,+Viet+Hung,+Long+Bien,+Ha+Noi" data-cms-href="site.mapUrl" target="_blank" rel="noopener" class="px-5 py-2.5 rounded-full bg-surface text-on-surface text-xs font-bold flex items-center gap-2 shadow-lg hover:scale-105 active:scale-95 transition-all">
+          <!-- Interactive Live Google Maps Display -->
+          <div class="w-full h-56 rounded-2xl shadow-inner relative overflow-hidden group border border-surface-container-high bg-surface-container-low">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1861.8105021239843!2d105.8951207!3d21.057062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135a99924d49007%3A0x44859efc7e9b5b02!2zUC4gSG9hIEzDom0sIFZp4buHdCBIErGsG5nLCBIw6AgTuG7mWksIFZpZXRuYW0!5e0!3m2!1svi!2s!4v1710000000000!5m2!1svi!2s" 
+              class="w-full h-full border-0 opacity-95 group-hover:opacity-100 transition-opacity" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Bản đồ vị trí LQK Kids Phố Hoa Lâm Hà Nội">
+            </iframe>
+            <div class="absolute bottom-3 right-3 pointer-events-auto">
+              <a href="https://maps.google.com/?q=Hoa+Lam,+Viet+Hung,+Long+Bien,+Ha+Noi" data-cms-href="site.mapUrl" target="_blank" rel="noopener" class="px-4 py-2 rounded-full bg-surface/95 backdrop-blur-md text-on-surface text-xs font-bold flex items-center gap-1.5 shadow-lg hover:scale-105 active:scale-95 transition-all border border-surface-container-high">
                 <span class="material-symbols-outlined text-error text-[18px]">near_me</span>
-                <span data-cms="contact.mapsCta">XEM VỊ TRÍ</span>
+                <span data-cms="contact.mapsCta">XEM VỊ TRÍ CHỈ ĐƯỜNG</span>
               </a>
             </div>
           </div>
