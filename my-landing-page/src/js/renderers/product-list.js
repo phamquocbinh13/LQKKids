@@ -80,21 +80,38 @@ function filterAndRenderGrid() {
   const searchInput = document.getElementById('catalog-search-input');
   const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
-  const filtered = allProducts.filter(p => {
-    let matchesCategory = false;
-    if (currentCategory === 'all') {
-      matchesCategory = true;
-    } else if (currentCategory === 'ban-chay') {
-      matchesCategory = p.badge && (p.badge.toLowerCase().includes('bán chạy') || p.badge.toLowerCase().includes('hot') || (p.soldCount && parseInt(p.soldCount) >= 100));
-    } else if (currentCategory === 'hang-moi') {
-      matchesCategory = p.badge && (p.badge.toLowerCase().includes('mới') || p.badge.toLowerCase().includes('bst') || p.badgeColor === 'tertiary');
-    } else {
-      matchesCategory = p.category === currentCategory;
-    }
+  let filtered = [];
 
-    const matchesQuery = !query || p.name.toLowerCase().includes(query) || (p.description && p.description.toLowerCase().includes(query));
-    return matchesCategory && matchesQuery;
-  });
+  if (currentCategory === 'ban-chay') {
+    // 1. Filter by search query if any
+    const queryMatches = allProducts.filter(p => {
+      return !query || p.name.toLowerCase().includes(query) || (p.description && p.description.toLowerCase().includes(query));
+    });
+
+    // 2. Sort by soldCount descending (parse int safely)
+    const sortedBySold = [...queryMatches].sort((a, b) => {
+      const soldA = parseInt(a.soldCount) || 0;
+      const soldB = parseInt(b.soldCount) || 0;
+      return soldB - soldA;
+    });
+
+    // 3. Take top 8 best selling products (or all if fewer than 8)
+    filtered = sortedBySold.slice(0, 8);
+  } else {
+    filtered = allProducts.filter(p => {
+      let matchesCategory = false;
+      if (currentCategory === 'all') {
+        matchesCategory = true;
+      } else if (currentCategory === 'hang-moi') {
+        matchesCategory = p.badge && (p.badge.toLowerCase().includes('mới') || p.badge.toLowerCase().includes('bst') || p.badgeColor === 'tertiary');
+      } else {
+        matchesCategory = p.category === currentCategory;
+      }
+
+      const matchesQuery = !query || p.name.toLowerCase().includes(query) || (p.description && p.description.toLowerCase().includes(query));
+      return matchesCategory && matchesQuery;
+    });
+  }
 
   renderGrid(filtered);
 }
