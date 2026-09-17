@@ -182,7 +182,17 @@
         document.getElementById('page-title').textContent = 'THÊM SẢN PHẨM MỚI';
         document.getElementById('p-rating').value = 5.0;
         document.getElementById('p-sold-count').value = 120;
-        imagesList = ['./assets/images/category-set.jpg'];
+        
+        // Auto suggest unique product code (e.g., SP-LQK03)
+        let nextNum = products.length + 1;
+        let suggestedCode = `SP-LQK${String(nextNum).padStart(2, '0')}`;
+        while (products.some(p => p.code && p.code.toLowerCase() === suggestedCode.toLowerCase())) {
+          nextNum++;
+          suggestedCode = `SP-LQK${String(nextNum).padStart(2, '0')}`;
+        }
+        document.getElementById('p-code').value = suggestedCode;
+
+        imagesList = [];
         sizeOptions = [
           { size: 'Size 90', weight: '7–9kg', detail: '1-2 tuổi' },
           { size: 'Size 100', weight: '9–11kg', detail: '2-3 tuổi' }
@@ -260,9 +270,14 @@
 
     function renderImagePreviews() {
       const container = document.getElementById('images-preview');
+      if (imagesList.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-400 italic">Chưa có ảnh nào được chọn. Hãy tải ảnh sản phẩm lên.</p>`;
+        return;
+      }
+
       container.innerHTML = imagesList.map((img, idx) => `
         <div class="relative w-20 h-24 rounded-xl overflow-hidden border border-slate-700 bg-slate-900 group">
-          <img src="${img}" class="w-full h-full object-cover" />
+          <img src="${img}" class="w-full h-full object-cover" onerror="this.src='./assets/images/category-be-trai.jpg'" />
           <button type="button" data-idx="${idx}" class="remove-img-btn absolute top-1 right-1 w-5 h-5 rounded-full bg-red-600 text-white flex items-center justify-center opacity-90 hover:opacity-100">
             <span class="material-symbols-outlined text-[14px]">close</span>
           </button>
@@ -318,25 +333,80 @@
         'phu-kien': 'Phụ Kiện'
       };
 
+      const name = document.getElementById('p-name').value.trim();
+      const code = document.getElementById('p-code').value.trim();
       const category = document.getElementById('p-category').value;
       const colorsRaw = document.getElementById('p-colors').value;
       const colors = colorsRaw.split(',').map(c => c.trim()).filter(c => c.length > 0);
 
+      if (!name) {
+        alert('Vui lòng nhập Tên sản phẩm!');
+        document.getElementById('p-name').focus();
+        return;
+      }
+
+      if (!code) {
+        alert('Vui lòng nhập Mã sản phẩm!');
+        document.getElementById('p-code').focus();
+        return;
+      }
+
+      // Strict validation for product code uniqueness
+      const duplicateCode = products.find(p => p.code && p.code.toLowerCase() === code.toLowerCase() && p.id !== currentId);
+      if (duplicateCode) {
+        alert(`Mã sản phẩm "${code}" đã bị trùng với sản phẩm "${duplicateCode.name}". Vui lòng nhập mã sản phẩm khác!`);
+        document.getElementById('p-code').focus();
+        return;
+      }
+
+      // Price Validation
+      const priceVal = parseInt(document.getElementById('p-price').value);
+      if (isNaN(priceVal) || priceVal <= 0) {
+        alert('Giá bán sản phẩm phải là một số lớn hơn 0!');
+        document.getElementById('p-price').focus();
+        return;
+      }
+
+      const origPriceRaw = document.getElementById('p-original-price').value;
+      const originalPrice = origPriceRaw ? parseInt(origPriceRaw) : 0;
+      if (originalPrice < 0) {
+        alert('Giá gốc không được nhỏ hơn 0!');
+        document.getElementById('p-original-price').focus();
+        return;
+      }
+
+      if (originalPrice > 0 && originalPrice <= priceVal) {
+        alert(`Giá gốc chưa giảm (${originalPrice.toLocaleString('vi-VN')}đ) phải ĐẮT HƠN Giá bán niêm yết (${priceVal.toLocaleString('vi-VN')}đ)! Vui lòng kiểm tra lại.`);
+        document.getElementById('p-original-price').focus();
+        return;
+      }
+
+      // Images Validation
+      if (!imagesList || imagesList.length === 0) {
+        alert('Vui lòng tải lên hoặc chọn ít nhất 1 hình ảnh sản phẩm!');
+        return;
+      }
+
+      const discountPercent = (originalPrice > priceVal && originalPrice > 0)
+        ? `-${Math.round(((originalPrice - priceVal) / originalPrice) * 100)}%`
+        : '';
+
       const newProduct = {
         id: currentId || `lqk-${Date.now()}`,
-        name: document.getElementById('p-name').value.trim(),
-        code: document.getElementById('p-code').value.trim(),
+        name: name,
+        code: code,
         category: category,
         categoryName: catMap[category] || 'Sản Phẩm',
         badge: document.getElementById('p-badge').value.trim() || 'Mới',
         badgeColor: 'secondary',
-        price: parseInt(document.getElementById('p-price').value) || 0,
-        originalPrice: parseInt(document.getElementById('p-original-price').value) || 0,
+        price: priceVal,
+        originalPrice: originalPrice,
+        discount: discountPercent,
         description: document.getElementById('p-description').value.trim(),
         rating: parseFloat(document.getElementById('p-rating').value) || 5.0,
         soldCount: document.getElementById('p-sold-count').value !== '' ? (isNaN(document.getElementById('p-sold-count').value) ? document.getElementById('p-sold-count').value : parseInt(document.getElementById('p-sold-count').value)) : 120,
         colors: colors.length ? colors : ['Mặc định'],
-        images: imagesList.length ? imagesList : ['./assets/images/category-set.jpg'],
+        images: imagesList,
         sizeOptions: sizeOptions.length ? sizeOptions : [{ size: 'Size 100', weight: '9-11kg', detail: '2-3 tuổi' }]
       };
 

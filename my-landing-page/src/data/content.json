@@ -20,9 +20,9 @@
     "headline": "QUẦN ÁO TRẺ EM",
     "subheadline": "ĐẸP – DỄ MẶC – DỄ YÊU",
     "description": "Quần áo trẻ em dành cho bé trai và bé gái, được LQK Kids lựa chọn với tiêu chí đẹp, thoải mái và phù hợp cho bé mặc hàng ngày.",
-    "callCta": "☎ GỌI NGAY: 0934 498 685",
-    "zaloCta": "💬 NHẮN ZALO",
-    "tiktokCta": "🎵 XEM TIKTOK",
+    "callCta": "GỌI NGAY: 0934 498 685",
+    "zaloCta": "NHẮN ZALO",
+    "tiktokCta": "XEM TIKTOK",
     "image": "./assets/images/hero-banner.jpg",
     "imageAlt": "Các bé diện trang phục LQK Kids cười tươi vui vẻ",
     "bannerTag1": "BST Xuân Hè Mới Nhất",
@@ -179,7 +179,7 @@
         "alt": "Hai bé cùng chơi vui vẻ mặc đồ LQK Kids"
       }
     ],
-    "videoCta": "🎵 XEM VIDEO TRÊN TIKTOK"
+    "videoCta": "XEM VIDEO TRÊN TIKTOK"
   },
   "shoppingChannels": {
     "eyebrow": "Kênh mua sắm",
@@ -188,7 +188,7 @@
     "channels": [
       {
         "id": "tiktok",
-        "name": "🎵 TIKTOK",
+        "name": "TIKTOK",
         "handle": "@LQKKIDS",
         "badge": "Livestream hàng ngày",
         "description": "Xem video sản phẩm, theo dõi livestream và cập nhật những mẫu mới nhất của LQK Kids.",
@@ -198,7 +198,7 @@
       },
       {
         "id": "shopee",
-        "name": "🛒 SHOPEE",
+        "name": "SHOPEE",
         "handle": "LQKKids",
         "badge": "Freeship Extra",
         "description": "Xem sản phẩm, lựa chọn size và đặt hàng online trên gian hàng LQK Kids.",
@@ -208,7 +208,7 @@
       },
       {
         "id": "facebook",
-        "name": "📘 FACEBOOK PAGE",
+        "name": "FACEBOOK PAGE",
         "handle": "LQK Kids",
         "badge": "Chính thức",
         "description": "Theo dõi Page để cập nhật sản phẩm, chương trình ưu đãi và các hoạt động mới nhất của LQK Kids.",
@@ -218,7 +218,7 @@
       },
       {
         "id": "facebook-group",
-        "name": "👥 FACEBOOK GROUP",
+        "name": "FACEBOOK GROUP",
         "handle": "Cộng đồng LQK Kids",
         "badge": "Cộng đồng",
         "description": "Tham gia cộng đồng để cập nhật mẫu mới, chương trình ưu đãi và giao lưu cùng các khách hàng của LQK Kids.",
@@ -272,20 +272,20 @@
     ]
   },
   "contact": {
-    "eyebrow": "💬 CẦN TƯ VẤN CHỌN ĐỒ CHO BÉ?",
+    "eyebrow": "CẦN TƯ VẤN CHỌN ĐỒ CHO BÉ?",
     "title": "CẦN TƯ VẤN CHỌN ĐỒ CHO BÉ?",
     "subtitle": "Hãy để LQK Kids hỗ trợ bạn",
     "description": "Bạn chỉ cần gửi: 👦 Bé trai hay bé gái, 🎂 Tuổi của bé, 📏 Chiều cao, ⚖️ Cân nặng. LQK Kids sẽ hỗ trợ tư vấn mẫu và size phù hợp.",
     "formTitle": "ĐĂNG KÝ TƯ VẤN SIZE CHO BÉ",
-    "zaloCta": "💬 NHẮN ZALO NGAY",
-    "callCta": "☎ GỌI NGAY",
-    "directShopTitle": "🏠 MUA HÀNG TRỰC TIẾP",
+    "zaloCta": "NHẮN ZALO NGAY",
+    "callCta": "GỌI NGAY",
+    "directShopTitle": "MUA HÀNG TRỰC TIẾP",
     "directShopSub": "LQK KIDS – PHỐ HOA LÂM",
-    "directShopDesc": "📍 Phố Hoa Lâm, Phường Việt Hưng, Hà Nội. Nếu bạn ở khu vực Hà Nội và muốn liên hệ trực tiếp với LQK Kids, vui lòng gọi điện hoặc nhắn Zalo trước khi đến để được hỗ trợ.",
+    "directShopDesc": "Phố Hoa Lâm, Phường Việt Hưng, Hà Nội. Nếu bạn ở khu vực Hà Nội và muốn liên hệ trực tiếp với LQK Kids, vui lòng gọi điện hoặc nhắn Zalo trước khi đến để được hỗ trợ.",
     "storeName": "LQK KIDS – PHỐ HOA LÂM",
     "storeAddress": "Phố Hoa Lâm, Phường Việt Hưng, Hà Nội",
     "storeNote": "*Nếu bạn ở khu vực Hà Nội và muốn liên hệ trực tiếp với LQK Kids, vui lòng gọi điện hoặc nhắn Zalo trước khi đến để được hỗ trợ.",
-    "mapsCta": "📍 XEM VỊ TRÍ",
+    "mapsCta": "XEM VỊ TRÍ",
     "mapImage": "./assets/images/map-location.jpg"
   },
   "faq": {
@@ -320,9 +320,9 @@
     "title": "ĐẸP CHO BÉ – AN TÂM CHO MẸ",
     "description": "Cảm ơn bố mẹ đã tin tưởng và đồng hành cùng LQK Kids. Mỗi bộ quần áo đẹp không chỉ giúp bé đáng yêu hơn, mà còn góp phần tạo nên những khoảnh khắc tuổi thơ thật vui và đáng nhớ.",
     "subTitle": "LQK Kids – Thời trang trẻ em",
-    "shopCta": "🛒 MUA HÀNG",
-    "zaloCta": "💬 NHẮN ZALO",
-    "tiktokCta": "🎵 THEO DÕI TIKTOK"
+    "shopCta": "MUA HÀNG",
+    "zaloCta": "NHẮN ZALO",
+    "tiktokCta": "THEO DÕI TIKTOK"
   },
   "footer": {
     "brandName": "LQK KIDS",

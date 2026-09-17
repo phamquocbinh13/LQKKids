@@ -194,19 +194,19 @@ function renderCartContent(cart) {
           <!-- Button 1: Save Order as Image -->
           <button type="button" id="download-order-image-btn" class="w-full min-h-[44px] px-4 py-2.5 rounded-full bg-secondary-container text-on-secondary-container font-bold text-xs flex items-center justify-center gap-2 shadow-xs hover:brightness-105 active:scale-98 transition-all">
             <span class="material-symbols-outlined text-[18px]">image</span>
-            <span>📸 LƯU ORDER VÀO ẢNH (GỬI ZALO)</span>
+            <span>LƯU ORDER VÀO ẢNH (GỬI ZALO)</span>
           </button>
 
           <!-- Button 2: Copy Order Text -->
           <button type="button" id="copy-order-text-btn" class="w-full min-h-[40px] px-4 py-2 rounded-full bg-surface-container-high text-on-surface font-bold text-xs flex items-center justify-center gap-2 border border-surface-container-highest hover:bg-surface-container-highest active:scale-98 transition-all">
             <span class="material-symbols-outlined text-[16px]">content_copy</span>
-            <span>📋 SAO CHÉP NỘI DUNG ĐƠN HÀNG</span>
+            <span>SAO CHÉP NỘI DUNG ĐƠN HÀNG</span>
           </button>
 
           <!-- Button 3: Open Zalo App / Web -->
           <button type="submit" class="w-full min-h-[44px] px-4 py-2.5 rounded-full bg-primary text-on-primary font-bold text-xs flex items-center justify-center gap-2 shadow-md hover:brightness-110 active:scale-98 transition-all">
             <span class="material-symbols-outlined text-[18px]">chat_bubble</span>
-            <span>💬 MỞ CHAT ZALO (0934 498 685)</span>
+            <span>MỞ CHAT ZALO (0934 498 685)</span>
           </button>
         </div>
       </form>
@@ -252,7 +252,7 @@ function setupCartItemEvents(container) {
         // Dynamic import html2canvas library only when clicked
         const { default: html2canvas } = await import('html2canvas');
         await generateAndDownloadReceiptImage(info, html2canvas);
-        showToast('Đã lưu ảnh đơn hàng! Hãy đính kèm ảnh này gửi Zalo cho shop nhé 📸');
+        showToast('Đã lưu ảnh đơn hàng! Hãy đính kèm ảnh này gửi Zalo cho shop nhé!');
       } catch (err) {
         console.error('Failed to generate image:', err);
         showToast('Không thể tạo ảnh, vui lòng bấm Copy đơn hàng!');
@@ -260,7 +260,7 @@ function setupCartItemEvents(container) {
         downloadImgBtn.disabled = false;
         downloadImgBtn.innerHTML = `
           <span class="material-symbols-outlined text-[18px]">image</span>
-          <span>📸 LƯU ORDER VÀO ẢNH (GỬI ZALO)</span>
+          <span>LƯU ORDER VÀO ẢNH (GỬI ZALO)</span>
         `;
       }
     });
