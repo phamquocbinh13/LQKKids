@@ -1,9 +1,11 @@
 /**
  * Zalo Cart & Checkout View Renderer Module
- * Renders full reactive cart drawer/modal, customer info form, size switcher, and Zalo deep-link redirect.
+ * Renders full reactive cart drawer/modal, customer info form, size switcher,
+ * HTML order receipt image generator (Lưu order vào ảnh), and Zalo fallback ordering.
  */
 
 import { store } from '../store.js';
+import html2canvas from 'html2canvas';
 
 const SHOP_ZALO_PHONE = '0934498685';
 
@@ -90,7 +92,7 @@ function renderCartContent(cart) {
       <span class="material-symbols-outlined text-secondary text-[22px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
       <div class="flex-1 min-w-0">
         <p class="text-xs font-bold text-on-surface">Tư vấn & Đặt hàng trực tiếp qua Zalo</p>
-        <p class="text-[11px] text-on-surface-variant mt-0.5 leading-relaxed">Không cần thanh toán online! Giá niêm yết rõ ràng, LQK Kids xác nhận size chuẩn và giao hàng tận nơi cho mẹ.</p>
+        <p class="text-[11px] text-on-surface-variant mt-0.5 leading-relaxed">Không cần thanh toán online! Lưu hóa đơn ảnh đẹp mắt để gửi qua Zalo hoặc copy thông tin nhắn shop.</p>
       </div>
     </div>
 
@@ -188,10 +190,26 @@ function renderCartContent(cart) {
           <input type="text" id="cust-note" placeholder="Ví dụ: Bé trai 3 tuổi, 15kg, 95cm tư vấn thêm size" class="w-full h-9 px-3 rounded-xl bg-surface-container-low text-xs border border-surface-container-high text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" />
         </div>
 
-        <button type="submit" class="w-full min-h-[48px] mt-2 px-4 py-3 rounded-full bg-primary text-on-primary font-bold text-xs flex items-center justify-center gap-2 shadow-md hover:brightness-110 active:scale-98 transition-all">
-          <span class="material-symbols-outlined text-[20px]">chat_bubble</span>
-          <span>GỬI ĐƠN HÀNG QUA ZALO NGAY</span>
-        </button>
+        <!-- Action Buttons Stack -->
+        <div class="flex flex-col gap-2 mt-2">
+          <!-- Button 1: Save Order as Image -->
+          <button type="button" id="download-order-image-btn" class="w-full min-h-[44px] px-4 py-2.5 rounded-full bg-secondary-container text-on-secondary-container font-bold text-xs flex items-center justify-center gap-2 shadow-xs hover:brightness-105 active:scale-98 transition-all">
+            <span class="material-symbols-outlined text-[18px]">image</span>
+            <span>📸 LƯU ORDER VÀO ẢNH (GỬI ZALO)</span>
+          </button>
+
+          <!-- Button 2: Copy Order Text -->
+          <button type="button" id="copy-order-text-btn" class="w-full min-h-[40px] px-4 py-2 rounded-full bg-surface-container-high text-on-surface font-bold text-xs flex items-center justify-center gap-2 border border-surface-container-highest hover:bg-surface-container-highest active:scale-98 transition-all">
+            <span class="material-symbols-outlined text-[16px]">content_copy</span>
+            <span>📋 SAO CHÉP NỘI DUNG ĐƠN HÀNG</span>
+          </button>
+
+          <!-- Button 3: Open Zalo App / Web -->
+          <button type="submit" class="w-full min-h-[44px] px-4 py-2.5 rounded-full bg-primary text-on-primary font-bold text-xs flex items-center justify-center gap-2 shadow-md hover:brightness-110 active:scale-98 transition-all">
+            <span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+            <span>💬 MỞ CHAT ZALO (0934 498 685)</span>
+          </button>
+        </div>
       </form>
     </div>
   `;
@@ -218,43 +236,229 @@ function setupCartItemEvents(container) {
     });
   });
 
-  // Form Zalo submission
+  // 1. Download Order Image Action
+  const downloadImgBtn = document.getElementById('download-order-image-btn');
+  if (downloadImgBtn) {
+    downloadImgBtn.addEventListener('click', async () => {
+      const info = getFormData();
+      if (!info) return;
+
+      downloadImgBtn.disabled = true;
+      downloadImgBtn.innerHTML = `
+        <span class="material-symbols-outlined text-[18px] animate-spin">sync</span>
+        <span>ĐANG TẠO ẢNH HÓA ĐƠN...</span>
+      `;
+
+      try {
+        await generateAndDownloadReceiptImage(info);
+        showToast('Đã lưu ảnh đơn hàng! Hãy đính kèm ảnh này gửi Zalo cho shop nhé 📸');
+      } catch (err) {
+        console.error('Failed to generate image:', err);
+        showToast('Không thể tạo ảnh, vui lòng bấm Copy đơn hàng!');
+      } finally {
+        downloadImgBtn.disabled = false;
+        downloadImgBtn.innerHTML = `
+          <span class="material-symbols-outlined text-[18px]">image</span>
+          <span>📸 LƯU ORDER VÀO ẢNH (GỬI ZALO)</span>
+        `;
+      }
+    });
+  }
+
+  // 2. Copy Order Text Action
+  const copyBtn = document.getElementById('copy-order-text-btn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', () => {
+      const info = getFormData();
+      if (!info) return;
+
+      const messageText = buildOrderMessage(info);
+      navigator.clipboard.writeText(messageText).then(() => {
+        showToast('📋 Đã sao chép nội dung đơn hàng! Bố mẹ mở Zalo dán gửi shop nhé.');
+      }).catch(() => {
+        showToast('Không thể tự động copy. Vui lòng bấm mở Zalo!');
+      });
+    });
+  }
+
+  // 3. Form Zalo Submission
   const checkoutForm = document.getElementById('zalo-checkout-form');
   if (checkoutForm) {
     checkoutForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const name = document.getElementById('cust-name').value.trim();
-      const phone = document.getElementById('cust-phone').value.trim();
-      const address = document.getElementById('cust-address').value.trim();
-      const note = document.getElementById('cust-note').value.trim();
+      const info = getFormData();
+      if (!info) return;
 
-      const cart = store.cart;
-      if (cart.length === 0) return;
-
-      // Construct formatted Zalo message
-      let message = `🛒 *ĐƠN HÀNG LQK KIDS*\n`;
-      message += `👤 *Khách hàng:* ${name}\n`;
-      message += `📞 *SĐT Zalo:* ${phone}\n`;
-      message += `📍 *Địa chỉ:* ${address}\n`;
-      if (note) message += `📝 *Ghi chú bé:* ${note}\n`;
-      message += `-------------------------\n`;
-      message += `📦 *DANH SÁCH MÓN:* \n`;
-
-      cart.forEach((item, idx) => {
-        message += `${idx + 1}. ${item.name} (${item.selectedColor}, ${item.selectedSize}) x${item.quantity} = ${(item.price * item.quantity).toLocaleString('vi-VN')}đ\n`;
-      });
-
-      message += `-------------------------\n`;
-      message += `💰 *TỔNG CỘNG:* ${store.getCartTotal().toLocaleString('vi-VN')}đ (Freeship)\n`;
-      message += `Cảm ơn LQK Kids! Nhờ shop check kho và xác nhận size giúp mình nhé!`;
-
-      // Format Zalo Web URL
+      const message = buildOrderMessage(info);
       const encodedMsg = encodeURIComponent(message);
-      const zaloUrl = `https://zalo.me/${SHOP_ZALO_PHONE}?text=${encodedMsg}`;
 
-      // Open Zalo chat directly
+      // Zalo Web & App fallback urls
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const zaloUrl = isMobile 
+        ? `https://zalo.me/${SHOP_ZALO_PHONE}?text=${encodedMsg}`
+        : `https://zalo.me/${SHOP_ZALO_PHONE}`;
+
+      // Also copy text to clipboard for desktop users convenience
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(message).catch(() => {});
+      }
+
       window.open(zaloUrl, '_blank');
+      showToast('Đã mở Zalo! Nội dung đơn đã được tự động copy vào bộ nhớ tạm.');
     });
   }
+}
+
+function getFormData() {
+  const nameEl = document.getElementById('cust-name');
+  const phoneEl = document.getElementById('cust-phone');
+  const addressEl = document.getElementById('cust-address');
+  const noteEl = document.getElementById('cust-note');
+
+  if (!nameEl || !phoneEl || !addressEl) return null;
+
+  const name = nameEl.value.trim();
+  const phone = phoneEl.value.trim();
+  const address = addressEl.value.trim();
+  const note = noteEl ? noteEl.value.trim() : '';
+
+  if (!name || !phone || !address) {
+    showToast('Vui lòng điền đầy đủ Tên, SĐT và Địa chỉ nhận hàng!');
+    return null;
+  }
+
+  return { name, phone, address, note, cart: store.cart, total: store.getCartTotal() };
+}
+
+function buildOrderMessage(info) {
+  let message = `🛒 *ĐƠN HÀNG LQK KIDS*\n`;
+  message += `👤 *Khách hàng:* ${info.name}\n`;
+  message += `📞 *SĐT Zalo:* ${info.phone}\n`;
+  message += `📍 *Địa chỉ:* ${info.address}\n`;
+  if (info.note) message += `📝 *Ghi chú bé:* ${info.note}\n`;
+  message += `-------------------------\n`;
+  message += `📦 *DANH SÁCH MÓN:* \n`;
+
+  info.cart.forEach((item, idx) => {
+    message += `${idx + 1}. ${item.name} (${item.selectedColor}, ${item.selectedSize}) x${item.quantity} = ${(item.price * item.quantity).toLocaleString('vi-VN')}đ\n`;
+  });
+
+  message += `-------------------------\n`;
+  message += `💰 *TỔNG CỘNG:* ${info.total.toLocaleString('vi-VN')}đ (Freeship)\n`;
+  message += `Cảm ơn LQK Kids! Nhờ shop check kho và xác nhận size giúp mình nhé!`;
+
+  return message;
+}
+
+/**
+ * Creates an offscreen high-resolution receipt card matching website aesthetics and downloads as PNG image
+ */
+async function generateAndDownloadReceiptImage(info) {
+  // 1. Create hidden off-screen container
+  const receiptContainer = document.createElement('div');
+  receiptContainer.style.position = 'absolute';
+  receiptContainer.style.top = '-9999px';
+  receiptContainer.style.left = '-9999px';
+  receiptContainer.style.width = '480px';
+  receiptContainer.style.backgroundColor = '#fff8f5';
+  receiptContainer.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
+  receiptContainer.style.padding = '24px';
+  receiptContainer.style.borderRadius = '24px';
+  receiptContainer.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+
+  const formattedDate = new Date().toLocaleDateString('vi-VN', {
+    day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+  });
+
+  receiptContainer.innerHTML = `
+    <div style="background: #ffffff; border-radius: 20px; padding: 20px; border: 1px solid #ffe3d3; color: #27180f;">
+      <!-- Header -->
+      <div style="display: flex; items-center; justify-content: space-between; border-bottom: 2px dashed #faddcd; padding-bottom: 12px; margin-bottom: 16px;">
+        <div>
+          <h2 style="font-size: 20px; font-weight: 800; color: #136299; margin: 0; line-height: 1.2;">LQK KIDS</h2>
+          <p style="font-size: 11px; font-weight: 600; color: #785a00; margin: 2px 0 0 0;">THỜI TRANG BÉ YÊU</p>
+        </div>
+        <div style="text-align: right;">
+          <span style="font-size: 10px; font-weight: 700; background: #feca4a; color: #725500; padding: 4px 10px; border-radius: 20px; display: inline-block;">ĐƠN HÀNG ZALO</span>
+          <p style="font-size: 10px; color: #717880; margin: 4px 0 0 0;">${formattedDate}</p>
+        </div>
+      </div>
+
+      <!-- Customer Info Box -->
+      <div style="background: #fff1ea; border-radius: 14px; padding: 12px; margin-bottom: 16px; border: 1px solid #ffe3d3;">
+        <p style="font-size: 12px; font-weight: 700; color: #136299; margin: 0 0 6px 0; text-transform: uppercase;">THÔNG TIN KHÁCH HÀNG</p>
+        <p style="font-size: 12px; margin: 2px 0; color: #27180f;"><strong>Mẹ/Ba:</strong> ${info.name}</p>
+        <p style="font-size: 12px; margin: 2px 0; color: #27180f;"><strong>SĐT Zalo:</strong> ${info.phone}</p>
+        <p style="font-size: 12px; margin: 2px 0; color: #27180f;"><strong>Địa chỉ:</strong> ${info.address}</p>
+        ${info.note ? `<p style="font-size: 12px; margin: 2px 0; color: #785a00;"><strong>Ghi chú bé:</strong> ${info.note}</p>` : ''}
+      </div>
+
+      <!-- Items List -->
+      <p style="font-size: 12px; font-weight: 700; color: #27180f; margin: 0 0 8px 0; text-transform: uppercase;">CHI TIẾT ĐƠN HÀNG (${info.cart.length} món)</p>
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+        ${info.cart.map(item => `
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #fff1ea; padding-bottom: 8px;">
+            <div style="flex: 1; padding-right: 8px;">
+              <p style="font-size: 12px; font-weight: 700; margin: 0; color: #27180f;">${item.name}</p>
+              <p style="font-size: 11px; color: #41474f; margin: 2px 0 0 0;">Màu: ${item.selectedColor} | Size: <strong>${item.selectedSize}</strong></p>
+            </div>
+            <div style="text-align: right;">
+              <p style="font-size: 12px; font-weight: 700; margin: 0; color: #136299;">x${item.quantity}</p>
+              <p style="font-size: 11px; font-weight: 700; color: #27180f; margin: 2px 0 0 0;">${(item.price * item.quantity).toLocaleString('vi-VN')}đ</p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      <!-- Total Box -->
+      <div style="background: #cfe5ff; border-radius: 14px; padding: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <span style="font-size: 13px; font-weight: 700; color: #001d33;">TỔNG CỘNG THANH TOÁN:</span>
+        <span style="font-size: 18px; font-weight: 800; color: #136299;">${info.total.toLocaleString('vi-VN')}đ</span>
+      </div>
+
+      <!-- Footer Note -->
+      <div style="text-align: center; font-size: 10px; color: #717880;">
+        <p style="margin: 0;">Hotline / Zalo Shop: <strong>0934 498 685</strong> - <strong>0925 333 999</strong></p>
+        <p style="margin: 2px 0 0 0;">Địa chỉ: Phố Hoa Lâm, Phường Việt Hưng, Quận Long Biên, Hà Nội</p>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(receiptContainer);
+
+  // 2. Render container into canvas
+  const canvas = await html2canvas(receiptContainer, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: '#fff8f5'
+  });
+
+  document.body.removeChild(receiptContainer);
+
+  // 3. Trigger download PNG link
+  const imageURI = canvas.toDataURL('image/png');
+  const link = document.createElement('a');
+  link.download = `LQK-Kids-Order-${Date.now()}.png`;
+  link.href = imageURI;
+  link.click();
+}
+
+function showToast(message) {
+  let toast = document.getElementById('app-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'app-toast';
+    toast.className = 'fixed top-20 left-1/2 -translate-x-1/2 z-[100] max-w-sm text-center px-4 py-2.5 rounded-full bg-on-surface text-surface text-xs font-bold shadow-lg transition-all transform duration-300 opacity-0 pointer-events-none';
+    document.body.appendChild(toast);
+  }
+
+  toast.textContent = message;
+  toast.classList.remove('opacity-0', 'pointer-events-none');
+  toast.classList.add('opacity-100');
+
+  setTimeout(() => {
+    toast.classList.remove('opacity-100');
+    toast.classList.add('opacity-0', 'pointer-events-none');
+  }, 3000);
 }

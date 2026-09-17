@@ -1,6 +1,6 @@
 /**
  * Product Detail Modal & View Renderer Module
- * Handles dynamic product details presentation, carousel images, size/color selectors, and Add to Cart actions.
+ * Displays detailed product info, size option chart image modal, color choice, and cart operations.
  */
 
 import { store } from '../store.js';
@@ -21,6 +21,18 @@ export function initProductDetailModal() {
     modalOverlay.addEventListener('click', (e) => {
       if (e.target === modalOverlay) closeProductDetail();
     });
+  }
+
+  // Size chart modal close events
+  const sizeChartModal = document.getElementById('size-chart-modal');
+  const sizeChartClose = document.getElementById('size-chart-modal-close');
+  const sizeChartOverlay = document.getElementById('size-chart-modal-overlay');
+
+  if (sizeChartClose) {
+    sizeChartClose.addEventListener('click', () => sizeChartModal.classList.add('hidden'));
+  }
+  if (sizeChartOverlay) {
+    sizeChartOverlay.addEventListener('click', () => sizeChartModal.classList.add('hidden'));
   }
 }
 
@@ -56,7 +68,7 @@ function renderModalContent() {
 
   container.innerHTML = `
     <!-- Top Live Banner -->
-    <a href="https://www.tiktok.com" target="_blank" rel="noopener" class="px-4 py-2.5 bg-gradient-to-r from-error-container via-surface-container-high to-secondary-fixed rounded-2xl shadow-xs flex items-center justify-between transition-transform active:scale-98">
+    <a href="https://www.tiktok.com/@LQKKIDS" target="_blank" rel="noopener" class="px-4 py-2.5 bg-gradient-to-r from-error-container via-surface-container-high to-secondary-fixed rounded-2xl shadow-xs flex items-center justify-between transition-transform active:scale-98">
       <div class="flex items-center gap-2 min-w-0">
         <span class="relative flex h-3 w-3 shrink-0">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"></span>
@@ -72,7 +84,7 @@ function renderModalContent() {
       </span>
     </a>
 
-    <!-- Product Image & Gallery -->
+    <!-- Product Image Carousel Container -->
     <div class="relative w-full aspect-[4/5] bg-surface-container-low rounded-3xl overflow-hidden shadow-sm">
       <img id="detail-main-image" src="${currentProduct.images[0]}" alt="${currentProduct.name}" class="w-full h-full object-cover" />
       
@@ -89,7 +101,7 @@ function renderModalContent() {
       </div>
     </div>
 
-    <!-- Thumbnail Selector -->
+    <!-- Thumbnails Gallery -->
     ${currentProduct.images.length > 1 ? `
       <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
         ${currentProduct.images.map((img, idx) => `
@@ -139,13 +151,13 @@ function renderModalContent() {
       </div>
     </div>
 
-    <!-- Size Options Selector -->
+    <!-- Size Options Selector & Size Chart Modal Trigger -->
     <div class="bg-surface-container-lowest p-4 rounded-2xl shadow-xs border border-surface-container-high/40 flex flex-col gap-3">
       <div class="flex items-center justify-between">
         <label class="text-xs font-bold text-on-surface">Kích thước (Size cho bé):</label>
-        <span class="text-[11px] font-semibold text-secondary flex items-center gap-1">
-          <span class="material-symbols-outlined text-[14px]">straighten</span> Bảng size theo cân nặng
-        </span>
+        <button type="button" id="open-size-chart-btn" class="text-xs font-bold text-secondary flex items-center gap-1 hover:underline cursor-pointer">
+          <span class="material-symbols-outlined text-[16px]">straighten</span> Bảng Size Chuẩn LQK Kids 📐
+        </button>
       </div>
 
       <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -164,7 +176,7 @@ function renderModalContent() {
       <p class="text-xs text-on-surface-variant leading-relaxed">${currentProduct.description}</p>
     </div>
 
-    <!-- Sticky Bottom Action Footer in Modal -->
+    <!-- Bottom Actions Stack -->
     <div class="pt-2 flex items-center gap-3">
       <div class="flex items-center bg-surface-container-low rounded-full px-3 py-2 border border-surface-container-high">
         <button id="qty-minus" class="w-7 h-7 flex items-center justify-center text-on-surface font-bold text-lg hover:text-primary active:scale-90">-</button>
@@ -184,7 +196,6 @@ function renderModalContent() {
     </div>
   `;
 
-  // Attach dynamic behavior
   setupModalInteractions();
 }
 
@@ -192,7 +203,16 @@ function setupModalInteractions() {
   const container = document.getElementById('product-modal-body');
   if (!container) return;
 
-  // Thumbnail clicks
+  // Size chart modal view
+  const openSizeChartBtn = document.getElementById('open-size-chart-btn');
+  if (openSizeChartBtn) {
+    openSizeChartBtn.addEventListener('click', () => {
+      const sizeChartModal = document.getElementById('size-chart-modal');
+      if (sizeChartModal) sizeChartModal.classList.remove('hidden');
+    });
+  }
+
+  // Thumbnails
   container.querySelectorAll('.detail-thumb-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const src = btn.getAttribute('data-img');
@@ -208,7 +228,7 @@ function setupModalInteractions() {
     });
   });
 
-  // Color clicks
+  // Colors
   container.querySelectorAll('.color-option-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       selectedColor = btn.getAttribute('data-color');
@@ -225,7 +245,7 @@ function setupModalInteractions() {
     });
   });
 
-  // Size clicks
+  // Sizes
   container.querySelectorAll('.size-option-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       selectedSize = btn.getAttribute('data-size');
@@ -240,7 +260,7 @@ function setupModalInteractions() {
     });
   });
 
-  // Quantity stepper
+  // Stepper
   const qtyMinus = document.getElementById('qty-minus');
   const qtyPlus = document.getElementById('qty-plus');
   const qtyDisplay = document.getElementById('qty-display');
@@ -258,7 +278,7 @@ function setupModalInteractions() {
     });
   }
 
-  // Add to cart button
+  // Add to cart
   const addToCartBtn = document.getElementById('add-to-cart-modal-btn');
   if (addToCartBtn) {
     addToCartBtn.addEventListener('click', () => {
@@ -268,13 +288,12 @@ function setupModalInteractions() {
     });
   }
 
-  // Order Zalo button
+  // Order Zalo
   const orderZaloBtn = document.getElementById('order-now-zalo-btn');
   if (orderZaloBtn) {
     orderZaloBtn.addEventListener('click', () => {
       store.addToCart(currentProduct, selectedSize, selectedColor, currentQuantity);
       closeProductDetail();
-      // Trigger opening cart drawer/screen
       const cartDrawer = document.getElementById('cart-drawer');
       if (cartDrawer) cartDrawer.classList.remove('hidden');
     });

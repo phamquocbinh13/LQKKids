@@ -1,6 +1,6 @@
 /**
  * Main Application Bootstrapper
- * Loads dynamic catalog JSON, initializes Product List, Product Detail popup, and Zalo Cart flow.
+ * Loads catalog data (with Admin panel overrides), initializes Product List, Detail popup, and Zalo Cart.
  */
 
 import { initContentRenderer } from './modules/content-renderer.js';
@@ -21,11 +21,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 3. Initialize Size Form Handler
   initFormHandler();
 
-  // 4. Fetch Products JSON & Render Catalog
+  // 4. Fetch Products JSON & Render Catalog (Check Admin Overrides)
   try {
-    const res = await fetch('./src/data/products.json');
-    if (!res.ok) throw new Error('Failed to load products.json');
-    const products = await res.json();
+    let products = null;
+    const adminProducts = localStorage.getItem('lqk_kids_admin_products_v1');
+    if (adminProducts) {
+      try {
+        products = JSON.parse(adminProducts);
+      } catch (e) {
+        console.error('Failed to parse admin products', e);
+      }
+    }
+
+    if (!products) {
+      const res = await fetch('./src/data/products.json');
+      if (!res.ok) throw new Error('Failed to load products.json');
+      products = await res.json();
+    }
 
     // Render Catalog Grid
     initProductList(products);

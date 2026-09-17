@@ -1,15 +1,29 @@
 /**
  * Content Renderer Module
- * Reads data from content.json and dynamically hydrates the DOM using `data-cms` attributes.
+ * Reads data from content.json (or Admin LocalStorage overrides) and dynamically hydrates the DOM using `data-cms` attributes.
  */
 
 export async function initContentRenderer() {
   try {
-    const response = await fetch('./src/data/content.json');
-    if (!response.ok) {
-      throw new Error(`Failed to load content.json: ${response.statusText}`);
+    let data = null;
+
+    // Check if Admin overridden content exists in LocalStorage
+    const adminContent = localStorage.getItem('lqk_kids_admin_content_v1');
+    if (adminContent) {
+      try {
+        data = JSON.parse(adminContent);
+      } catch (e) {
+        console.error('Failed to parse admin content', e);
+      }
     }
-    const data = await response.json();
+
+    if (!data) {
+      const response = await fetch('./src/data/content.json');
+      if (!response.ok) {
+        throw new Error(`Failed to load content.json: ${response.statusText}`);
+      }
+      data = await response.json();
+    }
     
     hydrateElements(data);
     return data;
@@ -18,21 +32,13 @@ export async function initContentRenderer() {
   }
 }
 
-/**
- * Utility function to access nested object properties using dot notation
- * e.g., getNestedValue(data, "hero.headline")
- */
 function getNestedValue(obj, path) {
   return path.split('.').reduce((prev, curr) => {
     return prev && prev[curr] !== undefined ? prev[curr] : null;
   }, obj);
 }
 
-/**
- * Hydrates DOM elements based on `data-cms` attributes
- */
 function hydrateElements(data) {
-  // 1. Text Content Hydration
   const textElements = document.querySelectorAll('[data-cms]');
   textElements.forEach(el => {
     const keyPath = el.getAttribute('data-cms');
@@ -42,7 +48,6 @@ function hydrateElements(data) {
     }
   });
 
-  // 2. Image Src Hydration
   const imageElements = document.querySelectorAll('[data-cms-img]');
   imageElements.forEach(img => {
     const keyPath = img.getAttribute('data-cms-img');
@@ -52,7 +57,6 @@ function hydrateElements(data) {
     }
   });
 
-  // 3. Link Href Hydration
   const linkElements = document.querySelectorAll('[data-cms-href]');
   linkElements.forEach(link => {
     const keyPath = link.getAttribute('data-cms-href');

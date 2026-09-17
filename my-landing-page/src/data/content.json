@@ -7,9 +7,10 @@
     "phonePrimaryRaw": "0934498685",
     "phoneSecondaryRaw": "0925333999",
     "zaloUrl": "https://zalo.me/0934498685",
-    "tiktokUrl": "https://www.tiktok.com",
-    "shopeeUrl": "https://shopee.vn",
-    "facebookUrl": "https://facebook.com",
+    "tiktokUrl": "https://www.tiktok.com/@LQKKIDS",
+    "shopeeUrl": "https://shopee.vn/LQKKids",
+    "facebookUrl": "https://facebook.com/LQKKids",
+    "facebookGroupUrl": "https://facebook.com/groups/LQKKidsCommunity",
     "address": "Phố Hoa Lâm, Phường Việt Hưng, Quận Long Biên, Hà Nội",
     "mapUrl": "https://maps.google.com/?q=Hoa+Lam,+Viet+Hung,+Long+Bien,+Ha+Noi",
     "logoSubtitle": "Thời trang bé yêu"
@@ -70,7 +71,7 @@
         "subtitle": "Set bộ, áo, quần, sơ mi, jean, đồ năng động...",
         "description": "Những mẫu thời trang năng động, cá tính và dễ phối cho các bé trai vận động suốt cả ngày.",
         "ctaText": "XEM MẪU BÉ TRAI",
-        "link": "https://www.tiktok.com",
+        "link": "https://www.tiktok.com/@LQKKIDS",
         "image": "./assets/images/category-boy.jpg",
         "imageAlt": "Bé trai mặc trang phục hè LQK Kids năng động"
       },
@@ -81,7 +82,7 @@
         "subtitle": "Váy, set bộ, áo, quần và các mẫu thời trang đáng yêu",
         "description": "Những mẫu thời trang trẻ trung, đáng yêu và dễ phối cho bé gái đi học, đi chơi hay dự tiệc.",
         "ctaText": "XEM MẪU BÉ GÁI",
-        "link": "https://www.tiktok.com",
+        "link": "https://www.tiktok.com/@LQKKIDS",
         "image": "./assets/images/category-girl.jpg",
         "imageAlt": "Bé gái xinh xắn diện váy hoa LQK Kids"
       },
@@ -92,7 +93,7 @@
         "subtitle": "Phối sẵn tiện lợi, tiết kiệm thời gian cho mẹ",
         "description": "Những bộ phối sẵn giúp bố mẹ dễ dàng lựa chọn trang phục đẹp cho bé mà không tốn công suy nghĩ phối màu.",
         "ctaText": "XEM SET ĐỒ",
-        "link": "https://shopee.vn",
+        "link": "https://shopee.vn/LQKKids",
         "image": "./assets/images/category-set.jpg",
         "imageAlt": "Set đồ cotton thời trang cho trẻ em phối sẵn"
       },
@@ -103,7 +104,7 @@
         "subtitle": "Mũ, tất, kẹp tóc và phụ kiện thời trang nhỏ xinh",
         "description": "Mũ và những phụ kiện nhỏ xinh giúp hoàn thiện phong cách đáng yêu của bé trong từng khoảnh khắc.",
         "ctaText": "XEM PHỤ KIỆN",
-        "link": "https://shopee.vn",
+        "link": "https://shopee.vn/LQKKids",
         "image": "./assets/images/category-accessory.jpg",
         "imageAlt": "Mũ, tất và phụ kiện trẻ em đáng yêu"
       }
@@ -153,7 +154,7 @@
   },
   "realImages": {
     "eyebrow": "Hình ảnh thực tế",
-    "title": "LQK KIDS – BÉ MẶC ĐẸP, MẸ YÊU",
+    "title": "LQK KIDS – BÉ MẶC ĐẸP, MẸ THẤY VUI",
     "subtitle": "Khám phá những mẫu thời trang mới nhất của LQK Kids qua hình ảnh và video thực tế.",
     "tags": ["✓ Mẫu mới", "✓ Video sản phẩm", "✓ Livestream", "✓ Ưu đãi", "✓ Feedback khách hàng"],
     "gallery": [
@@ -182,44 +183,48 @@
   },
   "shoppingChannels": {
     "eyebrow": "Kênh mua sắm",
-    "title": "MUA HÀNG CHÍNH THỨC TẠI LQK KIDS",
+    "title": "MUA HÀNG TẠI LQK KIDS",
     "subtitle": "Chọn kênh mua hàng thuận tiện nhất cho bạn",
     "channels": [
       {
         "id": "tiktok",
-        "name": "TIKTOK SHOP",
+        "name": "🎵 TIKTOK",
+        "handle": "@LQKKIDS",
         "badge": "Livestream hàng ngày",
-        "description": "Xem video sản phẩm, theo dõi livestream tương tác trực tiếp và đặt hàng với nhiều mã giảm giá hấp dẫn.",
-        "cta": "MỞ TIKTOK SHOP",
-        "link": "https://www.tiktok.com",
+        "description": "Xem video sản phẩm, theo dõi livestream và cập nhật những mẫu mới nhất của LQK Kids.",
+        "cta": "XEM TIKTOK",
+        "link": "https://www.tiktok.com/@LQKKIDS",
         "icon": "music_note"
       },
       {
         "id": "shopee",
-        "name": "SHOPEE MALL",
+        "name": "🛒 SHOPEE",
+        "handle": "LQKKids",
         "badge": "Freeship Extra",
-        "description": "Xem sản phẩm, xem đánh giá thực tế từ khách hàng, lựa chọn size và đặt hàng online tiện lợi 24/7.",
+        "description": "Xem sản phẩm, lựa chọn size và đặt hàng online trên gian hàng LQK Kids.",
         "cta": "MỞ SHOP SHOPEE",
-        "link": "https://shopee.vn",
+        "link": "https://shopee.vn/LQKKids",
         "icon": "shopping_bag"
       },
       {
-        "id": "zalo",
-        "name": "ZALO TƯ VẤN",
-        "badge": "Tư vấn 1 - 1",
-        "description": "Cần tư vấn mẫu, màu hoặc chọn size cho bé? Hãy nhắn Zalo để nhân viên gửi ảnh chụp thực tế và tư vấn kỹ càng.",
-        "cta": "NHẮN ZALO NGAY",
-        "link": "https://zalo.me/0934498685",
-        "icon": "chat_bubble"
+        "id": "facebook",
+        "name": "📘 FACEBOOK PAGE",
+        "handle": "LQK Kids",
+        "badge": "Chính thức",
+        "description": "Theo dõi Page để cập nhật sản phẩm, chương trình ưu đãi và các hoạt động mới nhất của LQK Kids.",
+        "cta": "THEO DÕI FACEBOOK",
+        "link": "https://facebook.com/LQKKids",
+        "icon": "thumb_up"
       },
       {
-        "id": "hotline",
-        "name": "ĐIỆN THOẠI TRỰC TIẾP",
-        "badge": "Hỗ trợ tức thì",
-        "description": "Liên hệ trực tiếp với LQK Kids để được hỗ trợ nhanh nhất:",
-        "cta": "GỌI NGAY CHO SHOP",
-        "link": "tel:0934498685",
-        "icon": "call"
+        "id": "facebook-group",
+        "name": "👥 FACEBOOK GROUP",
+        "handle": "Cộng đồng LQK Kids",
+        "badge": "Cộng đồng",
+        "description": "Tham gia cộng đồng để cập nhật mẫu mới, chương trình ưu đãi và giao lưu cùng các khách hàng của LQK Kids.",
+        "cta": "THAM GIA GROUP",
+        "link": "https://facebook.com/groups/LQKKidsCommunity",
+        "icon": "groups"
       }
     ]
   },
@@ -267,20 +272,20 @@
     ]
   },
   "contact": {
-    "eyebrow": "Hỗ trợ mẹ chọn size",
+    "eyebrow": "💬 CẦN TƯ VẤN CHỌN ĐỒ CHO BÉ?",
     "title": "CẦN TƯ VẤN CHỌN ĐỒ CHO BÉ?",
     "subtitle": "Hãy để LQK Kids hỗ trợ bạn",
-    "description": "Bạn chỉ cần gửi thông tin cơ bản của bé, LQK Kids sẽ hỗ trợ tư vấn mẫu và size chuẩn xác nhất:",
+    "description": "Bạn chỉ cần gửi: 👦 Bé trai hay bé gái, 🎂 Tuổi của bé, 📏 Chiều cao, ⚖️ Cân nặng. LQK Kids sẽ hỗ trợ tư vấn mẫu và size phù hợp.",
     "formTitle": "ĐĂNG KÝ TƯ VẤN SIZE CHO BÉ",
-    "zaloCta": "💬 NHẮN ZALO GỬI THÔNG TIN BÉ",
-    "callCta": "☎ GỌI NGAY: 0934 498 685",
-    "directShopTitle": "MUA TRỰC TIẾP – TƯ VẤN NHANH",
-    "directShopSub": "Liên hệ trước khi ghé thăm shop",
-    "directShopDesc": "Nếu anh/chị muốn xem mẫu, hỏi giá hoặc cần tư vấn chọn size cho bé, vui lòng liên hệ LQK Kids trước khi đến.",
+    "zaloCta": "💬 NHẮN ZALO NGAY",
+    "callCta": "☎ GỌI NGAY",
+    "directShopTitle": "🏠 MUA HÀNG TRỰC TIẾP",
+    "directShopSub": "LQK KIDS – PHỐ HOA LÂM",
+    "directShopDesc": "📍 Phố Hoa Lâm, Phường Việt Hưng, Hà Nội. Nếu bạn ở khu vực Hà Nội và muốn liên hệ trực tiếp với LQK Kids, vui lòng gọi điện hoặc nhắn Zalo trước khi đến để được hỗ trợ.",
     "storeName": "LQK KIDS – PHỐ HOA LÂM",
-    "storeAddress": "Phố Hoa Lâm, Phường Việt Hưng, Quận Long Biên, Hà Nội",
-    "storeNote": "*Nếu bạn ở khu vực Hà Nội và muốn liên hệ trực tiếp với LQK Kids, vui lòng gọi điện hoặc nhắn Zalo trước khi đến để được hỗ trợ chu đáo nhất.",
-    "mapsCta": "📍 XEM VỊ TRÍ GOOGLE MAPS",
+    "storeAddress": "Phố Hoa Lâm, Phường Việt Hưng, Hà Nội",
+    "storeNote": "*Nếu bạn ở khu vực Hà Nội và muốn liên hệ trực tiếp với LQK Kids, vui lòng gọi điện hoặc nhắn Zalo trước khi đến để được hỗ trợ.",
+    "mapsCta": "📍 XEM VỊ TRÍ",
     "mapImage": "./assets/images/map-location.jpg"
   },
   "faq": {
@@ -289,38 +294,40 @@
     "subtitle": "Những câu hỏi phổ biến bố mẹ quan tâm",
     "items": [
       {
-        "question": "1. LQK Kids bán quần áo cho bé trai hay bé gái?",
-        "answer": "LQK Kids cung cấp thời trang cho cả bé trai và bé gái, đa dạng mẫu mã từ đồ mặc nhà, đi học đến đi chơi.",
+        "question": "LQK Kids bán quần áo cho bé trai hay bé gái?",
+        "answer": "LQK Kids cung cấp thời trang cho cả bé trai và bé gái.",
         "open": true
       },
       {
-        "question": "2. Làm thế nào để chọn đúng size cho bé?",
-        "answer": "Bạn có thể gửi chiều cao và cân nặng của bé cho LQK Kids qua Zalo hoặc Fanpage để được đội ngũ tư vấn hỗ trợ chọn size chuẩn nhất."
+        "question": "Làm thế nào để chọn đúng size?",
+        "answer": "Bạn có thể gửi chiều cao và cân nặng của bé cho LQK Kids để được hỗ trợ tư vấn."
       },
       {
-        "question": "3. LQK Kids có giao hàng toàn quốc không?",
-        "answer": "Có. LQK Kids hỗ trợ giao hàng đến khách hàng trên toàn quốc với thời gian giao hàng nhanh chóng, cho phép kiểm tra hàng trước khi thanh toán."
+        "question": "LQK Kids có giao hàng toàn quốc không?",
+        "answer": "Có. LQK Kids hỗ trợ giao hàng đến khách hàng trên toàn quốc."
       },
       {
-        "question": "4. Tôi có thể xem mẫu ở đâu?",
-        "answer": "Bạn có thể xem các mẫu mới nhất trên TikTok Shop, Shopee và Facebook chính thức của LQK Kids. Các kênh liên tục cập nhật video và hình ảnh thực tế mỗi ngày."
+        "question": "Tôi có thể xem mẫu ở đâu?",
+        "answer": "Bạn có thể xem các mẫu mới nhất trên TikTok @LQKKIDS, gian hàng LQKKids trên Shopee và Facebook LQK Kids."
       },
       {
-        "question": "5. Tôi muốn mua trực tiếp thì liên hệ ở đâu?",
-        "answer": "Bạn có thể gọi hoặc nhắn Zalo đến số 0934 498 685 hoặc 0925 333 999. Địa chỉ liên hệ là Phố Hoa Lâm, Phường Việt Hưng, Hà Nội (vui lòng liên hệ trước khi đến)."
+        "question": "Tôi muốn mua trực tiếp thì liên hệ ở đâu?",
+        "answer": "Bạn có thể gọi hoặc nhắn Zalo: 0934 498 685 - 0925 333 999. Hoặc liên hệ tại: Phố Hoa Lâm, Phường Việt Hưng, Hà Nội."
       }
     ]
   },
   "finalCta": {
     "title": "ĐẸP CHO BÉ – AN TÂM CHO MẸ",
     "description": "Cảm ơn bố mẹ đã tin tưởng và đồng hành cùng LQK Kids. Mỗi bộ quần áo đẹp không chỉ giúp bé đáng yêu hơn, mà còn góp phần tạo nên những khoảnh khắc tuổi thơ thật vui và đáng nhớ.",
-    "shopCta": "🛒 MUA HÀNG NGAY",
-    "zaloCta": "💬 NHẮN ZALO TƯ VẤN",
+    "subTitle": "LQK Kids – Thời trang trẻ em",
+    "shopCta": "🛒 MUA HÀNG",
+    "zaloCta": "💬 NHẮN ZALO",
     "tiktokCta": "🎵 THEO DÕI TIKTOK"
   },
   "footer": {
     "brandName": "LQK KIDS",
     "brandTitle": "THỜI TRANG TRẺ EM",
+    "categoriesList": "👦 Bé trai • 👧 Bé gái • 👕 Set bộ • 🎒 Phụ kiện",
     "brandSub": "Đẹp cho bé – An tâm cho mẹ",
     "copyright": "© 2026 LQK Kids. All rights reserved."
   }
