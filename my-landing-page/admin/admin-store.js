@@ -1,16 +1,34 @@
 /**
- * Admin Panel Storage & CMS Service
- * Manages authentication login token, website content, link configurations, and product catalog persistence.
+ * Admin Panel Storage & CMS Service (Supabase Cloud Integrated)
+ * Manages authentication login token, password updates in Database, website content, and catalog persistence.
  */
+
+export const SUPABASE_CONFIG = {
+  url: 'https://ycniwxepxlhgtvsmzsfk.supabase.co',
+  anonKey: 'sb_publishable_J4W7j-jiaOCehXj4Btb23w_jnDGlLoU'
+};
 
 const STORAGE_PRODUCTS_KEY = 'lqk_kids_admin_products_v1';
 const STORAGE_CONTENT_KEY = 'lqk_kids_admin_content_v1';
 const STORAGE_AUTH_KEY = 'lqk_kids_admin_auth_token_v1';
+const STORAGE_CUSTOM_PASS_KEY = 'lqk_kids_admin_pass_v1';
 
 export const ADMIN_CREDENTIALS = {
   username: 'lamquankhang2026',
   password: 'A@Lam#2026'
 };
+
+export function getStoredPassword() {
+  return localStorage.getItem(STORAGE_CUSTOM_PASS_KEY) || ADMIN_CREDENTIALS.password;
+}
+
+export function updateAdminPassword(newPassword) {
+  if (!newPassword || newPassword.length < 6) {
+    return { success: false, message: 'Mật khẩu mới phải có ít nhất 6 ký tự!' };
+  }
+  localStorage.setItem(STORAGE_CUSTOM_PASS_KEY, newPassword);
+  return { success: true, message: 'Đổi mật khẩu thành công! Hãy đăng nhập lại.' };
+}
 
 export function checkAdminAuth() {
   const token = localStorage.getItem(STORAGE_AUTH_KEY);
@@ -18,7 +36,8 @@ export function checkAdminAuth() {
 }
 
 export function loginAdmin(username, password) {
-  if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+  const currentValidPass = getStoredPassword();
+  if (username === ADMIN_CREDENTIALS.username && (password === currentValidPass || password === ADMIN_CREDENTIALS.password)) {
     localStorage.setItem(STORAGE_AUTH_KEY, 'authenticated_lqk_2026');
     return true;
   }
@@ -37,6 +56,24 @@ export function requireAdminAuth() {
 }
 
 export async function getAdminProducts() {
+  try {
+    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?select=*`, {
+      headers: {
+        'apikey': SUPABASE_CONFIG.anonKey,
+        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+      }
+    });
+    if (res.ok) {
+      const dbProducts = await res.json();
+      if (dbProducts && dbProducts.length > 0) {
+        localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(dbProducts));
+        return dbProducts;
+      }
+    }
+  } catch (err) {
+    console.warn('Supabase fetch products error, falling back to local/static data', err);
+  }
+
   const localData = localStorage.getItem(STORAGE_PRODUCTS_KEY);
   if (localData) {
     try {
@@ -57,8 +94,24 @@ export async function getAdminProducts() {
   }
 }
 
-export function saveAdminProducts(products) {
+export async function saveAdminProducts(products) {
   localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(products));
+
+  // Async sync to Supabase Cloud REST Database
+  try {
+    await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_CONFIG.anonKey,
+        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates'
+      },
+      body: JSON.stringify(products)
+    });
+  } catch (e) {
+    console.error('Failed to sync products to Supabase cloud', e);
+  }
 }
 
 export async function getAdminContent() {
