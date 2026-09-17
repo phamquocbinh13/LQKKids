@@ -1,18 +1,19 @@
 /**
  * Product List Renderer Module
- * Handles category tab filtering, search, and dynamic product grid rendering.
+ * Handles category tab filtering, search, dynamic grid rendering, and progressive pagination.
  */
 
 import { openProductDetail } from './product-detail.js';
-import { store } from '../store.js';
 
 let allProducts = [];
 let currentCategory = 'all';
+let currentPage = 1;
+const PAGE_SIZE = 8; // Render initial 8 products for ultra-fast LCP & INP
 
 export function initProductList(products) {
   allProducts = products;
   renderCategoryTabs();
-  renderGrid(allProducts);
+  filterAndRenderGrid();
   setupSearchAndSort();
 }
 
@@ -45,12 +46,11 @@ function renderCategoryTabs() {
     `;
   }).join('');
 
-  // Attach click events
   tabsContainer.querySelectorAll('.category-tab-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const selectedCat = btn.getAttribute('data-category');
-      currentCategory = selectedCat;
-      renderCategoryTabs(); // re-render tab active states
+    btn.addEventListener('click', () => {
+      currentCategory = btn.getAttribute('data-category');
+      currentPage = 1; // reset pagination on filter change
+      renderCategoryTabs();
       filterAndRenderGrid();
     });
   });
@@ -62,6 +62,7 @@ function setupSearchAndSort() {
 
   if (searchInput) {
     searchInput.addEventListener('input', () => {
+      currentPage = 1;
       filterAndRenderGrid();
     });
   }
@@ -69,6 +70,7 @@ function setupSearchAndSort() {
   if (clearBtn && searchInput) {
     clearBtn.addEventListener('click', () => {
       searchInput.value = '';
+      currentPage = 1;
       filterAndRenderGrid();
     });
   }
@@ -78,7 +80,7 @@ function filterAndRenderGrid() {
   const searchInput = document.getElementById('catalog-search-input');
   const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
-  let filtered = allProducts.filter(p => {
+  const filtered = allProducts.filter(p => {
     const matchesCategory = currentCategory === 'all' || p.category === currentCategory;
     const matchesQuery = !query || p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query);
     return matchesCategory && matchesQuery;
@@ -99,26 +101,33 @@ function renderGrid(products) {
 
   if (products.length === 0) {
     gridContainer.innerHTML = `
-      <div class="col-span-2 py-12 flex flex-col items-center justify-center text-center">
+      <div class="col-span-full py-12 flex flex-col items-center justify-center text-center">
         <span class="material-symbols-outlined text-4xl text-outline mb-2">search_off</span>
         <p class="text-sm font-bold text-on-surface">Không tìm thấy sản phẩm phù hợp</p>
         <p class="text-xs text-on-surface-variant mt-1">Vui lòng thử chọn danh mục khác hoặc tìm kiếm với từ khóa khác.</p>
       </div>
     `;
+    removeLoadMoreButton();
     return;
   }
 
-  gridContainer.innerHTML = products.map(product => {
+  // Progressive rendering slice
+  const paginatedProducts = products.slice(0, currentPage * PAGE_SIZE);
+
+  gridContainer.innerHTML = paginatedProducts.map((product, idx) => {
     const formattedPrice = product.price.toLocaleString('vi-VN') + 'đ';
     const formattedOriginalPrice = product.originalPrice ? product.originalPrice.toLocaleString('vi-VN') + 'đ' : '';
+
+    // First 4 cards load eager, remainder load lazy for fast LCP
+    const isEager = idx < 4;
 
     return `
       <article class="flex flex-col bg-surface-container-lowest rounded-2xl overflow-hidden shadow-xs border border-surface-container-high/40 group transition-all duration-300 hover:shadow-md">
         <div class="relative w-full aspect-[3/4] bg-surface-container-low overflow-hidden cursor-pointer product-card-trigger" data-id="${product.id}">
           <img 
             src="${product.images[0]}" 
-            alt="${product.name}" 
-            loading="lazy" 
+            alt="${product.name} LQK Kids - Thời trang trẻ em" 
+            loading="${isEager ? 'eager' : 'lazy'}" 
             decoding="async" 
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" 
           />
@@ -128,7 +137,7 @@ function renderGrid(products) {
             </span>
           </div>
           <button 
-            aria-label="Thêm vào yêu thích" 
+            aria-label="Thêm vào yêu thích ${product.name}" 
             class="wishlist-btn absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-xs flex items-center justify-center text-on-surface-variant hover:text-error transition-colors shadow-xs active:scale-90"
             onclick="event.stopPropagation(); this.classList.toggle('text-error');"
           >
@@ -158,7 +167,7 @@ function renderGrid(products) {
               class="quick-add-btn w-full h-8 rounded-full bg-primary-fixed hover:bg-primary-container text-on-primary-container text-[11px] font-bold flex items-center justify-center gap-1 transition-all active:scale-95 shadow-xs"
             >
               <span class="material-symbols-outlined text-[15px]">add</span>
-              <span>Chọn mua</span>
+              <span>Xem size & Chọn mua</span>
             </button>
           </div>
         </div>
@@ -166,21 +175,48 @@ function renderGrid(products) {
     `;
   }).join('');
 
-  // Attach Detail & Add-to-cart handlers
-  gridContainer.querySelectorAll('.product-card-trigger').forEach(el => {
-    el.addEventListener('click', () => {
+  // Handle Load More Button
+  if (paginatedProducts.length < products.length) {
+    renderLoadMoreButton(() => {
+      currentPage++;
+      renderGrid(products);
+    });
+  } else {
+    removeLoadMoreButton();
+  }
+
+  // Attach card click handlers
+  gridContainer.querySelectorAll('.product-card-trigger, .quick-add-btn').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
       const id = el.getAttribute('data-id');
       const product = allProducts.find(p => p.id === id);
       if (product) openProductDetail(product);
     });
   });
+}
 
-  gridContainer.querySelectorAll('.quick-add-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const id = btn.getAttribute('data-id');
-      const product = allProducts.find(p => p.id === id);
-      if (product) openProductDetail(product);
-    });
-  });
+function renderLoadMoreButton(onClick) {
+  let loadMoreWrapper = document.getElementById('load-more-wrapper');
+  if (!loadMoreWrapper) {
+    const catalogSection = document.getElementById('catalog-section');
+    loadMoreWrapper = document.createElement('div');
+    loadMoreWrapper.id = 'load-more-wrapper';
+    loadMoreWrapper.className = 'mt-6 flex justify-center';
+    catalogSection.appendChild(loadMoreWrapper);
+  }
+
+  loadMoreWrapper.innerHTML = `
+    <button id="load-more-btn" class="px-6 py-2.5 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-bold text-xs flex items-center gap-2 shadow-xs transition-all active:scale-95">
+      <span class="material-symbols-outlined text-[18px]">expand_more</span>
+      <span>Xem Thêm Sản Phẩm Khác</span>
+    </button>
+  `;
+
+  document.getElementById('load-more-btn').addEventListener('click', onClick);
+}
+
+function removeLoadMoreButton() {
+  const wrapper = document.getElementById('load-more-wrapper');
+  if (wrapper) wrapper.remove();
 }

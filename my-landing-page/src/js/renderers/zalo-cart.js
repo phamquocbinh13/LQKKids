@@ -1,11 +1,10 @@
 /**
  * Zalo Cart & Checkout View Renderer Module
  * Renders full reactive cart drawer/modal, customer info form, size switcher,
- * HTML order receipt image generator (Lưu order vào ảnh), and Zalo fallback ordering.
+ * HTML order receipt image generator (Lưu order vào ảnh - Lazy loaded), and Zalo fallback ordering.
  */
 
 import { store } from '../store.js';
-import html2canvas from 'html2canvas';
 
 const SHOP_ZALO_PHONE = '0934498685';
 
@@ -106,7 +105,7 @@ function renderCartContent(cart) {
           <div class="bg-surface-container-lowest p-3.5 rounded-2xl shadow-xs border border-surface-container-high/40 flex flex-col gap-3">
             <div class="flex gap-3">
               <div class="w-20 h-20 rounded-xl bg-surface-container-low shrink-0 overflow-hidden relative border border-surface-container-high/40">
-                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover" />
+                <img src="${item.image}" alt="${item.name}" loading="lazy" decoding="async" class="w-full h-full object-cover" />
                 <span class="absolute bottom-1 left-1 bg-surface-container-lowest/90 px-1 py-0.2 rounded font-mono text-[9px] text-on-surface-variant font-bold">${item.code || 'LQK'}</span>
               </div>
 
@@ -236,7 +235,7 @@ function setupCartItemEvents(container) {
     });
   });
 
-  // 1. Download Order Image Action
+  // 1. Download Order Image Action (Dynamic Import html2canvas on demand)
   const downloadImgBtn = document.getElementById('download-order-image-btn');
   if (downloadImgBtn) {
     downloadImgBtn.addEventListener('click', async () => {
@@ -250,7 +249,9 @@ function setupCartItemEvents(container) {
       `;
 
       try {
-        await generateAndDownloadReceiptImage(info);
+        // Dynamic import html2canvas library only when clicked
+        const { default: html2canvas } = await import('html2canvas');
+        await generateAndDownloadReceiptImage(info, html2canvas);
         showToast('Đã lưu ảnh đơn hàng! Hãy đính kèm ảnh này gửi Zalo cho shop nhé 📸');
       } catch (err) {
         console.error('Failed to generate image:', err);
@@ -293,13 +294,11 @@ function setupCartItemEvents(container) {
       const message = buildOrderMessage(info);
       const encodedMsg = encodeURIComponent(message);
 
-      // Zalo Web & App fallback urls
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       const zaloUrl = isMobile 
         ? `https://zalo.me/${SHOP_ZALO_PHONE}?text=${encodedMsg}`
         : `https://zalo.me/${SHOP_ZALO_PHONE}`;
 
-      // Also copy text to clipboard for desktop users convenience
       if (navigator.clipboard) {
         navigator.clipboard.writeText(message).catch(() => {});
       }
@@ -354,8 +353,7 @@ function buildOrderMessage(info) {
 /**
  * Creates an offscreen high-resolution receipt card matching website aesthetics and downloads as PNG image
  */
-async function generateAndDownloadReceiptImage(info) {
-  // 1. Create hidden off-screen container
+async function generateAndDownloadReceiptImage(info, html2canvas) {
   const receiptContainer = document.createElement('div');
   receiptContainer.style.position = 'absolute';
   receiptContainer.style.top = '-9999px';
@@ -373,8 +371,7 @@ async function generateAndDownloadReceiptImage(info) {
 
   receiptContainer.innerHTML = `
     <div style="background: #ffffff; border-radius: 20px; padding: 20px; border: 1px solid #ffe3d3; color: #27180f;">
-      <!-- Header -->
-      <div style="display: flex; items-center; justify-content: space-between; border-bottom: 2px dashed #faddcd; padding-bottom: 12px; margin-bottom: 16px;">
+      <div style="display: flex; items-center; justify-between; border-bottom: 2px dashed #faddcd; padding-bottom: 12px; margin-bottom: 16px;">
         <div>
           <h2 style="font-size: 20px; font-weight: 800; color: #136299; margin: 0; line-height: 1.2;">LQK KIDS</h2>
           <p style="font-size: 11px; font-weight: 600; color: #785a00; margin: 2px 0 0 0;">THỜI TRANG BÉ YÊU</p>
@@ -385,7 +382,6 @@ async function generateAndDownloadReceiptImage(info) {
         </div>
       </div>
 
-      <!-- Customer Info Box -->
       <div style="background: #fff1ea; border-radius: 14px; padding: 12px; margin-bottom: 16px; border: 1px solid #ffe3d3;">
         <p style="font-size: 12px; font-weight: 700; color: #136299; margin: 0 0 6px 0; text-transform: uppercase;">THÔNG TIN KHÁCH HÀNG</p>
         <p style="font-size: 12px; margin: 2px 0; color: #27180f;"><strong>Mẹ/Ba:</strong> ${info.name}</p>
@@ -394,7 +390,6 @@ async function generateAndDownloadReceiptImage(info) {
         ${info.note ? `<p style="font-size: 12px; margin: 2px 0; color: #785a00;"><strong>Ghi chú bé:</strong> ${info.note}</p>` : ''}
       </div>
 
-      <!-- Items List -->
       <p style="font-size: 12px; font-weight: 700; color: #27180f; margin: 0 0 8px 0; text-transform: uppercase;">CHI TIẾT ĐƠN HÀNG (${info.cart.length} món)</p>
       <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
         ${info.cart.map(item => `
@@ -411,13 +406,11 @@ async function generateAndDownloadReceiptImage(info) {
         `).join('')}
       </div>
 
-      <!-- Total Box -->
       <div style="background: #cfe5ff; border-radius: 14px; padding: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
         <span style="font-size: 13px; font-weight: 700; color: #001d33;">TỔNG CỘNG THANH TOÁN:</span>
         <span style="font-size: 18px; font-weight: 800; color: #136299;">${info.total.toLocaleString('vi-VN')}đ</span>
       </div>
 
-      <!-- Footer Note -->
       <div style="text-align: center; font-size: 10px; color: #717880;">
         <p style="margin: 0;">Hotline / Zalo Shop: <strong>0934 498 685</strong> - <strong>0925 333 999</strong></p>
         <p style="margin: 2px 0 0 0;">Địa chỉ: Phố Hoa Lâm, Phường Việt Hưng, Quận Long Biên, Hà Nội</p>
@@ -427,7 +420,6 @@ async function generateAndDownloadReceiptImage(info) {
 
   document.body.appendChild(receiptContainer);
 
-  // 2. Render container into canvas
   const canvas = await html2canvas(receiptContainer, {
     scale: 2,
     useCORS: true,
@@ -436,7 +428,6 @@ async function generateAndDownloadReceiptImage(info) {
 
   document.body.removeChild(receiptContainer);
 
-  // 3. Trigger download PNG link
   const imageURI = canvas.toDataURL('image/png');
   const link = document.createElement('a');
   link.download = `LQK-Kids-Order-${Date.now()}.png`;
