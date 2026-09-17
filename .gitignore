@@ -1,0 +1,19 @@
+# Dependencies
+node_modules
+.pnpm-store
+package-lock.json
+
+# Build output
+dist
+.vercel
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE & OS
+.DS_Store
+Thumbs.db
+.vscode
+.idea
