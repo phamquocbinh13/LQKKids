@@ -386,13 +386,21 @@
     function renderSizeRows() {
       const container = document.getElementById('size-options-container');
       container.innerHTML = sizeOptions.map((opt, idx) => `
-        <div class="flex items-center gap-2">
-          <input type="text" data-idx="${idx}" data-field="size" value="${opt.size}" placeholder="Tên Size" class="size-input flex-1 h-9 px-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white" />
-          <input type="text" data-idx="${idx}" data-field="weight" value="${opt.weight}" placeholder="Cân Nặng" class="size-input flex-1 h-9 px-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white" />
-          <input type="text" data-idx="${idx}" data-field="detail" value="${opt.detail || ''}" placeholder="Độ tuổi" class="size-input flex-1 h-9 px-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white" />
-          <button type="button" data-idx="${idx}" class="remove-size-btn w-9 h-9 rounded-xl bg-red-500/10 text-red-400 flex items-center justify-center shrink-0">
-            <span class="material-symbols-outlined text-[16px]">close</span>
-          </button>
+        <div class="grid grid-cols-12 sm:flex items-center gap-1.5 sm:gap-2 bg-slate-900/50 sm:bg-transparent p-2 sm:p-0 rounded-xl border border-slate-700/50 sm:border-0 shadow-xs">
+          <div class="col-span-4 sm:flex-1">
+            <input type="text" data-idx="${idx}" data-field="size" value="${opt.size}" placeholder="Tên Size" class="size-input w-full h-9 px-2.5 sm:px-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white" />
+          </div>
+          <div class="col-span-4 sm:flex-1">
+            <input type="text" data-idx="${idx}" data-field="weight" value="${opt.weight}" placeholder="Cân nặng" class="size-input w-full h-9 px-2.5 sm:px-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white" />
+          </div>
+          <div class="col-span-3 sm:flex-1">
+            <input type="text" data-idx="${idx}" data-field="detail" value="${opt.detail || ''}" placeholder="Độ tuổi" class="size-input w-full h-9 px-2.5 sm:px-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white" />
+          </div>
+          <div class="col-span-1 sm:shrink-0 flex justify-end">
+            <button type="button" data-idx="${idx}" aria-label="Xóa dòng size" class="remove-size-btn w-9 h-9 rounded-xl bg-red-500/20 hover:bg-red-500/30 text-red-400 flex items-center justify-center shrink-0 border border-red-500/30 transition-colors">
+              <span class="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          </div>
         </div>
       `).join('');
 
