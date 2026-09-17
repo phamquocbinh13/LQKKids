@@ -153,7 +153,7 @@ function renderGrid(products) {
             <div class="flex items-center gap-1 mt-1 text-on-surface-variant">
               <span class="material-symbols-outlined text-[14px] text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
               <span class="text-xs font-bold text-on-surface">${product.rating}</span>
-              <span class="text-[11px] text-outline">• ${product.soldCount} đã bán</span>
+              <span class="text-[11px] text-outline">• ${String(product.soldCount || 120).endsWith('+') ? product.soldCount : product.soldCount + '+'} đã bán</span>
             </div>
           </div>
 

@@ -131,7 +131,7 @@ function renderModalContent() {
           <span class="font-bold">${currentProduct.rating}</span>
         </div>
         <span>•</span>
-        <span class="font-semibold text-on-surface">Đã bán ${currentProduct.soldCount}+</span>
+        <span class="font-semibold text-on-surface">Đã bán ${String(currentProduct.soldCount || 120).endsWith('+') ? currentProduct.soldCount : currentProduct.soldCount + '+'}</span>
         <span>•</span>
         <span class="text-tertiary font-bold flex items-center gap-0.5">
           <span class="material-symbols-outlined text-[14px]">inventory_2</span> Sẵn kho

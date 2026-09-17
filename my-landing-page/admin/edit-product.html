@@ -79,6 +79,18 @@
           </div>
         </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">⭐ Đánh Giá Sao (Ví dụ: 5.0, 4.9)</label>
+            <input type="number" step="0.1" max="5.0" min="1.0" id="p-rating" placeholder="5.0" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">🔥 Số Lượng Đã Bán (Ví dụ: 120, 450)</label>
+            <input type="number" id="p-sold-count" placeholder="120" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          </div>
+        </div>
+
         <div>
           <label class="block text-xs font-bold text-slate-300 mb-1.5">Mô Tả Sản Phẩm (*)</label>
           <textarea id="p-description" rows="3" required placeholder="Nhập mô tả chất liệu, phom dáng và tính năng nổi bật..." class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
@@ -168,6 +180,8 @@
         if (p) populateForm(p);
       } else {
         document.getElementById('page-title').textContent = 'THÊM SẢN PHẨM MỚI';
+        document.getElementById('p-rating').value = 5.0;
+        document.getElementById('p-sold-count').value = 120;
         imagesList = ['./assets/images/category-set.jpg'];
         sizeOptions = [
           { size: 'Size 90', weight: '7–9kg', detail: '1-2 tuổi' },
@@ -191,6 +205,8 @@
       document.getElementById('p-badge').value = p.badge || '';
       document.getElementById('p-price').value = p.price || '';
       document.getElementById('p-original-price').value = p.originalPrice || '';
+      document.getElementById('p-rating').value = p.rating !== undefined ? p.rating : 5.0;
+      document.getElementById('p-sold-count').value = p.soldCount !== undefined ? p.soldCount : 120;
       document.getElementById('p-description').value = p.description || '';
       document.getElementById('p-colors').value = (p.colors || []).join(', ');
 
@@ -317,8 +333,8 @@
         price: parseInt(document.getElementById('p-price').value) || 0,
         originalPrice: parseInt(document.getElementById('p-original-price').value) || 0,
         description: document.getElementById('p-description').value.trim(),
-        rating: 5.0,
-        soldCount: 50,
+        rating: parseFloat(document.getElementById('p-rating').value) || 5.0,
+        soldCount: document.getElementById('p-sold-count').value !== '' ? (isNaN(document.getElementById('p-sold-count').value) ? document.getElementById('p-sold-count').value : parseInt(document.getElementById('p-sold-count').value)) : 120,
         colors: colors.length ? colors : ['Mặc định'],
         images: imagesList.length ? imagesList : ['./assets/images/category-set.jpg'],
         sizeOptions: sizeOptions.length ? sizeOptions : [{ size: 'Size 100', weight: '9-11kg', detail: '2-3 tuổi' }]

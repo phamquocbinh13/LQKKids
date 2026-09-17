@@ -61,6 +61,17 @@
           </div>
         </div>
 
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">📐 Bảng Tư Vấn Size Chuẩn LQK Kids (Tải ảnh Bảng Size mới hoặc dán URL)</label>
+          <div class="flex items-center gap-3">
+            <input type="text" id="site-size-chart" placeholder="./assets/images/size-chart.jpg" class="flex-1 h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+            <label class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors shrink-0">
+              <span>Tải ảnh Bảng Size</span>
+              <input type="file" id="site-size-chart-file" accept="image/*" class="hidden" />
+            </label>
+          </div>
+        </div>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1.5">SĐT Hotline 1 (Chính)</label>
@@ -282,6 +293,18 @@
         });
       }
 
+      // Size chart image file compress upload
+      const sizeChartFileInput = document.getElementById('site-size-chart-file');
+      if (sizeChartFileInput) {
+        sizeChartFileInput.addEventListener('change', async (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const compressed = await compressAndProcessImage(file, 1000, 0.85);
+            document.getElementById('site-size-chart').value = compressed;
+          }
+        });
+      }
+
       // Hero image file compress upload
       const heroFileInput = document.getElementById('hero-image-file');
       if (heroFileInput) {
@@ -316,6 +339,7 @@
         document.getElementById('site-title').value = data.site.title || '';
         document.getElementById('site-logo-subtitle').value = data.site.logoSubtitle || '';
         document.getElementById('site-logo').value = data.site.logo || '';
+        document.getElementById('site-size-chart').value = data.site.sizeChart || '';
         document.getElementById('phone-1').value = data.site.phonePrimary || '';
         document.getElementById('phone-2').value = data.site.phoneSecondary || '';
         document.getElementById('site-address').value = data.site.address || '';
@@ -364,6 +388,7 @@
       contentData.site.title = document.getElementById('site-title').value.trim();
       contentData.site.logoSubtitle = document.getElementById('site-logo-subtitle').value.trim();
       contentData.site.logo = document.getElementById('site-logo').value.trim();
+      contentData.site.sizeChart = document.getElementById('site-size-chart').value.trim();
       contentData.site.phonePrimary = document.getElementById('phone-1').value.trim();
       contentData.site.phoneSecondary = document.getElementById('phone-2').value.trim();
       contentData.site.address = document.getElementById('site-address').value.trim();
