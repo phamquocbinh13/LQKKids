@@ -70,15 +70,14 @@
   </script>
 
   <!-- Main Stylesheet -->
-  <script type="module" crossorigin src="/assets/main-CaYmGrbW.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-  <link rel="stylesheet" crossorigin href="/assets/main-Xr4rI0kQ.css">
+  <link rel="stylesheet" href="./src/css/main.css" />
 </head>
 
 <body class="bg-surface text-on-surface font-sans antialiased min-h-screen flex flex-col">
 
   <!-- ==================== HEADER & NAVIGATION ==================== -->
-  <header class="header-fixed-pinned pt-safe bg-[#fff8f5] shadow-xs border-b border-surface-container-high/60">
+  <header
+    class="header-fixed-pinned pt-safe bg-[#fff8f5] shadow-xs border-b border-surface-container-high/60">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-18 flex items-center justify-between gap-2">
 
       <!-- Brand Logo -->
@@ -89,9 +88,10 @@
             class="w-full h-full object-contain" />
         </div>
         <div class="flex flex-col">
-          <span class="text-lg sm:text-xl font-extrabold tracking-tight text-on-surface leading-none">LQK KIDS</span>
-          <span class="text-xs sm:text-sm text-outline font-semibold leading-tight mt-0.5 min-h-[14px] min-w-[100px]"
-            data-cms="site.logoSubtitle"></span>
+          <span class="text-lg sm:text-xl font-extrabold tracking-tight text-on-surface leading-none"
+            data-cms="footer.brandName">LQK KIDS</span>
+          <span class="text-xs sm:text-sm text-outline font-semibold leading-tight mt-0.5"
+            data-cms="site.logoSubtitle">Thời trang bé yêu</span>
         </div>
       </a>
 
@@ -126,7 +126,7 @@
         </button>
 
         <a href="tel:0934498685" data-cms-href="site.phonePrimaryRaw"
-          class="hidden sm:inline-flex items-center gap-1.5 h-10 sm:h-11 px-4 sm:px-5 rounded-full bg-secondary-container text-on-secondary-fixed text-xs sm:text-sm font-bold shadow-xs hover:brightness-105 active:scale-98 transition-all">
+          class="hidden sm:inline-flex items-center gap-1.5 h-10 sm:h-11 px-4 sm:px-5 rounded-full bg-secondary-container text-on-secondary-fixed text-xs sm:text-sm font-bold shadow-xs hover:brightness-105 active:scale-95 transition-all">
           <span class="material-symbols-outlined text-[19px]">call</span>
           <span>GỌI NGAY</span>
         </a>
@@ -171,20 +171,26 @@
     <section id="gioi-thieu" class="w-full pt-4">
       <div class="flex flex-col items-center text-center max-w-3xl mx-auto">
         <h1
-          class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-on-surface tracking-tight uppercase leading-tight mb-2 min-h-[40px]"
-          data-cms="hero.headline"></h1>
-        <p class="text-lg sm:text-xl text-primary font-extrabold tracking-tight mb-4 min-h-[28px]"
-          data-cms="hero.subheadline"></p>
+          class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-on-surface tracking-tight uppercase leading-tight mb-2"
+          data-cms="hero.headline">
+          QUẦN ÁO TRẺ EM
+        </h1>
+        <p class="text-lg sm:text-xl text-primary font-extrabold tracking-tight mb-4" data-cms="hero.subheadline">
+          ĐẸP – DỄ MẶC – DỄ YÊU
+        </p>
 
-        <p class="text-sm sm:text-base text-on-surface-variant max-w-xl mx-auto mb-6 leading-relaxed min-h-[44px]"
-          data-cms="hero.description"></p>
+        <p class="text-sm sm:text-base text-on-surface-variant max-w-xl mx-auto mb-6 leading-relaxed"
+          data-cms="hero.description">
+          Quần áo trẻ em dành cho bé trai và bé gái, được LQK Kids lựa chọn với tiêu chí đẹp, thoải mái và phù hợp cho
+          bé mặc hàng ngày.
+        </p>
 
         <!-- Premium 2x2 Grid CTA Buttons Layout on both Desktop and Mobile -->
         <div class="grid grid-cols-2 gap-3 w-full max-w-lg mx-auto mb-8">
           <a href="tel:0934498685" data-cms-href="site.phonePrimaryRaw"
             class="min-h-[46px] px-4 py-2.5 rounded-full bg-secondary-container text-on-secondary-fixed font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:brightness-105 active:scale-98 transition-all">
             <span class="material-symbols-outlined text-[18px]">call</span>
-            <span data-cms="hero.callCta"></span>
+            <span data-cms="hero.callCta">Gọi Ngay</span>
           </a>
 
           <a href="https://www.tiktok.com/@LQKKIDS" data-cms-href="site.tiktokUrl" target="_blank" rel="noopener"
@@ -193,7 +199,7 @@
               <path
                 d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.62a6.34 6.34 0 0 0-5.11 6.2 6.34 6.34 0 1 0 11.45-3.86v-3.3a8.28 8.28 0 0 0 3.77 1.03V6.69z" />
             </svg>
-            <span data-cms="hero.tiktokCta"></span>
+            <span data-cms="hero.tiktokCta">XEM TIKTOK</span>
           </a>
 
           <a href="https://zalo.me/0934498685" data-cms-href="site.zaloUrl" target="_blank" rel="noopener"
@@ -202,7 +208,7 @@
               <path
                 d="M24 4C12.95 4 4 12.5 4 23c0 4.1 1.37 7.9 3.7 11L4.1 43.1c-.3.9.5 1.7 1.4 1.4L15 40.8c2.8 1.4 6 2.2 9 2.2 11.05 0 20-8.5 20-19.5S35.05 4 24 4zm-7.5 13.5h15c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5h-15c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5zm15 12h-15c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5h15c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5z" />
             </svg>
-            <span data-cms="hero.zaloCta"></span>
+            <span data-cms="hero.zaloCta">NHẮN ZALO</span>
           </a>
 
           <a href="https://zalo.me/g/ssflrg5ii3iymweox5be" data-cms-href="site.zaloGroupUrl" target="_blank"
@@ -212,7 +218,7 @@
               <path
                 d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
             </svg>
-            <span data-cms="hero.zaloGroupCta"></span>
+            <span data-cms="hero.zaloGroupCta">Nhóm Zalo Bán Sỉ Lẻ</span>
           </a>
         </div>
 
@@ -263,19 +269,20 @@
         <!-- Hero Photography Banner -->
         <div id="hero-banner-container"
           class="relative w-full rounded-3xl overflow-hidden shadow-lg aspect-[16/9] sm:aspect-[21/9] bg-surface-container-highest">
-          <div id="hero-banner-skeleton" class="absolute inset-0 skeleton-box z-10"></div>
-          <img data-cms-img="hero.image" alt="Các bé diện trang phục LQK Kids" width="1200" height="600" loading="eager"
-            decoding="async" class="w-full h-full object-cover" />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-20"></div>
-          <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between z-30">
+          <img src="./assets/images/hero-banner.jpg" data-cms-img="hero.image" alt="Các bé diện trang phục LQK Kids" width="1200" height="600"
+            loading="eager" decoding="async" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+          <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between">
             <span
               class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-surface/90 backdrop-blur-md text-on-surface text-xs font-bold shadow-md">
               <span class="material-symbols-outlined text-secondary text-[16px]">auto_awesome</span>
-              <span data-cms="hero.bannerTag1"></span>
+              <span data-cms="hero.bannerTag1">BST Xuân Hè Mới Nhất</span>
             </span>
             <span
               class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-primary text-on-primary text-xs font-bold shadow-md"
-              data-cms="hero.bannerTag2"></span>
+              data-cms="hero.bannerTag2">
+              100% Cotton
+            </span>
           </div>
         </div>
 
@@ -331,53 +338,34 @@
         </div>
       </div>
 
-      <!-- Dynamic Product Grid with Fast Skeleton Initial State -->
+      <!-- Dynamic Product Grid -->
       <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-        <!-- 8 Shimmer Skeleton Loading Cards -->
-        <div
-          class="flex flex-col bg-surface-container-lowest rounded-2xl overflow-hidden shadow-xs border border-surface-container-high/40 p-3 space-y-3">
-          <div class="w-full aspect-[3/4] rounded-xl skeleton-box"></div>
-          <div class="h-4 w-3/4 rounded-md skeleton-box"></div>
-          <div class="h-3 w-1/2 rounded-md skeleton-box"></div>
-          <div class="h-7 w-full rounded-full skeleton-box mt-2"></div>
-        </div>
-        <div
-          class="flex flex-col bg-surface-container-lowest rounded-2xl overflow-hidden shadow-xs border border-surface-container-high/40 p-3 space-y-3">
-          <div class="w-full aspect-[3/4] rounded-xl skeleton-box"></div>
-          <div class="h-4 w-3/4 rounded-md skeleton-box"></div>
-          <div class="h-3 w-1/2 rounded-md skeleton-box"></div>
-          <div class="h-7 w-full rounded-full skeleton-box mt-2"></div>
-        </div>
-        <div
-          class="flex flex-col bg-surface-container-lowest rounded-2xl overflow-hidden shadow-xs border border-surface-container-high/40 p-3 space-y-3">
-          <div class="w-full aspect-[3/4] rounded-xl skeleton-box"></div>
-          <div class="h-4 w-3/4 rounded-md skeleton-box"></div>
-          <div class="h-3 w-1/2 rounded-md skeleton-box"></div>
-          <div class="h-7 w-full rounded-full skeleton-box mt-2"></div>
-        </div>
-        <div
-          class="flex flex-col bg-surface-container-lowest rounded-2xl overflow-hidden shadow-xs border border-surface-container-high/40 p-3 space-y-3">
-          <div class="w-full aspect-[3/4] rounded-xl skeleton-box"></div>
-          <div class="h-4 w-3/4 rounded-md skeleton-box"></div>
-          <div class="h-3 w-1/2 rounded-md skeleton-box"></div>
-          <div class="h-7 w-full rounded-full skeleton-box mt-2"></div>
-        </div>
+        <!-- Products populated dynamically -->
       </div>
     </section>
 
     <!-- ==================== 3. ABOUT LQK KIDS ==================== -->
     <section class="w-full p-6 sm:p-8 rounded-3xl bg-surface-container-low border border-surface-container-high/50">
       <div class="flex flex-col items-center text-center max-w-2xl mx-auto">
-        <span class="text-xs font-bold uppercase tracking-wider text-primary mb-1 min-h-[16px]"
-          data-cms="about.eyebrow"></span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mb-1 min-h-[32px]"
-          data-cms="about.title"></h2>
-        <p class="text-sm font-semibold text-secondary mb-6 min-h-[20px]" data-cms="about.subtitle"></p>
+        <span class="text-xs font-bold uppercase tracking-wider text-primary mb-1" data-cms="about.eyebrow">LQK Kids là
+          ai?</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mb-1" data-cms="about.title">
+          LQK KIDS – THỜI TRANG CHO TUỔI THƠ
+        </h2>
+        <p class="text-sm font-semibold text-secondary mb-6" data-cms="about.subtitle">
+          Cùng bé lớn lên trong những bộ đồ thật đáng yêu
+        </p>
 
         <div
           class="p-6 rounded-2xl bg-surface-container-lowest shadow-sm text-left flex flex-col gap-4 mb-6 border border-surface-container-high/30">
-          <p class="text-sm text-on-surface-variant leading-relaxed min-h-[40px]" data-cms="about.paragraph1"></p>
-          <p class="text-sm text-on-surface-variant leading-relaxed min-h-[40px]" data-cms="about.paragraph2"></p>
+          <p class="text-sm text-on-surface-variant leading-relaxed" data-cms="about.paragraph1">
+            LQK Kids là thương hiệu thời trang trẻ em dành cho các bé trai và bé gái. Chúng tôi lựa chọn các mẫu quần áo
+            có kiểu dáng đẹp, trẻ trung, năng động và dễ mặc, giúp bé luôn thoải mái trong những hoạt động hàng ngày.
+          </p>
+          <p class="text-sm text-on-surface-variant leading-relaxed" data-cms="about.paragraph2">
+            LQK Kids hướng tới việc mang đến cho bố mẹ những lựa chọn thời trang phù hợp cho con với trải nghiệm mua
+            hàng nhanh chóng, thuận tiện và tận tình.
+          </p>
         </div>
 
         <div
@@ -386,8 +374,9 @@
             <span class="material-symbols-outlined text-on-secondary-fixed text-[22px]">favorite</span>
           </div>
           <div>
-            <p class="text-base font-bold text-on-surface min-h-[20px]" data-cms="about.statementTitle"></p>
-            <p class="text-xs text-on-surface-variant font-medium min-h-[16px]" data-cms="about.statementSubtitle"></p>
+            <p class="text-base font-bold text-on-surface" data-cms="about.statementTitle">LQK Kids</p>
+            <p class="text-xs text-on-surface-variant font-medium" data-cms="about.statementSubtitle">Thời trang cho bé
+              – Niềm vui của mẹ</p>
           </div>
         </div>
       </div>
@@ -397,11 +386,14 @@
     <section id="vi-sao-chon"
       class="w-full p-6 sm:p-8 rounded-3xl bg-surface-container-low border border-surface-container-high/50">
       <div class="text-center mb-8">
-        <span class="text-xs font-bold uppercase tracking-wider text-primary min-h-[16px]"
-          data-cms="whyChoose.eyebrow"></span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mt-1 min-h-[32px]"
-          data-cms="whyChoose.title"></h2>
-        <p class="text-xs sm:text-sm text-outline mt-1 min-h-[20px]" data-cms="whyChoose.subtitle"></p>
+        <span class="text-xs font-bold uppercase tracking-wider text-primary" data-cms="whyChoose.eyebrow">Điểm tựa niềm
+          tin</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mt-1" data-cms="whyChoose.title">
+          VÌ SAO BỐ MẸ CHỌN LQK KIDS?
+        </h2>
+        <p class="text-xs sm:text-sm text-outline mt-1" data-cms="whyChoose.subtitle">
+          Những điều nhỏ tạo nên trải nghiệm mua sắm dễ dàng hơn cho bố mẹ
+        </p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -482,11 +474,14 @@
     <!-- ==================== 5. REAL IMAGES & VIDEO ==================== -->
     <section id="hinh-anh" class="w-full">
       <div class="text-center mb-6">
-        <span class="text-xs font-bold uppercase tracking-wider text-primary min-h-[16px]"
-          data-cms="realImages.eyebrow"></span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mt-1 min-h-[32px]"
-          data-cms="realImages.title"></h2>
-        <p class="text-xs sm:text-sm text-on-surface-variant mt-1 min-h-[20px]" data-cms="realImages.subtitle"></p>
+        <span class="text-xs font-bold uppercase tracking-wider text-primary" data-cms="realImages.eyebrow">Hình ảnh
+          thực tế</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mt-1" data-cms="realImages.title">
+          LQK KIDS – BÉ MẶC ĐẸP, MẸ THẤY VUI
+        </h2>
+        <p class="text-xs sm:text-sm text-on-surface-variant mt-1" data-cms="realImages.subtitle">
+          Khám phá những mẫu thời trang mới nhất của LQK Kids qua hình ảnh và video thực tế.
+        </p>
       </div>
 
       <div class="flex items-center justify-center flex-wrap gap-2 mb-6">
@@ -512,8 +507,8 @@
         <div
           class="tiktok-card relative rounded-2xl overflow-hidden shadow-xs aspect-[3/4] bg-surface-container group cursor-pointer transition-all hover:shadow-lg"
           data-tiktok-card="0" data-tiktok-url="https://www.tiktok.com/@LQKKIDS">
-          <img data-cms-img="realImages.gallery.0.image" alt="Bé gái thử trang phục thực tế LQK Kids" width="300"
-            height="400" loading="lazy" decoding="async"
+          <img src="./assets/images/category-girl.jpg" data-cms-img="realImages.gallery.0.image"
+            alt="Bé gái thử trang phục thực tế LQK Kids" width="300" height="400" loading="lazy" decoding="async"
             class="card-poster w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
           <video
             class="card-preview-video hidden absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
@@ -523,8 +518,8 @@
           </div>
           <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none z-20">
             <span
-              class="px-2.5 py-1 rounded-full bg-black/60 text-white text-[11px] font-bold backdrop-blur-xs shadow-xs min-h-[20px] min-w-[50px]"
-              data-cms="realImages.gallery.0.title"></span>
+              class="px-2.5 py-1 rounded-full bg-black/60 text-white text-[11px] font-bold backdrop-blur-xs shadow-xs"
+              data-cms="realImages.gallery.0.title">Váy xinh</span>
             <span
               class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-fixed flex items-center justify-center shadow-md group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all">
               <span class="material-symbols-outlined text-[18px]">play_arrow</span>
@@ -535,8 +530,8 @@
         <div
           class="tiktok-card relative rounded-2xl overflow-hidden shadow-xs aspect-[3/4] bg-surface-container group cursor-pointer transition-all hover:shadow-lg"
           data-tiktok-card="1" data-tiktok-url="https://www.tiktok.com/@LQKKIDS">
-          <img data-cms-img="realImages.gallery.1.image" alt="Bé trai phối đồ thể thao năng động" width="300"
-            height="400" loading="lazy" decoding="async"
+          <img src="./assets/images/category-boy.jpg" data-cms-img="realImages.gallery.1.image"
+            alt="Bé trai phối đồ thể thao năng động" width="300" height="400" loading="lazy" decoding="async"
             class="card-poster w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
           <video
             class="card-preview-video hidden absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
@@ -546,8 +541,8 @@
           </div>
           <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none z-20">
             <span
-              class="px-2.5 py-1 rounded-full bg-black/60 text-white text-[11px] font-bold backdrop-blur-xs shadow-xs min-h-[20px] min-w-[50px]"
-              data-cms="realImages.gallery.1.title"></span>
+              class="px-2.5 py-1 rounded-full bg-black/60 text-white text-[11px] font-bold backdrop-blur-xs shadow-xs"
+              data-cms="realImages.gallery.1.title">Polo hè</span>
             <span
               class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-fixed flex items-center justify-center shadow-md group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all">
               <span class="material-symbols-outlined text-[18px]">play_arrow</span>
@@ -558,8 +553,8 @@
         <div
           class="tiktok-card relative rounded-2xl overflow-hidden shadow-xs aspect-[3/4] bg-surface-container group cursor-pointer transition-all hover:shadow-lg"
           data-tiktok-card="2" data-tiktok-url="https://www.tiktok.com/@LQKKIDS">
-          <img data-cms-img="realImages.gallery.2.image" alt="Set đồ cotton phối sẵn gấp gọn đẹp mắt" width="300"
-            height="400" loading="lazy" decoding="async"
+          <img src="./assets/images/category-set.jpg" data-cms-img="realImages.gallery.2.image"
+            alt="Set đồ cotton phối sẵn gấp gọn đẹp mắt" width="300" height="400" loading="lazy" decoding="async"
             class="card-poster w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
           <video
             class="card-preview-video hidden absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
@@ -569,8 +564,8 @@
           </div>
           <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none z-20">
             <span
-              class="px-2.5 py-1 rounded-full bg-black/60 text-white text-[11px] font-bold backdrop-blur-xs shadow-xs min-h-[20px] min-w-[50px]"
-              data-cms="realImages.gallery.2.title"></span>
+              class="px-2.5 py-1 rounded-full bg-black/60 text-white text-[11px] font-bold backdrop-blur-xs shadow-xs"
+              data-cms="realImages.gallery.2.title">Set đồ</span>
             <span
               class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-fixed flex items-center justify-center shadow-md group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all">
               <span class="material-symbols-outlined text-[18px]">play_arrow</span>
@@ -581,8 +576,8 @@
         <div
           class="tiktok-card relative rounded-2xl overflow-hidden shadow-xs aspect-[3/4] bg-surface-container group cursor-pointer transition-all hover:shadow-lg"
           data-tiktok-card="3" data-tiktok-url="https://www.tiktok.com/@LQKKIDS">
-          <img data-cms-img="realImages.gallery.3.image" alt="Phụ kiện đáng yêu LQK Kids" width="300" height="400"
-            loading="lazy" decoding="async"
+          <img src="./assets/images/category-accessory.jpg" data-cms-img="realImages.gallery.3.image"
+            alt="Phụ kiện đáng yêu LQK Kids" width="300" height="400" loading="lazy" decoding="async"
             class="card-poster w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
           <video
             class="card-preview-video hidden absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
@@ -592,8 +587,8 @@
           </div>
           <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none z-20">
             <span
-              class="px-2.5 py-1 rounded-full bg-black/60 text-white text-[11px] font-bold backdrop-blur-xs shadow-xs min-h-[20px] min-w-[50px]"
-              data-cms="realImages.gallery.3.title"></span>
+              class="px-2.5 py-1 rounded-full bg-black/60 text-white text-[11px] font-bold backdrop-blur-xs shadow-xs"
+              data-cms="realImages.gallery.3.title">Cùng bé yêu</span>
             <span
               class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-fixed flex items-center justify-center shadow-md group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all">
               <span class="material-symbols-outlined text-[18px]">play_arrow</span>
@@ -604,7 +599,7 @@
 
       <a href="https://www.tiktok.com/@LQKKIDS" data-cms-href="site.tiktokUrl" target="_blank" rel="noopener"
         class="w-full min-h-[48px] px-6 py-3 rounded-full bg-on-surface text-surface font-bold text-xs flex items-center justify-center gap-2 shadow-md hover:opacity-90 active:scale-98 transition-all">
-        <span data-cms="realImages.videoCta"></span>
+        <span data-cms="realImages.videoCta">XEM THÊM</span>
       </a>
     </section>
 
@@ -612,19 +607,19 @@
     <section id="kenh-mua-hang"
       class="w-full p-6 sm:p-8 rounded-3xl bg-surface-container-low border border-surface-container-high/50 flex flex-col gap-6">
       <div class="text-center">
-        <span class="text-xs font-bold uppercase tracking-wider text-primary min-h-[16px]"
-          data-cms="shoppingChannels.eyebrow"></span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mt-1 min-h-[32px]"
-          data-cms="shoppingChannels.title"></h2>
-        <p class="text-xs sm:text-sm text-outline mt-1 min-h-[20px]" data-cms="shoppingChannels.subtitle"></p>
+        <span class="text-xs font-bold uppercase tracking-wider text-primary" data-cms="shoppingChannels.eyebrow">Kênh mua sắm</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mt-1" data-cms="shoppingChannels.title">
+          MUA HÀNG TẠI LQK KIDS
+        </h2>
+        <p class="text-xs sm:text-sm text-outline mt-1" data-cms="shoppingChannels.subtitle">
+          Chọn kênh mua hàng thuận tiện nhất cho bạn
+        </p>
       </div>
 
       <!-- Pyramid Top Card: Zalo Group Wholesale -->
-      <div
-        class="max-w-2xl mx-auto w-full p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4">
+      <div class="max-w-2xl mx-auto w-full p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4">
         <div class="flex items-center gap-3">
-          <div
-            class="w-11 h-11 rounded-2xl bg-[#0068FF] text-white flex items-center justify-center shrink-0 shadow-xs font-extrabold text-xs">
+          <div class="w-11 h-11 rounded-2xl bg-[#0068FF] text-white flex items-center justify-center shrink-0 shadow-xs font-extrabold text-xs">
             ZALO
           </div>
           <div>
@@ -633,14 +628,11 @@
           </div>
         </div>
         <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-          Nhận báo giá sỉ tốt nhất, chọn lô số lượng lớn và cập nhật các mẫu mới nhất dành riêng cho đại lý &amp; khách
-          sỉ.
+          Nhận báo giá sỉ tốt nhất, chọn lô số lượng lớn và cập nhật các mẫu mới nhất dành riêng cho đại lý &amp; khách sỉ.
         </p>
         <a href="https://zalo.me/g/ssflrg5ii3iymweox5be" target="_blank" rel="noopener"
           class="min-h-[46px] px-4 py-2.5 rounded-full bg-[#0068FF] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:bg-[#0052cc] active:scale-98 transition-all w-full">
-          <div
-            class="w-5 h-5 rounded-full bg-white text-[#0068FF] flex items-center justify-center font-extrabold text-[9px]">
-            Z</div>
+          <div class="w-5 h-5 rounded-full bg-white text-[#0068FF] flex items-center justify-center font-extrabold text-[9px]">Z</div>
           <span>THAM GIA NHÓM ZALO SỈ LẺ</span>
           <span class="material-symbols-outlined text-[16px]">launch</span>
         </a>
@@ -649,13 +641,11 @@
       <!-- Pyramid Bottom: 2x2 Grid (TikTok, Shopee, Facebook Page, Facebook Group) -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
         <!-- TikTok Card -->
-        <div
-          class="p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4 h-full">
+        <div class="p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4 h-full">
           <div class="flex items-center gap-3">
             <div class="w-11 h-11 rounded-2xl bg-black text-white flex items-center justify-center shrink-0 shadow-xs">
               <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.62a6.34 6.34 0 0 0-5.11 6.2 6.34 6.34 0 1 0 11.45-3.86v-3.3a8.28 8.28 0 0 0 3.77 1.03V6.69z" />
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.62a6.34 6.34 0 0 0-5.11 6.2 6.34 6.34 0 1 0 11.45-3.86v-3.3a8.28 8.28 0 0 0 3.77 1.03V6.69z" />
               </svg>
             </div>
             <div>
@@ -669,8 +659,7 @@
           <a href="https://www.tiktok.com/@LQKKIDS" data-cms-href="site.tiktokUrl" target="_blank" rel="noopener"
             class="min-h-[46px] px-4 py-2.5 rounded-full bg-black text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:bg-slate-800 active:scale-98 transition-all w-full">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-              <path
-                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.62a6.34 6.34 0 0 0-5.11 6.2 6.34 6.34 0 1 0 11.45-3.86v-3.3a8.28 8.28 0 0 0 3.77 1.03V6.69z" />
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.62a6.34 6.34 0 0 0-5.11 6.2 6.34 6.34 0 1 0 11.45-3.86v-3.3a8.28 8.28 0 0 0 3.77 1.03V6.69z" />
             </svg>
             <span>XEM TIKTOK</span>
             <span class="material-symbols-outlined text-[16px]">launch</span>
@@ -678,14 +667,11 @@
         </div>
 
         <!-- Shopee Card -->
-        <div
-          class="p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4 h-full">
+        <div class="p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4 h-full">
           <div class="flex items-center gap-3">
-            <div
-              class="w-11 h-11 rounded-2xl bg-[#EE4D2D] text-white flex items-center justify-center shrink-0 shadow-xs">
+            <div class="w-11 h-11 rounded-2xl bg-[#EE4D2D] text-white flex items-center justify-center shrink-0 shadow-xs">
               <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zm-9-1a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1.5a1 1 0 0 0 2 0V9h4v1.5a1 1 0 0 0 2 0V9h2v10z" />
+                <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zm-9-1a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1.5a1 1 0 0 0 2 0V9h4v1.5a1 1 0 0 0 2 0V9h2v10z" />
               </svg>
             </div>
             <div>
@@ -699,8 +685,7 @@
           <a href="https://shopee.vn/LQKKids" data-cms-href="site.shopeeUrl" target="_blank" rel="noopener"
             class="min-h-[46px] px-4 py-2.5 rounded-full bg-[#EE4D2D] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:bg-[#d73f21] active:scale-98 transition-all w-full">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-              <path
-                d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zm-9-1a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1.5a1 1 0 0 0 2 0V9h4v1.5a1 1 0 0 0 2 0V9h2v10z" />
+              <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zm-9-1a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1.5a1 1 0 0 0 2 0V9h4v1.5a1 1 0 0 0 2 0V9h2v10z" />
             </svg>
             <span>MỞ SHOP SHOPEE</span>
             <span class="material-symbols-outlined text-[16px]">launch</span>
@@ -708,14 +693,11 @@
         </div>
 
         <!-- Facebook Page Card -->
-        <div
-          class="p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4 h-full">
+        <div class="p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4 h-full">
           <div class="flex items-center gap-3">
-            <div
-              class="w-11 h-11 rounded-2xl bg-[#1877F2] text-white flex items-center justify-center shrink-0 shadow-xs">
+            <div class="w-11 h-11 rounded-2xl bg-[#1877F2] text-white flex items-center justify-center shrink-0 shadow-xs">
               <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99H7.9v-2.89h2.54V9.8c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.89h-2.33v6.99C18.34 21.12 22 16.99 22 12z" />
+                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99H7.9v-2.89h2.54V9.8c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.89h-2.33v6.99C18.34 21.12 22 16.99 22 12z" />
               </svg>
             </div>
             <div>
@@ -729,8 +711,7 @@
           <a href="https://facebook.com/LQKKids" data-cms-href="site.facebookUrl" target="_blank" rel="noopener"
             class="min-h-[46px] px-4 py-2.5 rounded-full bg-[#1877F2] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:bg-[#1565c0] active:scale-98 transition-all w-full">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-              <path
-                d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99H7.9v-2.89h2.54V9.8c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.89h-2.33v6.99C18.34 21.12 22 16.99 22 12z" />
+              <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99H7.9v-2.89h2.54V9.8c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.89h-2.33v6.99C18.34 21.12 22 16.99 22 12z" />
             </svg>
             <span>THEO DÕI FACEBOOK</span>
             <span class="material-symbols-outlined text-[16px]">launch</span>
@@ -738,14 +719,11 @@
         </div>
 
         <!-- Facebook Group Card -->
-        <div
-          class="p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4 h-full">
+        <div class="p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4 h-full">
           <div class="flex items-center gap-3">
-            <div
-              class="w-11 h-11 rounded-2xl bg-[#0566FF] text-white flex items-center justify-center shrink-0 shadow-xs">
+            <div class="w-11 h-11 rounded-2xl bg-[#0566FF] text-white flex items-center justify-center shrink-0 shadow-xs">
               <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
               </svg>
             </div>
             <div>
@@ -756,12 +734,10 @@
           <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
             Tham gia cộng đồng để cập nhật mẫu mới, chương trình ưu đãi và giao lưu cùng các khách hàng của LQK Kids.
           </p>
-          <a href="https://facebook.com/groups/LQKKidsCommunity" data-cms-href="site.facebookGroupUrl" target="_blank"
-            rel="noopener"
+          <a href="https://facebook.com/groups/LQKKidsCommunity" data-cms-href="site.facebookGroupUrl" target="_blank" rel="noopener"
             class="min-h-[46px] px-4 py-2.5 rounded-full bg-[#0566FF] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:bg-[#0452cb] active:scale-98 transition-all w-full">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-              <path
-                d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
             </svg>
             <span>THAM GIA GROUP</span>
             <span class="material-symbols-outlined text-[16px]">launch</span>
@@ -773,11 +749,14 @@
     <!-- ==================== 7. CHÍNH SÁCH MUA HÀNG ==================== -->
     <section class="w-full">
       <div class="text-center mb-6">
-        <span class="text-xs font-bold uppercase tracking-wider text-primary min-h-[16px]"
-          data-cms="policies.eyebrow"></span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mt-1 min-h-[32px]"
-          data-cms="policies.title"></h2>
-        <p class="text-xs sm:text-sm text-outline mt-1 min-h-[20px]" data-cms="policies.subtitle"></p>
+        <span class="text-xs font-bold uppercase tracking-wider text-primary" data-cms="policies.eyebrow">Cam kết minh
+          bạch</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mt-1" data-cms="policies.title">
+          CHÍNH SÁCH LQK KIDS
+        </h2>
+        <p class="text-xs sm:text-sm text-outline mt-1" data-cms="policies.subtitle">
+          Thông tin mua hàng rõ ràng, thuận tiện cho bố mẹ
+        </p>
       </div>
 
       <div class="flex flex-col gap-2.5 max-w-3xl mx-auto">
@@ -839,17 +818,23 @@
     <section id="lien-he"
       class="w-full p-6 sm:p-8 rounded-3xl bg-surface-container-low border border-surface-container-high/50">
       <div class="text-center mb-8">
-        <span class="text-xs font-bold uppercase tracking-wider text-primary min-h-[16px]"
-          data-cms="contact.eyebrow"></span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mt-1 min-h-[32px]"
-          data-cms="contact.title"></h2>
-        <p class="text-xs sm:text-sm font-semibold text-secondary mt-1 min-h-[20px]" data-cms="contact.subtitle"></p>
+        <span class="text-xs font-bold uppercase tracking-wider text-primary" data-cms="contact.eyebrow">CẦN TƯ VẤN CHỌN
+          ĐỒ CHO BÉ?</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mt-1" data-cms="contact.title">
+          CẦN TƯ VẤN CHỌN ĐỒ CHO BÉ?
+        </h2>
+        <p class="text-xs sm:text-sm font-semibold text-secondary mt-1" data-cms="contact.subtitle">
+          Hãy để LQK Kids hỗ trợ bạn
+        </p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         <div class="p-6 rounded-3xl bg-surface-container-lowest shadow-md border border-surface-container-high/40">
-          <h3 class="text-base font-bold text-on-surface mb-2 min-h-[24px]" data-cms="contact.formTitle"></h3>
-          <p class="text-xs text-on-surface-variant mb-4 leading-relaxed min-h-[36px]" data-cms="contact.description">
+          <h3 class="text-base font-bold text-on-surface mb-2" data-cms="contact.formTitle">ĐĂNG KÝ TƯ VẤN SIZE CHO BÉ
+          </h3>
+          <p class="text-xs text-on-surface-variant mb-4 leading-relaxed" data-cms="contact.description">
+            Bạn chỉ cần gửi: 👦 Bé trai hay bé gái, 🎂 Tuổi của bé, 📏 Chiều cao, ⚖️ Cân nặng. LQK Kids sẽ hỗ trợ tư vấn
+            mẫu và size phù hợp.
           </p>
 
           <form id="consultation-form" class="flex flex-col gap-3">
@@ -892,12 +877,12 @@
               <a href="https://zalo.me/0934498685" data-cms-href="site.zaloUrl" target="_blank" rel="noopener"
                 class="min-h-[44px] px-3 py-2 rounded-full bg-primary text-on-primary font-bold text-xs flex items-center justify-center gap-1 shadow-xs hover:brightness-110 active:scale-98 transition-all">
                 <span class="material-symbols-outlined text-[16px]">chat_bubble</span>
-                <span data-cms="contact.zaloCta"></span>
+                <span data-cms="contact.zaloCta">NHẮN ZALO NGAY</span>
               </a>
               <a href="tel:0934498685" data-cms-href="site.phonePrimaryRaw"
                 class="min-h-[44px] px-3 py-2 rounded-full bg-secondary-container text-on-secondary-fixed font-bold text-xs flex items-center justify-center gap-1 shadow-xs hover:brightness-105 active:scale-98 transition-all">
                 <span class="material-symbols-outlined text-[16px]">call</span>
-                <span data-cms="contact.callCta"></span>
+                <span data-cms="contact.callCta">GỌI NGAY</span>
               </a>
             </div>
           </form>
@@ -912,12 +897,15 @@
               <span class="material-symbols-outlined text-primary text-[22px]">storefront</span>
             </div>
             <div>
-              <h3 class="text-base font-bold text-on-surface min-h-[22px]" data-cms="contact.directShopTitle"></h3>
-              <p class="text-xs text-outline min-h-[16px]" data-cms="contact.directShopSub"></p>
+              <h3 class="text-base font-bold text-on-surface" data-cms="contact.directShopTitle">MUA HÀNG TRỰC TIẾP</h3>
+              <p class="text-xs text-outline" data-cms="contact.directShopSub">LQK KIDS – PHỐ HOA LÂM</p>
             </div>
           </div>
 
-          <p class="text-xs text-on-surface-variant leading-relaxed min-h-[36px]" data-cms="contact.directShopDesc"></p>
+          <p class="text-xs text-on-surface-variant leading-relaxed" data-cms="contact.directShopDesc">
+            Phố Hoa Lâm, Phường Việt Hưng, Hà Nội. Nếu bạn ở khu vực Hà Nội và muốn liên hệ trực tiếp với LQK Kids, vui
+            lòng gọi điện hoặc nhắn Zalo trước khi đến để được hỗ trợ.
+          </p>
 
           <!-- Interactive Live Google Maps Display -->
           <div
@@ -933,7 +921,7 @@
                 target="_blank" rel="noopener"
                 class="px-4 py-2 rounded-full bg-surface/95 backdrop-blur-md text-on-surface text-xs font-bold flex items-center gap-1.5 shadow-lg hover:scale-105 active:scale-95 transition-all border border-surface-container-high">
                 <span class="material-symbols-outlined text-error text-[18px]">near_me</span>
-                <span data-cms="contact.mapsCta"></span>
+                <span data-cms="contact.mapsCta">XEM VỊ TRÍ CHỈ ĐƯỜNG</span>
               </a>
             </div>
           </div>
@@ -944,11 +932,14 @@
     <!-- ==================== CÂU HỎI THƯỜNG GẶP ==================== -->
     <section class="w-full">
       <div class="text-center mb-6">
-        <span class="text-xs font-bold uppercase tracking-wider text-primary min-h-[16px]"
-          data-cms="faq.eyebrow"></span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mt-1 min-h-[32px]"
-          data-cms="faq.title"></h2>
-        <p class="text-xs sm:text-sm text-outline mt-1 min-h-[20px]" data-cms="faq.subtitle"></p>
+        <span class="text-xs font-bold uppercase tracking-wider text-primary" data-cms="faq.eyebrow">Giải đáp thắc
+          mắc</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mt-1" data-cms="faq.title">
+          CÂU HỎI THƯỜNG GẶP
+        </h2>
+        <p class="text-xs sm:text-sm text-outline mt-1" data-cms="faq.subtitle">
+          Những câu hỏi phổ biến bố mẹ quan tâm
+        </p>
       </div>
 
       <div class="flex flex-col gap-2.5 max-w-3xl mx-auto">
@@ -956,61 +947,83 @@
           class="group rounded-2xl bg-surface-container-low shadow-xs border border-surface-container-high/40 transition-all overflow-hidden"
           open>
           <summary class="flex items-center justify-between p-4 cursor-pointer list-none select-none">
-            <span class="text-sm font-bold text-on-surface pr-2 min-h-[20px]" data-cms="faq.items.0.question"></span>
+            <span class="text-sm font-bold text-on-surface pr-2" data-cms="faq.items.0.question">
+              LQK Kids bán quần áo cho bé trai hay bé gái?
+            </span>
             <span
               class="material-symbols-outlined text-outline transition-transform duration-200 group-open:rotate-180 shrink-0">expand_more</span>
           </summary>
           <div
-            class="px-4 pb-4 pt-1 text-xs sm:text-sm text-on-surface-variant border-t border-surface-container-high/30 leading-relaxed min-h-[24px]"
-            data-cms="faq.items.0.answer"></div>
+            class="px-4 pb-4 pt-1 text-xs sm:text-sm text-on-surface-variant border-t border-surface-container-high/30 leading-relaxed"
+            data-cms="faq.items.0.answer">
+            LQK Kids cung cấp thời trang cho cả bé trai và bé gái.
+          </div>
         </details>
 
         <details
           class="group rounded-2xl bg-surface-container-low shadow-xs border border-surface-container-high/40 transition-all overflow-hidden">
           <summary class="flex items-center justify-between p-4 cursor-pointer list-none select-none">
-            <span class="text-sm font-bold text-on-surface pr-2 min-h-[20px]" data-cms="faq.items.1.question"></span>
+            <span class="text-sm font-bold text-on-surface pr-2" data-cms="faq.items.1.question">
+              Làm thế nào để chọn đúng size?
+            </span>
             <span
               class="material-symbols-outlined text-outline transition-transform duration-200 group-open:rotate-180 shrink-0">expand_more</span>
           </summary>
           <div
-            class="px-4 pb-4 pt-1 text-xs sm:text-sm text-on-surface-variant border-t border-surface-container-high/30 leading-relaxed min-h-[24px]"
-            data-cms="faq.items.1.answer"></div>
+            class="px-4 pb-4 pt-1 text-xs sm:text-sm text-on-surface-variant border-t border-surface-container-high/30 leading-relaxed"
+            data-cms="faq.items.1.answer">
+            Bạn có thể gửi chiều cao và cân nặng của bé cho LQK Kids để được hỗ trợ tư vấn.
+          </div>
         </details>
 
         <details
           class="group rounded-2xl bg-surface-container-low shadow-xs border border-surface-container-high/40 transition-all overflow-hidden">
           <summary class="flex items-center justify-between p-4 cursor-pointer list-none select-none">
-            <span class="text-sm font-bold text-on-surface pr-2 min-h-[20px]" data-cms="faq.items.2.question"></span>
+            <span class="text-sm font-bold text-on-surface pr-2" data-cms="faq.items.2.question">
+              LQK Kids có giao hàng toàn quốc không?
+            </span>
             <span
               class="material-symbols-outlined text-outline transition-transform duration-200 group-open:rotate-180 shrink-0">expand_more</span>
           </summary>
           <div
-            class="px-4 pb-4 pt-1 text-xs sm:text-sm text-on-surface-variant border-t border-surface-container-high/30 leading-relaxed min-h-[24px]"
-            data-cms="faq.items.2.answer"></div>
+            class="px-4 pb-4 pt-1 text-xs sm:text-sm text-on-surface-variant border-t border-surface-container-high/30 leading-relaxed"
+            data-cms="faq.items.2.answer">
+            Có. LQK Kids hỗ trợ giao hàng đến khách hàng trên toàn quốc.
+          </div>
         </details>
 
         <details
           class="group rounded-2xl bg-surface-container-low shadow-xs border border-surface-container-high/40 transition-all overflow-hidden">
           <summary class="flex items-center justify-between p-4 cursor-pointer list-none select-none">
-            <span class="text-sm font-bold text-on-surface pr-2 min-h-[20px]" data-cms="faq.items.3.question"></span>
+            <span class="text-sm font-bold text-on-surface pr-2" data-cms="faq.items.3.question">
+              Tôi có thể xem mẫu ở đâu?
+            </span>
             <span
               class="material-symbols-outlined text-outline transition-transform duration-200 group-open:rotate-180 shrink-0">expand_more</span>
           </summary>
           <div
-            class="px-4 pb-4 pt-1 text-xs sm:text-sm text-on-surface-variant border-t border-surface-container-high/30 leading-relaxed min-h-[24px]"
-            data-cms="faq.items.3.answer"></div>
+            class="px-4 pb-4 pt-1 text-xs sm:text-sm text-on-surface-variant border-t border-surface-container-high/30 leading-relaxed"
+            data-cms="faq.items.3.answer">
+            Bạn có thể xem các mẫu mới nhất trên TikTok @LQKKIDS, gian hàng LQKKids trên Shopee và Facebook LQK Kids.
+          </div>
         </details>
 
         <details
           class="group rounded-2xl bg-surface-container-low shadow-xs border border-surface-container-high/40 transition-all overflow-hidden">
           <summary class="flex items-center justify-between p-4 cursor-pointer list-none select-none">
-            <span class="text-sm font-bold text-on-surface pr-2 min-h-[20px]" data-cms="faq.items.4.question"></span>
+            <span class="text-sm font-bold text-on-surface pr-2" data-cms="faq.items.4.question">
+              Tôi muốn mua trực tiếp thì liên hệ ở đâu?
+            </span>
             <span
               class="material-symbols-outlined text-outline transition-transform duration-200 group-open:rotate-180 shrink-0">expand_more</span>
           </summary>
           <div
-            class="px-4 pb-4 pt-1 text-xs sm:text-sm text-on-surface-variant border-t border-surface-container-high/30 leading-relaxed min-h-[24px]"
-            data-cms="faq.items.4.answer"></div>
+            class="px-4 pb-4 pt-1 text-xs sm:text-sm text-on-surface-variant border-t border-surface-container-high/30 leading-relaxed"
+            data-cms="faq.items.4.answer">
+            Bạn có thể gọi hoặc nhắn Zalo: <a href="tel:0934498685" class="font-bold text-primary hover:underline">0934
+              498 685</a> - <a href="tel:0925333999" class="font-bold text-primary hover:underline">0925 333 999</a>.
+            Hoặc liên hệ tại: Phố Hoa Lâm, Phường Việt Hưng, Hà Nội.
+          </div>
         </details>
       </div>
     </section>
@@ -1024,27 +1037,31 @@
           <img src="./assets/images/logo.png" data-cms-img="site.logo" alt="LQK Kids Logo" width="64" height="64"
             class="w-full h-full object-contain" />
         </div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight min-h-[32px]"
-          data-cms="finalCta.title"></h2>
-        <p class="text-xs sm:text-sm text-on-surface-variant mt-2 mb-2 leading-relaxed max-w-md min-h-[36px]"
-          data-cms="finalCta.description"></p>
-        <p class="text-xs font-bold text-primary mb-6 min-h-[16px]" data-cms="finalCta.subTitle"></p>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight" data-cms="finalCta.title">
+          ĐẸP CHO BÉ – AN TÂM CHO MẸ
+        </h2>
+        <p class="text-xs sm:text-sm text-on-surface-variant mt-2 mb-2 leading-relaxed max-w-md"
+          data-cms="finalCta.description">
+          Cảm ơn bố mẹ đã tin tưởng và đồng hành cùng LQK Kids. Mỗi bộ quần áo đẹp không chỉ giúp bé đáng yêu hơn, mà
+          còn góp phần tạo nên những khoảnh khắc tuổi thơ thật vui và đáng nhớ.
+        </p>
+        <p class="text-xs font-bold text-primary mb-6" data-cms="finalCta.subTitle">LQK Kids – Thời trang trẻ em</p>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3 w-full max-w-xl">
           <a href="#catalog-section"
             class="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-full bg-secondary-container text-on-secondary-fixed font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:brightness-105 active:scale-98 transition-all whitespace-nowrap">
             <span class="material-symbols-outlined text-[18px]">shopping_cart</span>
-            <span data-cms="finalCta.shopCta"></span>
+            <span data-cms="finalCta.shopCta">MUA HÀNG NGAY</span>
           </a>
           <a href="https://zalo.me/0934498685" data-cms-href="site.zaloUrl" target="_blank" rel="noopener"
             class="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-full bg-primary text-on-primary font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:brightness-110 active:scale-98 transition-all whitespace-nowrap">
             <span class="material-symbols-outlined text-[18px]">chat_bubble</span>
-            <span data-cms="finalCta.zaloCta"></span>
+            <span data-cms="finalCta.zaloCta">NHẮN ZALO TƯ VẤN</span>
           </a>
           <a href="https://www.tiktok.com/@LQKKIDS" data-cms-href="site.tiktokUrl" target="_blank" rel="noopener"
             class="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-full bg-surface-container-highest text-on-surface font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:brightness-105 active:scale-98 transition-all whitespace-nowrap">
             <span class="material-symbols-outlined text-[18px] text-secondary">music_note</span>
-            <span data-cms="finalCta.tiktokCta"></span>
+            <span data-cms="finalCta.tiktokCta">THEO DÕI TIKTOK</span>
           </a>
         </div>
       </div>
@@ -1053,55 +1070,41 @@
   </main>
 
   <!-- ==================== 9. FOOTER ==================== -->
-  <footer
-    class="w-full bg-surface-container border-t border-surface-container-high/60 pt-10 pb-24 md:pb-12 text-on-surface">
+  <footer class="w-full bg-surface-container border-t border-surface-container-high/60 pt-10 pb-24 md:pb-12 text-on-surface">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
 
       <!-- Column 1: Brand Info -->
-      <div
-        class="flex flex-col gap-2.5 p-5 sm:p-6 rounded-2xl bg-surface-container-low border border-surface-container-high/40 shadow-xs">
+      <div class="flex flex-col gap-2.5 p-5 sm:p-6 rounded-2xl bg-surface-container-low border border-surface-container-high/40 shadow-xs">
         <div class="flex items-center gap-2.5 min-h-[32px]">
-          <div
-            class="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden bg-surface flex items-center justify-center p-0.5 border border-surface-container-high shadow-xs shrink-0">
-            <img src="./assets/images/logo.png" data-cms-img="site.logo" alt="LQK Kids Logo" width="40" height="40"
-              class="w-full h-full object-contain" />
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden bg-surface flex items-center justify-center p-0.5 border border-surface-container-high shadow-xs shrink-0">
+            <img src="./assets/images/logo.png" data-cms-img="site.logo" alt="LQK Kids Logo" width="40" height="40" class="w-full h-full object-contain" />
           </div>
-          <span class="text-xl sm:text-2xl font-extrabold tracking-tight min-h-[28px]"
-            data-cms="footer.brandName"></span>
+          <span class="text-xl sm:text-2xl font-extrabold tracking-tight" data-cms="footer.brandName">LQK KIDS</span>
         </div>
-        <p class="text-xs sm:text-sm font-extrabold text-primary tracking-wide uppercase mt-1 min-h-[18px]"
-          data-cms="footer.brandTitle"></p>
-        <p class="text-xs sm:text-sm font-bold text-secondary leading-relaxed min-h-[18px]"
-          data-cms="footer.categoriesList"></p>
-        <p class="text-xs sm:text-sm text-on-surface-variant font-medium min-h-[18px]" data-cms="footer.brandSub"></p>
+        <p class="text-xs sm:text-sm font-extrabold text-primary tracking-wide uppercase mt-1" data-cms="footer.brandTitle">THÔNG TIN CHÍNH THỨC</p>
+        <p class="text-xs sm:text-sm font-bold text-secondary leading-relaxed" data-cms="footer.categoriesList">Bé trai • Bé gái • Set bộ • Phụ kiện</p>
+        <p class="text-xs sm:text-sm text-on-surface-variant font-medium" data-cms="footer.brandSub">Đẹp cho bé – An tâm cho mẹ</p>
       </div>
 
       <!-- Column 2: Links & Social Channels -->
-      <div
-        class="flex flex-col gap-2.5 p-5 sm:p-6 rounded-2xl bg-surface-container-low border border-surface-container-high/40 shadow-xs">
+      <div class="flex flex-col gap-2.5 p-5 sm:p-6 rounded-2xl bg-surface-container-low border border-surface-container-high/40 shadow-xs">
         <div class="min-h-[32px] flex items-center">
-          <h4
-            class="text-[11px] sm:text-xs md:text-sm font-extrabold uppercase tracking-tight text-on-surface whitespace-nowrap">
-            Các Kênh Mua Hàng &amp; Mạng Xã Hội</h4>
+          <h4 class="text-[11px] sm:text-xs md:text-sm font-extrabold uppercase tracking-tight text-on-surface whitespace-nowrap">Các Kênh Mua Hàng &amp; Mạng Xã Hội</h4>
         </div>
         <div class="flex flex-col gap-2.5 text-xs sm:text-sm font-semibold text-on-surface-variant mt-1">
-          <a href="https://www.tiktok.com/@LQKKIDS" data-cms-href="site.tiktokUrl" target="_blank" rel="noopener"
-            class="flex items-center gap-2 hover:text-primary transition-colors">
+          <a href="https://www.tiktok.com/@LQKKIDS" data-cms-href="site.tiktokUrl" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-primary transition-colors">
             <span class="material-symbols-outlined text-[18px] text-secondary">music_note</span>
             <span>TikTok: @LQKKIDS</span>
           </a>
-          <a href="https://shopee.vn/LQKKids" data-cms-href="site.shopeeUrl" target="_blank" rel="noopener"
-            class="flex items-center gap-2 hover:text-primary transition-colors">
+          <a href="https://shopee.vn/LQKKids" data-cms-href="site.shopeeUrl" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-primary transition-colors">
             <span class="material-symbols-outlined text-[18px] text-secondary-container">shopping_bag</span>
             <span>Shopee: LQKKids</span>
           </a>
-          <a href="https://facebook.com/LQKKids" data-cms-href="site.facebookUrl" target="_blank" rel="noopener"
-            class="flex items-center gap-2 hover:text-primary transition-colors">
+          <a href="https://facebook.com/LQKKids" data-cms-href="site.facebookUrl" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-primary transition-colors">
             <span class="material-symbols-outlined text-[18px] text-primary">thumb_up</span>
             <span>Facebook: LQK Kids</span>
           </a>
-          <a href="https://facebook.com/groups/LQKKidsCommunity" data-cms-href="site.facebookGroupUrl" target="_blank"
-            rel="noopener" class="flex items-center gap-2 hover:text-primary transition-colors">
+          <a href="https://facebook.com/groups/LQKKidsCommunity" data-cms-href="site.facebookGroupUrl" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-primary transition-colors">
             <span class="material-symbols-outlined text-[18px] text-tertiary">groups</span>
             <span>Facebook Group: LQK Kids</span>
           </a>
@@ -1109,18 +1112,14 @@
       </div>
 
       <!-- Column 3: Contact Info -->
-      <div
-        class="flex flex-col gap-2.5 p-5 sm:p-6 rounded-2xl bg-surface-container-low border border-surface-container-high/40 shadow-xs">
+      <div class="flex flex-col gap-2.5 p-5 sm:p-6 rounded-2xl bg-surface-container-low border border-surface-container-high/40 shadow-xs">
         <div class="min-h-[32px] flex items-center">
-          <h4
-            class="text-[11px] sm:text-xs md:text-sm font-extrabold uppercase tracking-tight text-on-surface whitespace-nowrap">
-            Liên hệ &amp; Địa chỉ</h4>
+          <h4 class="text-[11px] sm:text-xs md:text-sm font-extrabold uppercase tracking-tight text-on-surface whitespace-nowrap">Liên hệ &amp; Địa chỉ</h4>
         </div>
         <div class="flex items-start gap-2 text-xs sm:text-sm text-on-surface-variant leading-relaxed mt-1">
           <span class="material-symbols-outlined text-[18px] text-error shrink-0 mt-0.5">phone_enabled</span>
           <div class="flex flex-col">
-            <span class="font-bold text-on-surface text-[11px] uppercase tracking-wider text-outline">Hotline /
-              Zalo:</span>
+            <span class="font-bold text-on-surface text-[11px] uppercase tracking-wider text-outline">Hotline / Zalo:</span>
             <div class="flex items-center gap-1.5 flex-wrap mt-0.5">
               <a href="tel:0934498685" class="font-extrabold text-primary hover:underline">0934 498 685</a>
               <span>-</span>
@@ -1128,56 +1127,47 @@
             </div>
           </div>
         </div>
-        <div
-          class="flex items-start gap-2 text-xs sm:text-sm text-on-surface-variant leading-relaxed pt-2 border-t border-surface-container-high/30">
+        <div class="flex items-start gap-2 text-xs sm:text-sm text-on-surface-variant leading-relaxed pt-2 border-t border-surface-container-high/30">
           <span class="material-symbols-outlined text-[18px] text-error shrink-0 mt-0.5">location_on</span>
-          <a href="https://maps.google.com/?q=Hoa+Lam,+Viet+Hung,+Long+Bien,+Ha+Noi" target="_blank" rel="noopener"
-            class="hover:text-primary transition-colors min-h-[20px]" data-cms="site.address"></a>
+          <a href="https://maps.google.com/?q=Hoa+Lam,+Viet+Hung,+Long+Bien,+Ha+Noi" target="_blank" rel="noopener" class="hover:text-primary transition-colors" data-cms="site.address">
+            Phố Hoa Lâm, Phường Việt Hưng, Hà Nội
+          </a>
         </div>
       </div>
 
     </div>
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-8 mt-8 border-t border-surface-container-high/40 text-center">
-      <p class="text-xs sm:text-sm text-outline font-semibold min-h-[16px]" data-cms="footer.copyright"></p>
+      <p class="text-xs sm:text-sm text-outline font-semibold" data-cms="footer.copyright">© 2026 LQK Kids. All rights reserved.</p>
     </div>
   </footer>
 
   <!-- ==================== MOBILE FIXED BOTTOM STICKY ACTION BAR ==================== -->
-  <nav
-    class="mobile-nav-fixed-pinned pb-safe bg-white border-t border-slate-200/80 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] md:hidden">
+  <nav class="mobile-nav-fixed-pinned pb-safe bg-white border-t border-slate-200/80 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] md:hidden">
     <div class="flex items-center justify-around h-14 px-1 text-[10px] font-bold text-slate-700">
-      <a href="#gioi-thieu"
-        class="flex-1 flex flex-col items-center justify-center py-1 hover:text-primary transition-colors">
+      <a href="#gioi-thieu" class="flex-1 flex flex-col items-center justify-center py-1 hover:text-primary transition-colors">
         <span class="material-symbols-outlined text-[20px] text-slate-700">home</span>
         <span class="mt-0.5 truncate">Trang chủ</span>
       </a>
-      <a href="tel:0934498685" data-cms-href="site.phonePrimaryRaw"
-        class="flex-1 flex flex-col items-center justify-center py-1 hover:text-primary transition-colors">
+      <a href="tel:0934498685" data-cms-href="site.phonePrimaryRaw" class="flex-1 flex flex-col items-center justify-center py-1 hover:text-primary transition-colors">
         <span class="material-symbols-outlined text-[20px] text-amber-600">call</span>
         <span class="mt-0.5 truncate">Hotline</span>
       </a>
-      <a href="https://zalo.me/0934498685" data-cms-href="site.zaloUrl" target="_blank" rel="noopener"
-        class="flex-1 flex flex-col items-center justify-center py-1 hover:text-primary transition-colors">
-        <div
-          class="w-5 h-5 rounded-full bg-[#0068FF] text-white flex items-center justify-center font-extrabold text-[9px] shadow-xs">
+      <a href="https://zalo.me/0934498685" data-cms-href="site.zaloUrl" target="_blank" rel="noopener" class="flex-1 flex flex-col items-center justify-center py-1 hover:text-primary transition-colors">
+        <div class="w-5 h-5 rounded-full bg-[#0068FF] text-white flex items-center justify-center font-extrabold text-[9px] shadow-xs">
           Zalo
         </div>
         <span class="mt-0.5 truncate">Zalo</span>
       </a>
-      <a href="https://www.tiktok.com/@LQKKIDS" data-cms-href="site.tiktokUrl" target="_blank" rel="noopener"
-        class="flex-1 flex flex-col items-center justify-center py-1 hover:text-primary transition-colors">
+      <a href="https://www.tiktok.com/@LQKKIDS" data-cms-href="site.tiktokUrl" target="_blank" rel="noopener" class="flex-1 flex flex-col items-center justify-center py-1 hover:text-primary transition-colors">
         <svg class="w-4 h-4 fill-current text-slate-900" viewBox="0 0 24 24">
-          <path
-            d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.62a6.34 6.34 0 0 0-5.11 6.2 6.34 6.34 0 1 0 11.45-3.86v-3.3a8.28 8.28 0 0 0 3.77 1.03V6.69z" />
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.62a6.34 6.34 0 0 0-5.11 6.2 6.34 6.34 0 1 0 11.45-3.86v-3.3a8.28 8.28 0 0 0 3.77 1.03V6.69z"/>
         </svg>
         <span class="mt-0.5 truncate">TikTok</span>
       </a>
-      <a href="https://shopee.vn/LQKKids" data-cms-href="site.shopeeUrl" target="_blank" rel="noopener"
-        class="flex-1 flex flex-col items-center justify-center py-1 hover:text-primary transition-colors">
+      <a href="https://shopee.vn/LQKKids" data-cms-href="site.shopeeUrl" target="_blank" rel="noopener" class="flex-1 flex flex-col items-center justify-center py-1 hover:text-primary transition-colors">
         <svg class="w-4 h-4 fill-current text-[#EE4D2D]" viewBox="0 0 24 24">
-          <path
-            d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zm-9-1a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1.5a1 1 0 0 0 2 0V9h4v1.5a1 1 0 0 0 2 0V9h2v10z" />
+          <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zm-9-1a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1.5a1 1 0 0 0 2 0V9h4v1.5a1 1 0 0 0 2 0V9h2v10z"/>
         </svg>
         <span class="mt-0.5 truncate">Shopee</span>
       </a>
@@ -1285,6 +1275,7 @@
   </div>
 
   <!-- Main JavaScript Entry Point -->
+  <script type="module" src="./src/js/main.js"></script>
 </body>
 
 </html>

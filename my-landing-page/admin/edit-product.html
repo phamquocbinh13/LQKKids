@@ -56,10 +56,10 @@
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1.5">Danh Mục (*)</label>
             <select id="p-category" required class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs sm:text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500">
-              <option value="set">Set Đồ</option>
-              <option value="be-trai">Bé Trai</option>
-              <option value="be-gai">Bé Gái</option>
-              <option value="phu-kien">Phụ Kiện</option>
+              <option value="ban-chay">🔥 Bán Chạy</option>
+              <option value="hang-moi">✨ Hàng Mới Về</option>
+              <option value="be-trai">👦 Đồ Bé Trai</option>
+              <option value="be-gai">👧 Đồ Bé Gái</option>
             </select>
           </div>
 
@@ -301,7 +301,10 @@
     function populateForm(p) {
       document.getElementById('p-name').value = p.name || '';
       document.getElementById('p-code').value = p.code || '';
-      document.getElementById('p-category').value = p.category || 'set';
+      let catVal = p.category || 'ban-chay';
+      if (catVal === 'set') catVal = 'ban-chay';
+      if (catVal === 'phu-kien') catVal = 'hang-moi';
+      document.getElementById('p-category').value = catVal;
       document.getElementById('p-badge').value = p.badge || '';
       document.getElementById('p-badge-color').value = p.badgeColor || 'secondary';
       document.getElementById('p-price').value = p.price || '';
@@ -429,10 +432,12 @@
       e.preventDefault();
 
       const catMap = {
-        'set': 'Set Đồ',
-        'be-trai': 'Bé Trai',
-        'be-gai': 'Bé Gái',
-        'phu-kien': 'Phụ Kiện'
+        'ban-chay': 'Bán Chạy',
+        'hang-moi': 'Hàng Mới Về',
+        'be-trai': 'Đồ Bé Trai',
+        'be-gai': 'Đồ Bé Gái',
+        'set': 'Bán Chạy',
+        'phu-kien': 'Hàng Mới Về'
       };
 
       const name = document.getElementById('p-name').value.trim();

@@ -84,11 +84,15 @@ function hydrateElements(data) {
       if (keyPath === 'hero.image') {
         const container = document.getElementById('hero-banner-container');
         if (container) container.classList.remove('hidden');
+        const skeleton = document.getElementById('hero-banner-skeleton');
+        if (skeleton) skeleton.remove();
       }
     } else {
       if (keyPath === 'hero.image') {
         const container = document.getElementById('hero-banner-container');
         if (container) container.classList.add('hidden');
+        const skeleton = document.getElementById('hero-banner-skeleton');
+        if (skeleton) skeleton.remove();
       }
     }
   });
