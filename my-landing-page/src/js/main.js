@@ -1,6 +1,6 @@
 /**
  * Main Application Bootstrapper
- * Loads catalog data (with Admin panel overrides), initializes Product List, Detail popup, and Zalo Cart.
+ * Loads catalog data (with Admin panel & Supabase Cloud sync), initializes Product List, Detail popup, and Zalo Cart.
  */
 
 import { initContentRenderer } from './modules/content-renderer.js';
@@ -12,8 +12,15 @@ import { initProductList } from './renderers/product-list.js';
 import { initProductDetailModal } from './renderers/product-detail.js';
 import { initCartDrawer } from './renderers/zalo-cart.js';
 
+import defaultProductsData from '../data/products.json';
+
+const SUPABASE_CONFIG = {
+  url: 'https://ycniwxepxlhgtvsmzsfk.supabase.co',
+  anonKey: 'sb_publishable_J4W7j-jiaOCehXj4Btb23w_jnDGlLoU'
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
-  // 1. Initialize Landing Page CMS Text Renderer
+  // 1. Initialize Landing Page CMS Text Renderer (Supabase + LocalStorage)
   await initContentRenderer();
 
   // 2. Initialize Navigation & Smooth Scroll
@@ -25,22 +32,44 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 4. Initialize Interactive TikTok Shorts Player
   initTikTokPlayer();
 
-  // 4. Fetch Products JSON & Render Catalog (Check Admin Overrides)
+  // 5. Fetch Products Catalog (Supabase Cloud DB -> LocalStorage Cache -> Bundled JSON Fallback)
   try {
     let products = null;
-    const adminProducts = localStorage.getItem('lqk_kids_admin_products_v1');
-    if (adminProducts) {
-      try {
-        products = JSON.parse(adminProducts);
-      } catch (e) {
-        console.error('Failed to parse admin products', e);
+
+    // A. Try Supabase Cloud Database (Real-time products saved from Admin)
+    try {
+      const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?select=*`, {
+        headers: {
+          'apikey': SUPABASE_CONFIG.anonKey,
+          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+        }
+      });
+      if (res.ok) {
+        const rows = await res.json();
+        if (rows && rows.length > 0) {
+          products = rows;
+          localStorage.setItem('lqk_kids_admin_products_v1', JSON.stringify(products));
+        }
+      }
+    } catch (err) {
+      console.warn('Supabase products fetch warning:', err);
+    }
+
+    // B. Try LocalStorage Cache
+    if (!products) {
+      const adminProducts = localStorage.getItem('lqk_kids_admin_products_v1');
+      if (adminProducts) {
+        try {
+          products = JSON.parse(adminProducts);
+        } catch (e) {
+          console.error('Failed to parse admin products cache', e);
+        }
       }
     }
 
-    if (!products) {
-      const res = await fetch('./src/data/products.json');
-      if (!res.ok) throw new Error('Failed to load products.json');
-      products = await res.json();
+    // C. Bundled Default Fallback (Guaranteed to work 100% on Vercel & Mobile)
+    if (!products || products.length === 0) {
+      products = defaultProductsData;
     }
 
     // Render Catalog Grid
@@ -56,3 +85,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('App initialization error:', error);
   }
 });
+
