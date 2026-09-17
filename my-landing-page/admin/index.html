@@ -186,11 +186,11 @@
       `).join('');
 
       grid.querySelectorAll('.delete-product-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
           const id = btn.getAttribute('data-id');
           if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi website?')) {
             products = products.filter(p => p.id !== id);
-            saveAdminProducts(products);
+            await saveAdminProducts(products);
             filterProducts();
           }
         });

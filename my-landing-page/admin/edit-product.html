@@ -425,7 +425,7 @@
       });
     }
 
-    function handleFormSubmit(e) {
+    async function handleFormSubmit(e) {
       e.preventDefault();
 
       const catMap = {
@@ -519,7 +519,7 @@
         products.unshift(newProduct);
       }
 
-      saveAdminProducts(products);
+      await saveAdminProducts(products);
       alert('Đã lưu sản phẩm thành công!');
       window.location.href = 'index.html';
     }
