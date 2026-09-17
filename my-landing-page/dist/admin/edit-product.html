@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400..700,0..1,0" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script type="module" crossorigin src="/assets/adminEdit-CoDYx-qK.js"></script>
+  <script type="module" crossorigin src="/assets/adminEdit-W7fLZ460.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
   <link rel="modulepreload" crossorigin href="/assets/admin-store-DQNuBvK0.js">
 </head>
@@ -64,10 +64,48 @@
             </select>
           </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1.5">Nhãn Badge Nổi Bật</label>
-            <input type="text" id="p-badge" placeholder="Ví dụ: Bán chạy, Hot, Mới..." class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Tên Nhãn Badge Nổi Bật</label>
+            <input type="text" id="p-badge" placeholder="Ví dụ: Hot, Bán chạy, BST Mới, -20%..." class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
           </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Màu Sắc Nhãn Badge</label>
+            <select id="p-badge-color" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+              <option value="error">🔴 Đỏ Nổi Bật (Hot, Giảm giá %, Xả kho)</option>
+              <option value="secondary">🟠 Cam Ấm (Bán chạy, Set phối sẵn)</option>
+              <option value="tertiary">🟣 Tím / Xanh Ngọc (Xu hướng, BST Mới)</option>
+              <option value="success">🟢 Xanh Lá (100% Cotton, An toàn da bé)</option>
+              <option value="primary">🔵 Xanh Dương (Hàng Cao Cấp, Chính hãng)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Quick Preset Badge Buttons Row -->
+        <div class="flex flex-wrap items-center gap-2 pt-1">
+          <span class="text-xs font-bold text-slate-400 mr-1">Chọn nhanh mẫu:</span>
+          <button type="button" data-preset-badge="Hot" data-preset-color="error" class="badge-preset-btn px-2.5 py-1 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-400 font-bold text-[11px] transition-all border border-red-500/40 active:scale-95">
+            Hot
+          </button>
+          <button type="button" data-preset-badge="Bán chạy" data-preset-color="secondary" class="badge-preset-btn px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold text-[11px] transition-all border border-amber-500/40 active:scale-95">
+            Bán chạy
+          </button>
+          <button type="button" id="auto-calc-badge-btn" class="px-2.5 py-1 rounded-lg bg-red-600/30 hover:bg-red-600/50 text-red-300 font-bold text-[11px] transition-all border border-red-500/60 flex items-center gap-1 active:scale-95 shadow-xs">
+            <span class="material-symbols-outlined text-[14px]">local_offer</span>
+            <span>⚡ Tự động tính % giảm</span>
+          </button>
+          <button type="button" data-preset-badge="BST Mới" data-preset-color="tertiary" class="badge-preset-btn px-2.5 py-1 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 font-bold text-[11px] transition-all border border-purple-500/40 active:scale-95">
+            BST Mới
+          </button>
+          <button type="button" data-preset-badge="100% Cotton" data-preset-color="success" class="badge-preset-btn px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 font-bold text-[11px] transition-all border border-emerald-500/40 active:scale-95">
+            100% Cotton
+          </button>
+          <button type="button" data-preset-badge="Xu hướng" data-preset-color="tertiary" class="badge-preset-btn px-2.5 py-1 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 font-bold text-[11px] transition-all border border-indigo-500/40 active:scale-95">
+            Xu hướng
+          </button>
+        </div>
+        <p id="discount-calc-preview" class="text-[11px] text-emerald-400 hidden font-semibold"></p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">

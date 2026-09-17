@@ -121,6 +121,15 @@ function renderGrid(products) {
     // First 4 cards load eager, remainder load lazy for fast LCP
     const isEager = idx < 4;
 
+    const badgeColorMap = {
+      'error': 'bg-error-container text-on-error-container',
+      'secondary': 'bg-secondary-container text-on-secondary-container',
+      'tertiary': 'bg-tertiary-fixed text-on-tertiary-fixed',
+      'success': 'bg-emerald-100 text-emerald-800 border border-emerald-300/50',
+      'primary': 'bg-primary-container text-on-primary-container'
+    };
+    const badgeStyle = badgeColorMap[product.badgeColor] || 'bg-secondary-container text-on-secondary-container';
+
     return `
       <article class="flex flex-col bg-surface-container-lowest rounded-2xl overflow-hidden shadow-xs border border-surface-container-high/40 group transition-all duration-300 hover:shadow-md">
         <div class="relative w-full aspect-[3/4] bg-surface-container-low overflow-hidden cursor-pointer product-card-trigger" data-id="${product.id}">
@@ -132,7 +141,7 @@ function renderGrid(products) {
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" 
           />
           <div class="absolute top-2.5 left-2.5 flex flex-col gap-1">
-            <span class="px-2.5 py-0.5 rounded-full bg-${product.badgeColor === 'error' ? 'error-container text-on-error-container' : product.badgeColor === 'tertiary' ? 'tertiary-fixed text-on-tertiary-fixed' : 'secondary-container text-on-secondary-container'} text-[11px] font-extrabold shadow-xs">
+            <span class="px-2.5 py-0.5 rounded-full ${badgeStyle} text-[11px] font-extrabold shadow-xs">
               ${product.badge}
             </span>
           </div>
