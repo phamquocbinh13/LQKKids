@@ -81,6 +81,15 @@ function hydrateElements(data) {
     const value = getNestedValue(data, keyPath);
     if (value) {
       img.src = value;
+      if (keyPath === 'hero.image') {
+        const container = document.getElementById('hero-banner-container');
+        if (container) container.classList.remove('hidden');
+      }
+    } else {
+      if (keyPath === 'hero.image') {
+        const container = document.getElementById('hero-banner-container');
+        if (container) container.classList.add('hidden');
+      }
     }
   });
 
