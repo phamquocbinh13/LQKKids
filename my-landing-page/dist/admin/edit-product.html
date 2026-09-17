@@ -18,45 +18,43 @@
 <body class="h-full flex flex-col font-sans antialiased bg-slate-900 text-slate-100 overflow-x-hidden">
 
   <!-- Top Admin Bar -->
-  <header class="h-16 bg-slate-800/90 backdrop-blur-md border-b border-slate-700/60 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-40">
-    <div class="flex items-center gap-3">
-      <a href="index.html" class="w-9 h-9 rounded-xl bg-slate-700 hover:bg-slate-600 text-white flex items-center justify-center transition-colors">
+  <header class="h-16 bg-slate-800/90 backdrop-blur-md border-b border-slate-700/60 px-3.5 sm:px-6 flex items-center justify-between sticky top-0 z-40">
+    <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+      <a href="index.html" aria-label="Quay lại" class="w-9 h-9 rounded-xl bg-slate-700 hover:bg-slate-600 text-white flex items-center justify-center transition-colors shrink-0">
         <span class="material-symbols-outlined text-[20px]">arrow_back</span>
       </a>
-      <div>
-        <h1 id="page-title" class="text-sm font-extrabold text-white tracking-tight leading-none">THÊM / SỬA SẢN PHẨM</h1>
-        <span class="text-[11px] text-slate-400">LQK Kids Admin Workspace</span>
+      <div class="min-w-0">
+        <h1 id="page-title" class="text-xs sm:text-sm font-extrabold text-white tracking-tight leading-none truncate">THÊM / SỬA SẢN PHẨM</h1>
+        <span class="text-[10px] sm:text-[11px] text-slate-400 block truncate">LQK Kids Admin Workspace</span>
       </div>
     </div>
   </header>
 
   <!-- Form Workspace Container -->
-  <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto w-full">
-    <form id="product-form" class="flex flex-col gap-6">
+  <main class="flex-1 p-3 sm:p-6 lg:p-8 max-w-4xl mx-auto w-full">
+    <form id="product-form" class="flex flex-col gap-4 sm:gap-6">
       
       <!-- General Info Section -->
-      <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 flex flex-col gap-4 shadow-md">
-        <h2 class="text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-slate-700/60 pb-3">
+      <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-3.5 sm:p-5 flex flex-col gap-4 shadow-md">
+        <h2 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-slate-700/60 pb-3">
           <span class="material-symbols-outlined text-[18px]">info</span>
           Thông Tin Cơ Bản Sản Phẩm
         </h2>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1.5">Tên Sản Phẩm (*)</label>
-            <input type="text" id="p-name" required placeholder="Ví dụ: Set Bộ Cotton Pastel Mùa Hè" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+            <input type="text" id="p-name" required placeholder="Ví dụ: Set Bộ Cotton Pastel Mùa Hè" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs sm:text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
           </div>
 
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1.5">Mã Sản Phẩm (*)</label>
-            <input type="text" id="p-code" required placeholder="Ví dụ: SP-LQK01" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+            <input type="text" id="p-code" required placeholder="Ví dụ: SP-LQK01" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs sm:text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
           </div>
-        </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1.5">Danh Mục (*)</label>
-            <select id="p-category" required class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+            <select id="p-category" required class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs sm:text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500">
               <option value="set">Set Đồ</option>
               <option value="be-trai">Bé Trai</option>
               <option value="be-gai">Bé Gái</option>
@@ -64,15 +62,16 @@
             </select>
           </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1.5">Tên Nhãn Badge Nổi Bật</label>
-            <input type="text" id="p-badge" placeholder="Ví dụ: Hot, Bán chạy, BST Mới, -20%..." class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+            <input type="text" id="p-badge" placeholder="Ví dụ: Hot, Bán chạy, BST Mới, -20%..." class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs sm:text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
           </div>
+        </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1.5">Màu Sắc Nhãn Badge</label>
-            <select id="p-badge-color" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+            <select id="p-badge-color" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs sm:text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-500">
               <option value="error">🔴 Đỏ Nổi Bật (Hot, Giảm giá %, Xả kho)</option>
               <option value="secondary">🟠 Cam Ấm (Bán chạy, Set phối sẵn)</option>
               <option value="tertiary">🟣 Tím / Xanh Ngọc (Xu hướng, BST Mới)</option>
@@ -83,27 +82,29 @@
         </div>
 
         <!-- Quick Preset Badge Buttons Row -->
-        <div class="flex flex-wrap items-center gap-2 pt-1">
-          <span class="text-xs font-bold text-slate-400 mr-1">Chọn nhanh mẫu:</span>
-          <button type="button" data-preset-badge="Hot" data-preset-color="error" class="badge-preset-btn px-2.5 py-1 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-400 font-bold text-[11px] transition-all border border-red-500/40 active:scale-95">
-            Hot
-          </button>
-          <button type="button" data-preset-badge="Bán chạy" data-preset-color="secondary" class="badge-preset-btn px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold text-[11px] transition-all border border-amber-500/40 active:scale-95">
-            Bán chạy
-          </button>
-          <button type="button" id="auto-calc-badge-btn" class="px-2.5 py-1 rounded-lg bg-red-600/30 hover:bg-red-600/50 text-red-300 font-bold text-[11px] transition-all border border-red-500/60 flex items-center gap-1 active:scale-95 shadow-xs">
-            <span class="material-symbols-outlined text-[14px]">local_offer</span>
-            <span>⚡ Tự động tính % giảm</span>
-          </button>
-          <button type="button" data-preset-badge="BST Mới" data-preset-color="tertiary" class="badge-preset-btn px-2.5 py-1 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 font-bold text-[11px] transition-all border border-purple-500/40 active:scale-95">
-            BST Mới
-          </button>
-          <button type="button" data-preset-badge="100% Cotton" data-preset-color="success" class="badge-preset-btn px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 font-bold text-[11px] transition-all border border-emerald-500/40 active:scale-95">
-            100% Cotton
-          </button>
-          <button type="button" data-preset-badge="Xu hướng" data-preset-color="tertiary" class="badge-preset-btn px-2.5 py-1 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 font-bold text-[11px] transition-all border border-indigo-500/40 active:scale-95">
-            Xu hướng
-          </button>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 pt-1">
+          <span class="text-xs font-bold text-slate-400 shrink-0">Chọn nhanh mẫu:</span>
+          <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+            <button type="button" data-preset-badge="Hot" data-preset-color="error" class="badge-preset-btn px-2.5 py-1.5 sm:py-1 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-400 font-bold text-[11px] transition-all border border-red-500/40 active:scale-95">
+              Hot
+            </button>
+            <button type="button" data-preset-badge="Bán chạy" data-preset-color="secondary" class="badge-preset-btn px-2.5 py-1.5 sm:py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 font-bold text-[11px] transition-all border border-amber-500/40 active:scale-95">
+              Bán chạy
+            </button>
+            <button type="button" id="auto-calc-badge-btn" class="px-2.5 py-1.5 sm:py-1 rounded-lg bg-red-600/30 hover:bg-red-600/50 text-red-300 font-bold text-[11px] transition-all border border-red-500/60 flex items-center gap-1 active:scale-95 shadow-xs">
+              <span class="material-symbols-outlined text-[14px]">local_offer</span>
+              <span>⚡ Tự động tính % giảm</span>
+            </button>
+            <button type="button" data-preset-badge="BST Mới" data-preset-color="tertiary" class="badge-preset-btn px-2.5 py-1.5 sm:py-1 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 font-bold text-[11px] transition-all border border-purple-500/40 active:scale-95">
+              BST Mới
+            </button>
+            <button type="button" data-preset-badge="100% Cotton" data-preset-color="success" class="badge-preset-btn px-2.5 py-1.5 sm:py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 font-bold text-[11px] transition-all border border-emerald-500/40 active:scale-95">
+              100% Cotton
+            </button>
+            <button type="button" data-preset-badge="Xu hướng" data-preset-color="tertiary" class="badge-preset-btn px-2.5 py-1.5 sm:py-1 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 font-bold text-[11px] transition-all border border-indigo-500/40 active:scale-95">
+              Xu hướng
+            </button>
+          </div>
         </div>
         <p id="discount-calc-preview" class="text-[11px] text-emerald-400 hidden font-semibold"></p>
         </div>
