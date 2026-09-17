@@ -70,9 +70,9 @@
   </script>
 
   <!-- Main Stylesheet -->
-  <script type="module" crossorigin src="/assets/main-CBM8dsdm.js"></script>
+  <script type="module" crossorigin src="/assets/main-BQ5DQD1Z.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-  <link rel="stylesheet" crossorigin href="/assets/main-_8sW8Lq3.css">
+  <link rel="stylesheet" crossorigin href="/assets/main-BbXid8Yv.css">
 </head>
 
 <body class="bg-surface text-on-surface font-sans antialiased min-h-screen flex flex-col overflow-x-hidden">
@@ -607,12 +607,10 @@
 
     <!-- ==================== 6. KÊNH MUA HÀNG CHÍNH THỨC ==================== -->
     <section id="kenh-mua-hang"
-      class="w-full p-6 sm:p-8 rounded-3xl bg-surface-container-low border border-surface-container-high/50">
-      <div class="text-center mb-8">
-        <span class="text-xs font-bold uppercase tracking-wider text-primary" data-cms="shoppingChannels.eyebrow">Kênh
-          mua sắm</span>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mt-1"
-          data-cms="shoppingChannels.title">
+      class="w-full p-6 sm:p-8 rounded-3xl bg-surface-container-low border border-surface-container-high/50 flex flex-col gap-6">
+      <div class="text-center">
+        <span class="text-xs font-bold uppercase tracking-wider text-primary" data-cms="shoppingChannels.eyebrow">Kênh mua sắm</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-on-surface tracking-tight mt-1" data-cms="shoppingChannels.title">
           MUA HÀNG TẠI LQK KIDS
         </h2>
         <p class="text-xs sm:text-sm text-outline mt-1" data-cms="shoppingChannels.subtitle">
@@ -620,30 +618,50 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Pyramid Top Card: Zalo Group Wholesale -->
+      <div class="max-w-2xl mx-auto w-full p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-[#0068FF] text-white flex items-center justify-center shrink-0 shadow-xs font-extrabold text-xs">
+            ZALO
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-extrabold text-on-surface">NHÓM ZALO BÁN SỈ LẺ</h3>
+            <span class="text-xs font-bold text-[#0068FF]">Kênh sỉ &amp; lẻ LQK Kids</span>
+          </div>
+        </div>
+        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+          Nhận báo giá sỉ tốt nhất, chọn lô số lượng lớn và cập nhật các mẫu mới nhất dành riêng cho đại lý &amp; khách sỉ.
+        </p>
+        <a href="https://zalo.me/g/ssflrg5ii3iymweox5be" target="_blank" rel="noopener"
+          class="min-h-[46px] px-4 py-2.5 rounded-full bg-[#0068FF] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:bg-[#0052cc] active:scale-98 transition-all w-full">
+          <div class="w-5 h-5 rounded-full bg-white text-[#0068FF] flex items-center justify-center font-extrabold text-[9px]">Z</div>
+          <span>THAM GIA NHÓM ZALO SỈ LẺ</span>
+          <span class="material-symbols-outlined text-[16px]">launch</span>
+        </a>
+      </div>
+
+      <!-- Pyramid Bottom: 2x2 Grid (TikTok, Shopee, Facebook Page, Facebook Group) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
         <!-- TikTok Card -->
-        <div
-          class="p-5 rounded-3xl bg-surface-container-lowest shadow-xs border border-surface-container-high/30 flex flex-col justify-between gap-3">
+        <div class="p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4 h-full">
           <div class="flex items-center gap-3">
             <div class="w-11 h-11 rounded-2xl bg-black text-white flex items-center justify-center shrink-0 shadow-xs">
               <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.62a6.34 6.34 0 0 0-5.11 6.2 6.34 6.34 0 1 0 11.45-3.86v-3.3a8.28 8.28 0 0 0 3.77 1.03V6.69z" />
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.62a6.34 6.34 0 0 0-5.11 6.2 6.34 6.34 0 1 0 11.45-3.86v-3.3a8.28 8.28 0 0 0 3.77 1.03V6.69z" />
               </svg>
             </div>
             <div>
-              <h3 class="text-base font-bold text-on-surface">TIKTOK</h3>
+              <h3 class="text-base font-extrabold text-on-surface">TIKTOK</h3>
               <span class="text-xs font-bold text-secondary">@LQKKIDS</span>
             </div>
           </div>
-          <p class="text-xs text-on-surface-variant leading-relaxed">
+          <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
             Xem video sản phẩm, theo dõi livestream và cập nhật những mẫu mới nhất của LQK Kids.
           </p>
           <a href="https://www.tiktok.com/@LQKKIDS" data-cms-href="site.tiktokUrl" target="_blank" rel="noopener"
-            class="min-h-[44px] px-4 py-2.5 rounded-full bg-black text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs hover:bg-slate-800 active:scale-98 transition-all">
+            class="min-h-[46px] px-4 py-2.5 rounded-full bg-black text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:bg-slate-800 active:scale-98 transition-all w-full">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-              <path
-                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.62a6.34 6.34 0 0 0-5.11 6.2 6.34 6.34 0 1 0 11.45-3.86v-3.3a8.28 8.28 0 0 0 3.77 1.03V6.69z" />
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.62a6.34 6.34 0 0 0-5.11 6.2 6.34 6.34 0 1 0 11.45-3.86v-3.3a8.28 8.28 0 0 0 3.77 1.03V6.69z" />
             </svg>
             <span>XEM TIKTOK</span>
             <span class="material-symbols-outlined text-[16px]">launch</span>
@@ -651,29 +669,25 @@
         </div>
 
         <!-- Shopee Card -->
-        <div
-          class="p-5 rounded-3xl bg-surface-container-lowest shadow-xs border border-surface-container-high/30 flex flex-col justify-between gap-3">
+        <div class="p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4 h-full">
           <div class="flex items-center gap-3">
-            <div
-              class="w-11 h-11 rounded-2xl bg-[#EE4D2D] text-white flex items-center justify-center shrink-0 shadow-xs">
+            <div class="w-11 h-11 rounded-2xl bg-[#EE4D2D] text-white flex items-center justify-center shrink-0 shadow-xs">
               <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zm-9-1a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1.5a1 1 0 0 0 2 0V9h4v1.5a1 1 0 0 0 2 0V9h2v10z" />
+                <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zm-9-1a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1.5a1 1 0 0 0 2 0V9h4v1.5a1 1 0 0 0 2 0V9h2v10z" />
               </svg>
             </div>
             <div>
-              <h3 class="text-base font-bold text-on-surface">SHOPEE</h3>
+              <h3 class="text-base font-extrabold text-on-surface">SHOPEE</h3>
               <span class="text-xs font-bold text-secondary">LQKKids</span>
             </div>
           </div>
-          <p class="text-xs text-on-surface-variant leading-relaxed">
+          <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
             Xem sản phẩm, lựa chọn size và đặt hàng online trên gian hàng LQK Kids.
           </p>
           <a href="https://shopee.vn/LQKKids" data-cms-href="site.shopeeUrl" target="_blank" rel="noopener"
-            class="min-h-[44px] px-4 py-2.5 rounded-full bg-[#EE4D2D] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs hover:bg-[#d73f21] active:scale-98 transition-all">
+            class="min-h-[46px] px-4 py-2.5 rounded-full bg-[#EE4D2D] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:bg-[#d73f21] active:scale-98 transition-all w-full">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-              <path
-                d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zm-9-1a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1.5a1 1 0 0 0 2 0V9h4v1.5a1 1 0 0 0 2 0V9h2v10z" />
+              <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zm-9-1a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1.5a1 1 0 0 0 2 0V9h4v1.5a1 1 0 0 0 2 0V9h2v10z" />
             </svg>
             <span>MỞ SHOP SHOPEE</span>
             <span class="material-symbols-outlined text-[16px]">launch</span>
@@ -681,29 +695,25 @@
         </div>
 
         <!-- Facebook Page Card -->
-        <div
-          class="p-5 rounded-3xl bg-surface-container-lowest shadow-xs border border-surface-container-high/30 flex flex-col justify-between gap-3">
+        <div class="p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4 h-full">
           <div class="flex items-center gap-3">
-            <div
-              class="w-11 h-11 rounded-2xl bg-[#1877F2] text-white flex items-center justify-center shrink-0 shadow-xs">
+            <div class="w-11 h-11 rounded-2xl bg-[#1877F2] text-white flex items-center justify-center shrink-0 shadow-xs">
               <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99H7.9v-2.89h2.54V9.8c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.89h-2.33v6.99C18.34 21.12 22 16.99 22 12z" />
+                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99H7.9v-2.89h2.54V9.8c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.89h-2.33v6.99C18.34 21.12 22 16.99 22 12z" />
               </svg>
             </div>
             <div>
-              <h3 class="text-base font-bold text-on-surface">FACEBOOK PAGE</h3>
+              <h3 class="text-base font-extrabold text-on-surface">FACEBOOK PAGE</h3>
               <span class="text-xs font-bold text-primary">LQK Kids</span>
             </div>
           </div>
-          <p class="text-xs text-on-surface-variant leading-relaxed">
+          <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
             Theo dõi Page để cập nhật sản phẩm, chương trình ưu đãi và các hoạt động mới nhất của LQK Kids.
           </p>
           <a href="https://facebook.com/LQKKids" data-cms-href="site.facebookUrl" target="_blank" rel="noopener"
-            class="min-h-[44px] px-4 py-2.5 rounded-full bg-[#1877F2] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs hover:bg-[#1565c0] active:scale-98 transition-all">
+            class="min-h-[46px] px-4 py-2.5 rounded-full bg-[#1877F2] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:bg-[#1565c0] active:scale-98 transition-all w-full">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-              <path
-                d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99H7.9v-2.89h2.54V9.8c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.89h-2.33v6.99C18.34 21.12 22 16.99 22 12z" />
+              <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.12 8.44 9.88v-6.99H7.9v-2.89h2.54V9.8c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.89h-2.33v6.99C18.34 21.12 22 16.99 22 12z" />
             </svg>
             <span>THEO DÕI FACEBOOK</span>
             <span class="material-symbols-outlined text-[16px]">launch</span>
@@ -711,66 +721,45 @@
         </div>
 
         <!-- Facebook Group Card -->
-        <div
-          class="p-5 rounded-3xl bg-surface-container-lowest shadow-xs border border-surface-container-high/30 flex flex-col justify-between gap-3">
+        <div class="p-5 sm:p-6 rounded-3xl bg-surface-container-lowest shadow-md border-2 border-[#0068FF] hover:shadow-lg transition-all flex flex-col justify-between gap-4 h-full">
           <div class="flex items-center gap-3">
-            <div
-              class="w-11 h-11 rounded-2xl bg-[#0566FF] text-white flex items-center justify-center shrink-0 shadow-xs">
+            <div class="w-11 h-11 rounded-2xl bg-[#0566FF] text-white flex items-center justify-center shrink-0 shadow-xs">
               <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
               </svg>
             </div>
             <div>
-              <h3 class="text-base font-bold text-on-surface">FACEBOOK GROUP</h3>
+              <h3 class="text-base font-extrabold text-on-surface">FACEBOOK GROUP</h3>
               <span class="text-xs font-bold text-tertiary">Cộng đồng LQK Kids</span>
             </div>
           </div>
-          <p class="text-xs text-on-surface-variant leading-relaxed">
+          <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
             Tham gia cộng đồng để cập nhật mẫu mới, chương trình ưu đãi và giao lưu cùng các khách hàng của LQK Kids.
           </p>
-          <a href="https://facebook.com/groups/LQKKidsCommunity" data-cms-href="site.facebookGroupUrl" target="_blank"
-            rel="noopener"
-            class="min-h-[44px] px-4 py-2.5 rounded-full bg-[#0566FF] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs hover:bg-[#0452cb] active:scale-98 transition-all">
+          <a href="https://facebook.com/groups/LQKKidsCommunity" data-cms-href="site.facebookGroupUrl" target="_blank" rel="noopener"
+            class="min-h-[46px] px-4 py-2.5 rounded-full bg-[#0566FF] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:bg-[#0452cb] active:scale-98 transition-all w-full">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-              <path
-                d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+            </svg>
+            <span>THAM GIA GROUP</span>
+            <span class="material-symbols-outlined text-[16px]">launch</span>
+          </a>
+        </div>
+      </div>
+    </section>     </div>
+    </section>ariant leading-relaxed">
+            Tham gia cộng đồng để cập nhật mẫu mới, chương trình ưu đãi và giao lưu cùng các khách hàng của LQK Kids.
+          </p>
+          <a href="https://facebook.com/groups/LQKKidsCommunity" data-cms-href="site.facebookGroupUrl" target="_blank" rel="noopener"
+            class="min-h-[46px] px-4 py-2.5 rounded-full bg-[#0566FF] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs hover:bg-[#0452cb] active:scale-98 transition-all w-full">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
             </svg>
             <span>THAM GIA GROUP</span>
             <span class="material-symbols-outlined text-[16px]">launch</span>
           </a>
         </div>
 
-        <!-- Zalo Group Wholesale Card -->
-        <div
-          class="p-5 rounded-3xl bg-surface-container-lowest shadow-xs border border-surface-container-high/30 flex flex-col justify-between gap-3">
-          <div class="flex items-center gap-3">
-            <div
-              class="w-11 h-11 rounded-2xl bg-[#0068FF] text-white flex items-center justify-center shrink-0 shadow-xs">
-              <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-base font-bold text-on-surface">NHÓM ZALO BÁN SỈ LẺ</h3>
-              <span class="text-xs font-bold text-[#0068FF]">Kênh sỉ &amp; lẻ LQK Kids</span>
-            </div>
-          </div>
-          <p class="text-xs text-on-surface-variant leading-relaxed">
-            Nhận báo giá sỉ tốt nhất, chọn lô số lượng lớn và cập nhật các mẫu mới nhất dành riêng cho đại lý &amp;
-            khách sỉ.
-          </p>
-          <a href="https://zalo.me/g/ssflrg5ii3iymweox5be" target="_blank" rel="noopener"
-            class="min-h-[44px] px-4 py-2.5 rounded-full bg-[#0068FF] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs hover:bg-[#0052cc] active:scale-98 transition-all">
-            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-              <path
-                d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-            </svg>
-            <span>THAM GIA NHÓM</span>
-            <span class="material-symbols-outlined text-[16px]">launch</span>
-          </a>
-        </div>
       </div>
     </section>
 
@@ -1098,77 +1087,66 @@
   </main>
 
   <!-- ==================== 9. FOOTER ==================== -->
-  <footer
-    class="w-full bg-surface-container border-t border-surface-container-high/60 pt-10 pb-24 md:pb-12 text-on-surface">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+  <footer class="w-full bg-surface-container border-t border-surface-container-high/60 pt-10 pb-24 md:pb-12 text-on-surface">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
 
-      <!-- Brand Info -->
-      <div class="flex flex-col gap-2.5">
-        <div class="flex items-center gap-2.5">
-          <div
-            class="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden bg-surface flex items-center justify-center p-0.5 border border-surface-container-high shadow-xs">
-            <img src="./assets/images/logo.png" data-cms-img="site.logo" alt="LQK Kids Logo" width="40" height="40"
-              class="w-full h-full object-contain" />
+      <!-- Column 1: Brand Info -->
+      <div class="flex flex-col gap-2.5 p-5 sm:p-6 rounded-2xl bg-surface-container-low border border-surface-container-high/40 shadow-xs">
+        <div class="flex items-center gap-2.5 min-h-[32px]">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden bg-surface flex items-center justify-center p-0.5 border border-surface-container-high shadow-xs shrink-0">
+            <img src="./assets/images/logo.png" data-cms-img="site.logo" alt="LQK Kids Logo" width="40" height="40" class="w-full h-full object-contain" />
           </div>
           <span class="text-xl sm:text-2xl font-extrabold tracking-tight" data-cms="footer.brandName">LQK KIDS</span>
         </div>
-        <p class="text-xs sm:text-sm font-extrabold text-primary tracking-wide uppercase" data-cms="footer.brandTitle">
-          THÔNG TIN CHÍNH THỨC</p>
-        <p class="text-xs sm:text-sm font-bold text-secondary leading-relaxed" data-cms="footer.categoriesList">Bé trai
-          • Bé gái • Set bộ • Phụ kiện</p>
-        <p class="text-xs sm:text-sm text-on-surface-variant font-medium" data-cms="footer.brandSub">Đẹp cho bé – An tâm
-          cho mẹ</p>
+        <p class="text-xs sm:text-sm font-extrabold text-primary tracking-wide uppercase mt-1" data-cms="footer.brandTitle">THÔNG TIN CHÍNH THỨC</p>
+        <p class="text-xs sm:text-sm font-bold text-secondary leading-relaxed" data-cms="footer.categoriesList">Bé trai • Bé gái • Set bộ • Phụ kiện</p>
+        <p class="text-xs sm:text-sm text-on-surface-variant font-medium" data-cms="footer.brandSub">Đẹp cho bé – An tâm cho mẹ</p>
       </div>
 
-      <!-- Links & Channels -->
-      <div class="md:col-span-2">
-        <h4 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-on-surface mb-3.5">Các Kênh Mua Hàng
-          &amp; Mạng Xã Hội</h4>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm font-semibold text-on-surface-variant">
-          <a href="https://www.tiktok.com/@LQKKIDS" data-cms-href="site.tiktokUrl" target="_blank" rel="noopener"
-            class="flex items-center gap-2 hover:text-primary transition-colors py-0.5">
+      <!-- Column 2: Links & Social Channels -->
+      <div class="flex flex-col gap-2.5 p-5 sm:p-6 rounded-2xl bg-surface-container-low border border-surface-container-high/40 shadow-xs">
+        <div class="min-h-[32px] flex items-center">
+          <h4 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-on-surface">Các Kênh Mua Hàng &amp; Mạng Xã Hội</h4>
+        </div>
+        <div class="flex flex-col gap-2.5 text-xs sm:text-sm font-semibold text-on-surface-variant mt-1">
+          <a href="https://www.tiktok.com/@LQKKIDS" data-cms-href="site.tiktokUrl" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-primary transition-colors">
             <span class="material-symbols-outlined text-[18px] text-secondary">music_note</span>
             <span>TikTok: @LQKKIDS</span>
           </a>
-          <a href="https://shopee.vn/LQKKids" data-cms-href="site.shopeeUrl" target="_blank" rel="noopener"
-            class="flex items-center gap-2 hover:text-primary transition-colors py-0.5">
+          <a href="https://shopee.vn/LQKKids" data-cms-href="site.shopeeUrl" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-primary transition-colors">
             <span class="material-symbols-outlined text-[18px] text-secondary-container">shopping_bag</span>
             <span>Shopee: LQKKids</span>
           </a>
-          <a href="https://facebook.com/LQKKids" data-cms-href="site.facebookUrl" target="_blank" rel="noopener"
-            class="flex items-center gap-2 hover:text-primary transition-colors py-0.5">
+          <a href="https://facebook.com/LQKKids" data-cms-href="site.facebookUrl" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-primary transition-colors">
             <span class="material-symbols-outlined text-[18px] text-primary">thumb_up</span>
             <span>Facebook: LQK Kids</span>
           </a>
-          <a href="https://facebook.com/groups/LQKKidsCommunity" data-cms-href="site.facebookGroupUrl" target="_blank"
-            rel="noopener" class="flex items-center gap-2 hover:text-primary transition-colors py-0.5">
+          <a href="https://facebook.com/groups/LQKKidsCommunity" data-cms-href="site.facebookGroupUrl" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-primary transition-colors">
             <span class="material-symbols-outlined text-[18px] text-tertiary">groups</span>
             <span>Facebook Group: LQK Kids</span>
           </a>
         </div>
       </div>
 
-      <!-- Contact Info -->
-      <div
-        class="p-5 rounded-2xl bg-surface-container-low flex flex-col gap-3 border border-surface-container-high/40 shadow-xs">
-        <h4 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-on-surface">Liên hệ &amp; Địa chỉ
-        </h4>
-        <div class="flex items-start gap-2 text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+      <!-- Column 3: Contact Info -->
+      <div class="flex flex-col gap-2.5 p-5 sm:p-6 rounded-2xl bg-surface-container-low border border-surface-container-high/40 shadow-xs">
+        <div class="min-h-[32px] flex items-center">
+          <h4 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-on-surface">Liên hệ &amp; Địa chỉ</h4>
+        </div>
+        <div class="flex items-start gap-2 text-xs sm:text-sm text-on-surface-variant leading-relaxed mt-1">
           <span class="material-symbols-outlined text-[18px] text-error shrink-0 mt-0.5">phone_enabled</span>
           <div class="flex flex-col">
-            <span class="font-bold text-on-surface text-[11px] uppercase tracking-wider text-outline">Hotline /
-              Zalo:</span>
+            <span class="font-bold text-on-surface text-[11px] uppercase tracking-wider text-outline">Hotline / Zalo:</span>
             <div class="flex items-center gap-1.5 flex-wrap mt-0.5">
               <a href="tel:0934498685" class="font-extrabold text-primary hover:underline">0934 498 685</a>
+              <span>-</span>
               <a href="tel:0925333999" class="font-extrabold text-primary hover:underline">0925 333 999</a>
             </div>
           </div>
         </div>
-        <div
-          class="flex items-start gap-2 text-xs sm:text-sm text-on-surface-variant leading-relaxed pt-1 border-t border-surface-container-high/30">
+        <div class="flex items-start gap-2 text-xs sm:text-sm text-on-surface-variant leading-relaxed pt-2 border-t border-surface-container-high/30">
           <span class="material-symbols-outlined text-[18px] text-error shrink-0 mt-0.5">location_on</span>
-          <a href="https://maps.google.com/?q=Hoa+Lam,+Viet+Hung,+Long+Bien,+Ha+Noi" target="_blank" rel="noopener"
-            class="hover:text-primary transition-colors" data-cms="site.address">
+          <a href="https://maps.google.com/?q=Hoa+Lam,+Viet+Hung,+Long+Bien,+Ha+Noi" target="_blank" rel="noopener" class="hover:text-primary transition-colors" data-cms="site.address">
             Phố Hoa Lâm, Phường Việt Hưng, Hà Nội
           </a>
         </div>
@@ -1177,8 +1155,7 @@
     </div>
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-8 mt-8 border-t border-surface-container-high/40 text-center">
-      <p class="text-xs sm:text-sm text-outline font-semibold" data-cms="footer.copyright">© 2026 LQK Kids. All rights
-        reserved.</p>
+      <p class="text-xs sm:text-sm text-outline font-semibold" data-cms="footer.copyright">© 2026 LQK Kids. All rights reserved.</p>
     </div>
   </footer>
 
