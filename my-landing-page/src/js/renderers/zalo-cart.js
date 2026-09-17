@@ -369,27 +369,37 @@ async function generateAndDownloadReceiptImage(info, html2canvas) {
     day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
   });
 
-  // Helper to convert image URL to base64 Data URL so html2canvas renders it 100% reliably without CORS or async load failure
-  const toDataURL = (url) => new Promise((resolve) => {
+  // Helper to convert image URL to centered square 1:1 base64 Data URL so html2canvas renders it 100% reliably
+  const toSquareDataURL = (url) => new Promise((resolve) => {
+    if (!url) return resolve('');
     const img = new Image();
     img.crossOrigin = 'Anonymous';
     img.onload = () => {
       const canvas = document.createElement('canvas');
-      canvas.width = img.naturalWidth || img.width;
-      canvas.height = img.naturalHeight || img.height;
+      const nw = img.naturalWidth || img.width || 100;
+      const nh = img.naturalHeight || img.height || 100;
+      const size = Math.min(nw, nh);
+      canvas.width = size;
+      canvas.height = size;
       const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0);
+      const sx = (nw - size) / 2;
+      const sy = (nh - size) / 2;
+      ctx.drawImage(img, sx, sy, size, size, 0, 0, size, size);
       resolve(canvas.toDataURL('image/png'));
     };
     img.onerror = () => resolve(url);
     img.src = url;
   });
 
-  const logoBase64 = await toDataURL('./assets/images/logo.png');
+  // Get current working logo from DOM or CMS state
+  const logoEl = document.querySelector('[data-cms-img="site.logo"]');
+  const logoUrl = logoEl?.src || window.siteContent?.site?.logo || './assets/images/logo.png';
+  const logoBase64 = await toSquareDataURL(logoUrl);
+
   const cartWithImages = await Promise.all(
     info.cart.map(async (item) => ({
       ...item,
-      base64Image: item.image ? await toDataURL(item.image) : logoBase64
+      base64Image: item.image ? await toSquareDataURL(item.image) : logoBase64
     }))
   );
 
@@ -399,7 +409,7 @@ async function generateAndDownloadReceiptImage(info, html2canvas) {
         <tr>
           <td style="vertical-align: middle; padding-bottom: 12px;">
             <div style="display: flex; align-items: center; gap: 10px;">
-              <div style="width: 44px; height: 44px; border-radius: 50%; overflow: hidden; background: #fff8f5; border: 1px solid #ffe3d3; padding: 2px; box-sizing: border-box;">
+              <div style="width: 44px; height: 44px; border-radius: 50%; overflow: hidden; background: #fff8f5; border: 1px solid #ffe3d3; padding: 2px; box-sizing: border-box; background-image: url('${logoBase64}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
                 <img src="${logoBase64}" alt="LQK Kids Logo" style="width: 100%; height: 100%; object-fit: contain; display: block;" />
               </div>
               <div>
@@ -427,7 +437,7 @@ async function generateAndDownloadReceiptImage(info, html2canvas) {
       <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
         ${cartWithImages.map(item => `
           <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #fff1ea; padding-bottom: 8px; gap: 10px;">
-            <div style="width: 48px; height: 48px; min-width: 48px; border-radius: 8px; overflow: hidden; background: #f3f4f6; border: 1px solid #e5e7eb;">
+            <div style="width: 48px; height: 48px; min-width: 48px; border-radius: 8px; overflow: hidden; background: #f3f4f6; border: 1px solid #e5e7eb; background-image: url('${item.base64Image}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
               <img src="${item.base64Image}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
             </div>
             <div style="flex: 1;">
