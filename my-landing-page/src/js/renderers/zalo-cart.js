@@ -369,18 +369,51 @@ async function generateAndDownloadReceiptImage(info, html2canvas) {
     day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
   });
 
+  // Helper to convert image URL to base64 Data URL so html2canvas renders it 100% reliably without CORS or async load failure
+  const toDataURL = (url) => new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth || img.width;
+      canvas.height = img.naturalHeight || img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      resolve(canvas.toDataURL('image/png'));
+    };
+    img.onerror = () => resolve(url);
+    img.src = url;
+  });
+
+  const logoBase64 = await toDataURL('./assets/images/logo.png');
+  const cartWithImages = await Promise.all(
+    info.cart.map(async (item) => ({
+      ...item,
+      base64Image: item.image ? await toDataURL(item.image) : logoBase64
+    }))
+  );
+
   receiptContainer.innerHTML = `
     <div style="background: #ffffff; border-radius: 20px; padding: 20px; border: 1px solid #ffe3d3; color: #27180f;">
-      <div style="display: flex; items-center; justify-between; border-bottom: 2px dashed #faddcd; padding-bottom: 12px; margin-bottom: 16px;">
-        <div>
-          <h2 style="font-size: 20px; font-weight: 800; color: #136299; margin: 0; line-height: 1.2;">LQK KIDS</h2>
-          <p style="font-size: 11px; font-weight: 600; color: #785a00; margin: 2px 0 0 0;">THỜI TRANG BÉ YÊU</p>
-        </div>
-        <div style="text-align: right;">
-          <span style="font-size: 10px; font-weight: 700; background: #feca4a; color: #725500; padding: 4px 10px; border-radius: 20px; display: inline-block;">ĐƠN HÀNG ZALO</span>
-          <p style="font-size: 10px; color: #717880; margin: 4px 0 0 0;">${formattedDate}</p>
-        </div>
-      </div>
+      <table style="width: 100%; border-collapse: collapse; border-bottom: 2px dashed #faddcd; padding-bottom: 12px; margin-bottom: 16px;">
+        <tr>
+          <td style="vertical-align: middle; padding-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 44px; height: 44px; border-radius: 50%; overflow: hidden; background: #fff8f5; border: 1px solid #ffe3d3; padding: 2px; box-sizing: border-box;">
+                <img src="${logoBase64}" alt="LQK Kids Logo" style="width: 100%; height: 100%; object-fit: contain; display: block;" />
+              </div>
+              <div>
+                <h2 style="font-size: 18px; font-weight: 800; color: #136299; margin: 0; line-height: 1.2;">LQK KIDS</h2>
+                <p style="font-size: 11px; font-weight: 600; color: #785a00; margin: 2px 0 0 0;">THỜI TRANG BÉ YÊU</p>
+              </div>
+            </div>
+          </td>
+          <td style="vertical-align: middle; text-align: right; padding-bottom: 12px;">
+            <p style="font-size: 12px; font-weight: 700; color: #136299; margin: 0;">ĐƠN HÀNG MỚI</p>
+            <p style="font-size: 10px; color: #717880; margin: 2px 0 0 0;">${formattedDate}</p>
+          </td>
+        </tr>
+      </table>
 
       <div style="background: #fff1ea; border-radius: 14px; padding: 12px; margin-bottom: 16px; border: 1px solid #ffe3d3;">
         <p style="font-size: 12px; font-weight: 700; color: #136299; margin: 0 0 6px 0; text-transform: uppercase;">THÔNG TIN KHÁCH HÀNG</p>
@@ -392,13 +425,16 @@ async function generateAndDownloadReceiptImage(info, html2canvas) {
 
       <p style="font-size: 12px; font-weight: 700; color: #27180f; margin: 0 0 8px 0; text-transform: uppercase;">CHI TIẾT ĐƠN HÀNG (${info.cart.length} món)</p>
       <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
-        ${info.cart.map(item => `
-          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #fff1ea; padding-bottom: 8px;">
-            <div style="flex: 1; padding-right: 8px;">
+        ${cartWithImages.map(item => `
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #fff1ea; padding-bottom: 8px; gap: 10px;">
+            <div style="width: 48px; height: 48px; min-width: 48px; border-radius: 8px; overflow: hidden; background: #f3f4f6; border: 1px solid #e5e7eb;">
+              <img src="${item.base64Image}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+            </div>
+            <div style="flex: 1;">
               <p style="font-size: 12px; font-weight: 700; margin: 0; color: #27180f;">${item.name}</p>
               <p style="font-size: 11px; color: #41474f; margin: 2px 0 0 0;">Màu: ${item.selectedColor} | Size: <strong>${item.selectedSize}</strong></p>
             </div>
-            <div style="text-align: right;">
+            <div style="text-align: right; min-width: 70px;">
               <p style="font-size: 12px; font-weight: 700; margin: 0; color: #136299;">x${item.quantity}</p>
               <p style="font-size: 11px; font-weight: 700; color: #27180f; margin: 2px 0 0 0;">${(item.price * item.quantity).toLocaleString('vi-VN')}đ</p>
             </div>
@@ -423,6 +459,7 @@ async function generateAndDownloadReceiptImage(info, html2canvas) {
   const canvas = await html2canvas(receiptContainer, {
     scale: 2,
     useCORS: true,
+    allowTaint: true,
     backgroundColor: '#fff8f5'
   });
 

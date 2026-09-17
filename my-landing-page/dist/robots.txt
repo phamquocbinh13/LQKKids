@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Allow: /src/assets/
+Allow: /assets/
+
+# Block Admin and Private pages from indexing
+Disallow: /admin/
+Disallow: /admin/*
+Disallow: /admin/login.html
+Disallow: /admin/index.html
+Disallow: /admin/edit-product.html
+Disallow: /admin/content.html
+
+# Sitemap Location
+Sitemap: https://lqk.vn/sitemap.xml

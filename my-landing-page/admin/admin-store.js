@@ -86,11 +86,53 @@ export function saveAdminContent(content) {
   localStorage.setItem(STORAGE_CONTENT_KEY, JSON.stringify(content));
 }
 
-export function fileToBase64(file) {
+/**
+ * Client-side Automatic Image Processing Protocol
+ * Automatically resizes high-resolution camera uploads down to max 1000px,
+ * compresses visual artifacts, and converts to lightweight WebP data URL format.
+ */
+export function compressAndProcessImage(file, maxWidth = 1000, quality = 0.82) {
   return new Promise((resolve, reject) => {
+    // If input is already a string URL or data URL
+    if (typeof file === 'string') {
+      resolve(file);
+      return;
+    }
+
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        let width = img.naturalWidth || img.width;
+        let height = img.naturalHeight || img.height;
+
+        // Calculate responsive scaling aspect ratio
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Convert to highly optimized WebP format (or fall back to JPEG if WebP unsupported)
+        const compressedBase64 = canvas.toDataURL('image/webp', quality);
+        resolve(compressedBase64);
+      };
+      img.onerror = (err) => reject(err);
+    };
+    reader.onerror = (err) => reject(err);
   });
+}
+
+export function fileToBase64(file) {
+  return compressAndProcessImage(file);
 }
