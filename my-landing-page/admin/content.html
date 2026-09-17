@@ -89,16 +89,7 @@
           <input type="text" id="site-address" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
         </div>
 
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1.5">🗺️ Hình Ảnh Sơ Đồ Cửa Hàng / Bản Đồ (Tải ảnh mới hoặc dán URL)</label>
-          <div class="flex items-center gap-3">
-            <input type="text" id="site-map-image" placeholder="./assets/images/map-location.jpg" class="flex-1 h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
-            <label class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors shrink-0">
-              <span>Tải ảnh Bản Đồ</span>
-              <input type="file" id="site-map-image-file" accept="image/*" class="hidden" />
-            </label>
-          </div>
-        </div>
+
       </div>
 
       <!-- 2. Hero Section Edit -->
@@ -128,6 +119,25 @@
           <textarea id="hero-description" rows="3" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
         </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-slate-700/60 pt-3 mt-1">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Tên Nút Gọi (Call CTA)</label>
+            <input type="text" id="hero-call-cta" placeholder="GỌI NGAY" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Tên Nút Zalo (Zalo CTA)</label>
+            <input type="text" id="hero-zalo-cta" placeholder="NHẮN ZALO" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Tên Nút Nhóm Zalo Bán Sỉ Lẻ</label>
+            <input type="text" id="hero-zalo-group-cta" placeholder="Nhóm Zalo Bán Sỉ Lẻ" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Tên Nút TikTok (TikTok CTA)</label>
+            <input type="text" id="hero-tiktok-cta" placeholder="XEM TIKTOK" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          </div>
+        </div>
+
         <div>
           <label class="block text-xs font-bold text-slate-300 mb-1.5">Hình Ảnh Hero Banner Chính (Tải ảnh hoặc dán URL)</label>
           <div class="flex items-center gap-3">
@@ -154,57 +164,57 @@
 
         <div>
           <label class="block text-xs font-bold text-slate-300 mb-1.5">Mô Tả Phụ</label>
-          <input type="text" id="real-sub" placeholder="Khám phá những mẫu thời trang mới nhất..." class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          <input type="text" id="real-sub" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
           <!-- Image 1 -->
-          <div class="p-3 bg-slate-900/60 border border-slate-700 rounded-xl flex flex-col gap-2">
-            <span class="text-xs font-bold text-amber-400">Ảnh 1 (Mẫu Bé Gái)</span>
-            <input type="text" id="real-title-0" placeholder="Váy xinh" class="w-full h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
+          <div class="p-3 bg-slate-900/60 border border-slate-700/50 rounded-xl flex flex-col gap-2">
+            <label class="text-[11px] font-bold text-amber-300">Ảnh 1 (Top Left)</label>
+            <input type="text" id="real-title-0" placeholder="Tên chú thích" class="w-full h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
             <div class="flex items-center gap-2">
-              <input type="text" id="real-img-0" class="flex-1 h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
-              <label class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-xs font-bold cursor-pointer transition-colors shrink-0">
-                <span>Tải ảnh</span>
+              <input type="text" id="real-img-0" placeholder="Đường dẫn ảnh" class="flex-1 h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
+              <label class="px-3 py-1.5 bg-slate-700 text-white rounded-lg text-xs font-bold cursor-pointer shrink-0">
+                <span>Chọn</span>
                 <input type="file" id="real-file-0" accept="image/*" class="hidden" />
               </label>
             </div>
           </div>
 
           <!-- Image 2 -->
-          <div class="p-3 bg-slate-900/60 border border-slate-700 rounded-xl flex flex-col gap-2">
-            <span class="text-xs font-bold text-amber-400">Ảnh 2 (Mẫu Bé Trai)</span>
-            <input type="text" id="real-title-1" placeholder="Polo hè" class="w-full h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
+          <div class="p-3 bg-slate-900/60 border border-slate-700/50 rounded-xl flex flex-col gap-2">
+            <label class="text-[11px] font-bold text-amber-300">Ảnh 2 (Top Right)</label>
+            <input type="text" id="real-title-1" placeholder="Tên chú thích" class="w-full h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
             <div class="flex items-center gap-2">
-              <input type="text" id="real-img-1" class="flex-1 h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
-              <label class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-xs font-bold cursor-pointer transition-colors shrink-0">
-                <span>Tải ảnh</span>
+              <input type="text" id="real-img-1" placeholder="Đường dẫn ảnh" class="flex-1 h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
+              <label class="px-3 py-1.5 bg-slate-700 text-white rounded-lg text-xs font-bold cursor-pointer shrink-0">
+                <span>Chọn</span>
                 <input type="file" id="real-file-1" accept="image/*" class="hidden" />
               </label>
             </div>
           </div>
 
           <!-- Image 3 -->
-          <div class="p-3 bg-slate-900/60 border border-slate-700 rounded-xl flex flex-col gap-2">
-            <span class="text-xs font-bold text-amber-400">Ảnh 3 (Set Đồ)</span>
-            <input type="text" id="real-title-2" placeholder="Set đồ" class="w-full h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
+          <div class="p-3 bg-slate-900/60 border border-slate-700/50 rounded-xl flex flex-col gap-2">
+            <label class="text-[11px] font-bold text-amber-300">Ảnh 3 (Bottom Left)</label>
+            <input type="text" id="real-title-2" placeholder="Tên chú thích" class="w-full h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
             <div class="flex items-center gap-2">
-              <input type="text" id="real-img-2" class="flex-1 h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
-              <label class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-xs font-bold cursor-pointer transition-colors shrink-0">
-                <span>Tải ảnh</span>
+              <input type="text" id="real-img-2" placeholder="Đường dẫn ảnh" class="flex-1 h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
+              <label class="px-3 py-1.5 bg-slate-700 text-white rounded-lg text-xs font-bold cursor-pointer shrink-0">
+                <span>Chọn</span>
                 <input type="file" id="real-file-2" accept="image/*" class="hidden" />
               </label>
             </div>
           </div>
 
           <!-- Image 4 -->
-          <div class="p-3 bg-slate-900/60 border border-slate-700 rounded-xl flex flex-col gap-2">
-            <span class="text-xs font-bold text-amber-400">Ảnh 4 (Cùng bé yêu)</span>
-            <input type="text" id="real-title-3" placeholder="Cùng bé yêu" class="w-full h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
+          <div class="p-3 bg-slate-900/60 border border-slate-700/50 rounded-xl flex flex-col gap-2">
+            <label class="text-[11px] font-bold text-amber-300">Ảnh 4 (Bottom Right)</label>
+            <input type="text" id="real-title-3" placeholder="Tên chú thích" class="w-full h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
             <div class="flex items-center gap-2">
-              <input type="text" id="real-img-3" class="flex-1 h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
-              <label class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-xs font-bold cursor-pointer transition-colors shrink-0">
-                <span>Tải ảnh</span>
+              <input type="text" id="real-img-3" placeholder="Đường dẫn ảnh" class="flex-1 h-9 px-3 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
+              <label class="px-3 py-1.5 bg-slate-700 text-white rounded-lg text-xs font-bold cursor-pointer shrink-0">
+                <span>Chọn</span>
                 <input type="file" id="real-file-3" accept="image/*" class="hidden" />
               </label>
             </div>
@@ -243,9 +253,15 @@
           </div>
         </div>
 
-        <div>
-          <label class="block text-xs font-bold text-slate-300 mb-1.5">💬 Đường dẫn Zalo Chat Official</label>
-          <input type="url" id="link-zalo" placeholder="https://zalo.me/0934498685" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">💬 Đường dẫn Zalo Chat Official</label>
+            <input type="url" id="link-zalo" placeholder="https://zalo.me/0934498685" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">👥 Đường dẫn Nhóm Zalo Bán Sỉ Lẻ</label>
+            <input type="url" id="link-zalo-group" placeholder="https://zalo.me/g/ssflrg5ii3iymweox5be" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+          </div>
         </div>
       </div>
 
@@ -316,18 +332,6 @@
         });
       }
 
-      // Map image file compress upload
-      const mapFileInput = document.getElementById('site-map-image-file');
-      if (mapFileInput) {
-        mapFileInput.addEventListener('change', async (e) => {
-          const file = e.target.files[0];
-          if (file) {
-            const compressed = await compressAndProcessImage(file, 1000, 0.85);
-            document.getElementById('site-map-image').value = compressed;
-          }
-        });
-      }
-
       // Hero image file compress upload
       const heroFileInput = document.getElementById('hero-image-file');
       if (heroFileInput) {
@@ -363,7 +367,6 @@
         document.getElementById('site-logo-subtitle').value = data.site.logoSubtitle || '';
         document.getElementById('site-logo').value = data.site.logo || '';
         document.getElementById('site-size-chart').value = data.site.sizeChart || '';
-        document.getElementById('site-map-image').value = data.site.mapLocationImage || '';
         document.getElementById('phone-1').value = data.site.phonePrimary || '';
         document.getElementById('phone-2').value = data.site.phoneSecondary || '';
         document.getElementById('site-address').value = data.site.address || '';
@@ -372,6 +375,8 @@
         document.getElementById('link-facebook').value = data.site.facebookUrl || '';
         document.getElementById('link-facebook-group').value = data.site.facebookGroupUrl || '';
         document.getElementById('link-zalo').value = data.site.zaloUrl || '';
+        const zaloGrpInput = document.getElementById('link-zalo-group');
+        if (zaloGrpInput) zaloGrpInput.value = data.site.zaloGroupUrl || '';
       }
 
       if (data.hero) {
@@ -380,6 +385,15 @@
         document.getElementById('hero-subheadline').value = data.hero.subheadline || '';
         document.getElementById('hero-description').value = data.hero.description || '';
         document.getElementById('hero-image').value = data.hero.image || '';
+
+        const callCtaInp = document.getElementById('hero-call-cta');
+        if (callCtaInp) callCtaInp.value = data.hero.callCta || 'GỌI NGAY';
+        const zaloCtaInp = document.getElementById('hero-zalo-cta');
+        if (zaloCtaInp) zaloCtaInp.value = data.hero.zaloCta || 'NHẮN ZALO';
+        const zaloGrpCtaInp = document.getElementById('hero-zalo-group-cta');
+        if (zaloGrpCtaInp) zaloGrpCtaInp.value = data.hero.zaloGroupCta || 'Nhóm Zalo Bán Sỉ Lẻ';
+        const tiktokCtaInp = document.getElementById('hero-tiktok-cta');
+        if (tiktokCtaInp) tiktokCtaInp.value = data.hero.tiktokCta || 'XEM TIKTOK';
       }
 
       if (data.realImages) {
@@ -413,7 +427,6 @@
       contentData.site.logoSubtitle = document.getElementById('site-logo-subtitle').value.trim();
       contentData.site.logo = document.getElementById('site-logo').value.trim();
       contentData.site.sizeChart = document.getElementById('site-size-chart').value.trim();
-      contentData.site.mapLocationImage = document.getElementById('site-map-image').value.trim();
       contentData.site.phonePrimary = document.getElementById('phone-1').value.trim();
       contentData.site.phoneSecondary = document.getElementById('phone-2').value.trim();
       contentData.site.address = document.getElementById('site-address').value.trim();
@@ -423,12 +436,23 @@
       contentData.site.facebookUrl = document.getElementById('link-facebook').value.trim();
       contentData.site.facebookGroupUrl = document.getElementById('link-facebook-group').value.trim();
       contentData.site.zaloUrl = document.getElementById('link-zalo').value.trim();
+      const zaloGrpInput = document.getElementById('link-zalo-group');
+      if (zaloGrpInput) contentData.site.zaloGroupUrl = zaloGrpInput.value.trim();
 
       contentData.hero.badge = document.getElementById('hero-badge').value.trim();
       contentData.hero.headline = document.getElementById('hero-headline').value.trim();
       contentData.hero.subheadline = document.getElementById('hero-subheadline').value.trim();
       contentData.hero.description = document.getElementById('hero-description').value.trim();
       contentData.hero.image = document.getElementById('hero-image').value.trim();
+
+      const callCtaInp = document.getElementById('hero-call-cta');
+      if (callCtaInp) contentData.hero.callCta = callCtaInp.value.trim();
+      const zaloCtaInp = document.getElementById('hero-zalo-cta');
+      if (zaloCtaInp) contentData.hero.zaloCta = zaloCtaInp.value.trim();
+      const zaloGrpCtaInp = document.getElementById('hero-zalo-group-cta');
+      if (zaloGrpCtaInp) contentData.hero.zaloGroupCta = zaloGrpCtaInp.value.trim();
+      const tiktokCtaInp = document.getElementById('hero-tiktok-cta');
+      if (tiktokCtaInp) contentData.hero.tiktokCta = tiktokCtaInp.value.trim();
 
       contentData.realImages.title = document.getElementById('real-title').value.trim();
       contentData.realImages.subtitle = document.getElementById('real-sub').value.trim();

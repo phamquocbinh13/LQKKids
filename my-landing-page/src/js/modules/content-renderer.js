@@ -3,20 +3,47 @@
  * Reads data from content.json (or Admin LocalStorage overrides) and dynamically hydrates the DOM using `data-cms` attributes.
  */
 
+const SUPABASE_CONFIG = {
+  url: 'https://ycniwxepxlhgtvsmzsfk.supabase.co',
+  anonKey: 'sb_publishable_J4W7j-jiaOCehXj4Btb23w_jnDGlLoU'
+};
+
 export async function initContentRenderer() {
   try {
     let data = null;
 
-    // Check if Admin overridden content exists in LocalStorage
-    const adminContent = localStorage.getItem('lqk_kids_admin_content_v1');
-    if (adminContent) {
-      try {
-        data = JSON.parse(adminContent);
-      } catch (e) {
-        console.error('Failed to parse admin content', e);
+    // 1. Try Supabase cloud content
+    try {
+      const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
+        headers: {
+          'apikey': SUPABASE_CONFIG.anonKey,
+          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+        }
+      });
+      if (res.ok) {
+        const rows = await res.json();
+        if (rows && rows.length > 0 && rows[0].content_data) {
+          data = rows[0].content_data;
+          localStorage.setItem('lqk_kids_admin_content_v1', JSON.stringify(data));
+        }
+      }
+    } catch (err) {
+      console.warn('Supabase fetch site_content warning', err);
+    }
+
+    // 2. Check LocalStorage fallback
+    if (!data) {
+      const adminContent = localStorage.getItem('lqk_kids_admin_content_v1');
+      if (adminContent) {
+        try {
+          data = JSON.parse(adminContent);
+        } catch (e) {
+          console.error('Failed to parse admin content', e);
+        }
       }
     }
 
+    // 3. Fallback to static content.json
     if (!data) {
       const response = await fetch('./src/data/content.json');
       if (!response.ok) {
