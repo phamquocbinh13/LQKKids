@@ -17,6 +17,13 @@
     "brandName": "LQK KIDS",
     "logoSubtitle": "Thời trang bé yêu"
   },
+  "popup": {
+    "title": "GIA NHẬP NHÓM ZALO SỈ & LẺ LQK KIDS",
+    "description": "Cập nhật các mẫu mới sớm nhất, nhận mã giảm giá độc quyền và báo giá sỉ tận gốc từ xưởng LQK Kids!",
+    "buttonText": "THAM GIA NGAY",
+    "image": "./assets/images/hero-banner.jpg",
+    "link": "https://zalo.me/g/ssflrg5ii3iymweox5be"
+  },
   "hero": {
     "badge": "LQK KIDS",
     "headline": "QUẦN ÁO TRẺ EM",

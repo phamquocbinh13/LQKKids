@@ -70,9 +70,9 @@
   </script>
 
   <!-- Main Stylesheet -->
-  <script type="module" crossorigin src="/assets/main-HjotJH3A.js"></script>
+  <script type="module" crossorigin src="/assets/main-C1y5eOFD.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-  <link rel="stylesheet" crossorigin href="/assets/main-BQGpM-6s.css">
+  <link rel="stylesheet" crossorigin href="/assets/main-CLSUpEci.css">
 </head>
 
 <body class="bg-surface text-on-surface font-sans antialiased min-h-screen flex flex-col">
@@ -1182,6 +1182,94 @@
       </a>
     </div>
   </nav>
+
+  <!-- ==================== DESKTOP FLOATING CTA BUTTONS ==================== -->
+  <!-- Left Bottom Floating Hotline Pill with Glowing Ripple Animation -->
+  <div class="hidden md:block fixed bottom-6 left-6 z-[80]">
+    <a href="tel:0934498685" data-cms-href="site.phonePrimaryRaw"
+      class="group relative inline-flex items-center h-12 rounded-full bg-gradient-to-r from-red-600 via-orange-500 to-amber-500 text-white font-extrabold text-sm sm:text-base px-5 shadow-xl hover:scale-105 transition-all duration-300 border-2 border-white/90">
+      <div class="relative w-9 h-9 rounded-full bg-white text-red-600 flex items-center justify-center shadow-md mr-3 group-hover:rotate-12 transition-transform shrink-0">
+        <!-- Pulsing Glow Ring centered exactly on icon -->
+        <span class="animate-hotline-pulse absolute inset-0 rounded-full bg-red-500/50 pointer-events-none"></span>
+        <span class="material-symbols-outlined text-[20px] font-bold relative z-10">call</span>
+      </div>
+      <span class="tracking-wide text-white drop-shadow-xs" data-cms="site.phonePrimary">0934 498 685</span>
+    </a>
+  </div>
+
+  <!-- Right Bottom Floating CTA Stack (Zalo, TikTok, Shopee) -->
+  <div class="hidden md:flex fixed bottom-6 right-6 z-[80] flex-col gap-3">
+    <!-- Zalo Floating Button -->
+    <a href="https://zalo.me/0934498685" data-cms-href="site.zaloUrl" target="_blank" rel="noopener" aria-label="Chat qua Zalo"
+      class="w-12 h-12 rounded-full bg-[#0068FF] text-white flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all duration-300 group border-2 border-white">
+      <div class="font-black text-xs tracking-tighter">Zalo</div>
+    </a>
+
+    <!-- TikTok Floating Button -->
+    <a href="https://www.tiktok.com/@LQKKIDS" data-cms-href="site.tiktokUrl" target="_blank" rel="noopener" aria-label="Xem TikTok"
+      class="w-12 h-12 rounded-full bg-slate-950 text-white flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all duration-300 group border-2 border-white">
+      <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 1 1-5.2-1.74 2.89 2.89 0 0 1 2.31-2.83V7.62a6.34 6.34 0 0 0-5.11 6.2 6.34 6.34 0 1 0 11.45-3.86v-3.3a8.28 8.28 0 0 0 3.77 1.03V6.69z" />
+      </svg>
+    </a>
+
+    <!-- Shopee Floating Button -->
+    <a href="https://shopee.vn/LQKKids" data-cms-href="site.shopeeUrl" target="_blank" rel="noopener" aria-label="Mua hàng trên Shopee"
+      class="w-12 h-12 rounded-full bg-[#EE4D2D] text-white flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all duration-300 group border-2 border-white">
+      <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+        <path d="M19 7h-3V6a4 4 0 0 0-8 0v1H5a1 1 0 0 0-1 1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8a1 1 0 0 0-1-1zm-9-1a2 2 0 0 1 4 0v1h-4V6zm8 13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9h2v1.5a1 1 0 0 0 2 0V9h4v1.5a1 1 0 0 0 2 0V9h2v10z" />
+      </svg>
+    </a>
+  </div>
+
+  <!-- ==================== 30s ZALO GROUP PROMO POPUP MODAL ==================== -->
+  <div id="zalo-popup-modal"
+    class="hidden fixed inset-0 z-[130] overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300">
+    <div id="zalo-popup-overlay" class="fixed inset-0"></div>
+    <div
+      class="relative w-full max-w-sm sm:max-w-md bg-surface rounded-3xl shadow-2xl overflow-hidden z-10 flex flex-col border border-surface-container-high transform transition-all duration-300 scale-100">
+      
+      <!-- Close Button -->
+      <button id="zalo-popup-close" aria-label="Đóng bảng thông báo"
+        class="absolute top-3 right-3 z-20 w-9 h-9 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center backdrop-blur-md transition-colors shadow-md">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+
+      <!-- Optional Popup Banner Image (Auto Resizes) -->
+      <div id="zalo-popup-image-container" class="relative w-full bg-slate-900 overflow-hidden flex items-center justify-center max-h-[260px] sm:max-h-[300px]">
+        <img id="zalo-popup-img" src="" data-cms-img="popup.image" alt="Nhóm Zalo Sỉ & Lẻ LQK Kids"
+          class="w-full h-full object-cover" />
+      </div>
+
+      <!-- Popup Content Details -->
+      <div class="p-5 sm:p-6 flex flex-col items-center text-center gap-3 bg-surface-container-lowest">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100 text-[#0068FF] text-xs font-extrabold">
+          <span class="material-symbols-outlined text-[16px]">groups</span>
+          <span>CỘNG ĐỒNG SỈ & LẺ LQK KIDS</span>
+        </div>
+
+        <h3 class="text-base sm:text-lg font-extrabold text-on-surface leading-snug" data-cms="popup.title">
+          GIA NHẬP NHÓM ZALO SỈ & LẺ LQK KIDS
+        </h3>
+
+        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed" data-cms="popup.description">
+          Cập nhật các mẫu mới sớm nhất, nhận mã giảm giá độc quyền và báo giá sỉ tận gốc từ xưởng LQK Kids!
+        </p>
+
+        <!-- Main THAM GIA NGAY Action CTA -->
+        <a id="zalo-popup-link" href="https://zalo.me/g/ssflrg5ii3iymweox5be" data-cms-href="site.zaloGroupUrl" target="_blank" rel="noopener"
+          class="w-full mt-2 py-3.5 px-6 rounded-2xl bg-[#0068FF] hover:bg-blue-700 text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-blue-500/30 hover:shadow-xl active:scale-98 transition-all">
+          <span class="material-symbols-outlined text-[22px]">send</span>
+          <span data-cms="popup.buttonText">THAM GIA NGAY</span>
+        </a>
+
+        <button id="zalo-popup-dismiss" class="text-xs text-outline font-semibold hover:text-on-surface mt-1 transition-colors">
+          Để sau, tôi sẽ quay lại
+        </button>
+      </div>
+    </div>
+  </div>
+
 
   <!-- ==================== SIZE CHART MODAL VIEWER ==================== -->
   <div id="size-chart-modal"

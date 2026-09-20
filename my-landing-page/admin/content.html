@@ -284,6 +284,40 @@
         </div>
       </div>
 
+      <!-- 5. Pop Up Promo Zalo (Sau 30s) Section -->
+      <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 flex flex-col gap-4 shadow-md">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-slate-700/60 pb-3">
+          <span class="material-symbols-outlined text-[18px]">bolt</span>
+          5. Cấu Hình Pop-up Mời Gia Nhập Nhóm Zalo (Tự Động Sau 30s)
+        </h2>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Tiêu Đề Pop-up</label>
+          <input type="text" id="popup-title" placeholder="GIA NHẬP NHÓM ZALO SỈ & LẺ LQK KIDS" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Mô Tả Lợi Ích / Nội Dung Pop-up</label>
+          <textarea id="popup-desc" rows="2" placeholder="Cập nhật các mẫu mới sớm nhất, nhận mã giảm giá độc quyền và báo giá sỉ tận gốc..." class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">Tên Nút Bấm Pop-up (CTA)</label>
+          <input type="text" id="popup-btn-text" placeholder="THAM GIA NGAY" class="w-full h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">🖼️ Hình Ảnh Pop-up (Tự động co dãn chuẩn Responsive trên Mobile & Desktop)</label>
+          <div class="flex items-center gap-3">
+            <input type="text" id="popup-img" placeholder="./assets/images/hero-banner.jpg" class="flex-1 h-10 px-3.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500" />
+            <label class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors shrink-0">
+              <span>Tải ảnh Pop-up lên</span>
+              <input type="file" id="popup-img-file" accept="image/*" class="hidden" />
+            </label>
+          </div>
+        </div>
+      </div>
+
       <!-- 4. Final Banner Section -->
       <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 flex flex-col gap-4 shadow-md">
         <h2 class="text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-slate-700/60 pb-3">
@@ -363,6 +397,18 @@
         });
       }
 
+      // Popup image file compress upload
+      const popupFileInput = document.getElementById('popup-img-file');
+      if (popupFileInput) {
+        popupFileInput.addEventListener('change', async (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const compressed = await compressAndProcessImage(file, 1000, 0.85);
+            document.getElementById('popup-img').value = compressed;
+          }
+        });
+      }
+
       // Real images 4 photos file compress upload
       [0, 1, 2, 3].forEach(idx => {
         const fileInp = document.getElementById(`real-file-${idx}`);
@@ -396,6 +442,17 @@
         document.getElementById('link-zalo').value = data.site.zaloUrl || '';
         const zaloGrpInput = document.getElementById('link-zalo-group');
         if (zaloGrpInput) zaloGrpInput.value = data.site.zaloGroupUrl || '';
+      }
+
+      if (data.popup) {
+        const pTitle = document.getElementById('popup-title');
+        if (pTitle) pTitle.value = data.popup.title || '';
+        const pDesc = document.getElementById('popup-desc');
+        if (pDesc) pDesc.value = data.popup.description || '';
+        const pBtn = document.getElementById('popup-btn-text');
+        if (pBtn) pBtn.value = data.popup.buttonText || '';
+        const pImg = document.getElementById('popup-img');
+        if (pImg) pImg.value = data.popup.image || '';
       }
 
       if (data.hero) {
@@ -444,6 +501,7 @@
       e.preventDefault();
 
       if (!contentData.site) contentData.site = {};
+      if (!contentData.popup) contentData.popup = {};
       if (!contentData.hero) contentData.hero = {};
       if (!contentData.realImages) contentData.realImages = {};
       if (!contentData.finalCta) contentData.finalCta = {};
@@ -463,6 +521,15 @@
       contentData.site.zaloUrl = document.getElementById('link-zalo').value.trim();
       const zaloGrpInput = document.getElementById('link-zalo-group');
       if (zaloGrpInput) contentData.site.zaloGroupUrl = zaloGrpInput.value.trim();
+
+      const pTitle = document.getElementById('popup-title');
+      if (pTitle) contentData.popup.title = pTitle.value.trim();
+      const pDesc = document.getElementById('popup-desc');
+      if (pDesc) contentData.popup.description = pDesc.value.trim();
+      const pBtn = document.getElementById('popup-btn-text');
+      if (pBtn) contentData.popup.buttonText = pBtn.value.trim();
+      const pImg = document.getElementById('popup-img');
+      if (pImg) contentData.popup.image = pImg.value.trim();
 
       contentData.hero.badge = document.getElementById('hero-badge').value.trim();
       contentData.hero.headline = document.getElementById('hero-headline').value.trim();

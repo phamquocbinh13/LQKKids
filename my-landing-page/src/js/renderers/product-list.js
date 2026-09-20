@@ -98,7 +98,8 @@ function filterAndRenderGrid() {
     // 3. Take top 8 best selling products (or all if fewer than 8)
     filtered = sortedBySold.slice(0, 8);
   } else {
-    filtered = allProducts.filter(p => {
+    // 1. Filter by category and search query
+    const categoryMatches = allProducts.filter(p => {
       let matchesCategory = false;
       if (currentCategory === 'all') {
         matchesCategory = true;
@@ -110,6 +111,17 @@ function filterAndRenderGrid() {
 
       const matchesQuery = !query || p.name.toLowerCase().includes(query) || (p.description && p.description.toLowerCase().includes(query));
       return matchesCategory && matchesQuery;
+    });
+
+    // 2. Sort by newest upload first (highest numeric ID or createdAt, or reverse insertion order)
+    filtered = [...categoryMatches].sort((a, b) => {
+      if (a.createdAt && b.createdAt) {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      }
+      const idA = parseInt(a.id) || 0;
+      const idB = parseInt(b.id) || 0;
+      if (idA && idB) return idB - idA;
+      return 0;
     });
   }
 
