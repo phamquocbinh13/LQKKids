@@ -16,8 +16,8 @@ export function initFormHandler() {
     const data = Object.fromEntries(formData.entries());
 
     // Basic Validation
-    if (!data.gender || !data.age || !data.weight || !data.phone) {
-      showFeedback('Vui lòng điền đầy đủ các thông tin cần thiết!', 'error');
+    if (!data.age || !data.phone) {
+      showFeedback('Vui lòng điền đầy đủ số điện thoại và tuổi của bé!', 'error');
       return;
     }
 

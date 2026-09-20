@@ -26,11 +26,24 @@ export function initMobileMenu() {
     });
   }
 
+  // Desktop Scroll To Top button listener
+  const scrollTopBtn = document.getElementById('scroll-to-top-btn');
+  if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       const targetId = this.getAttribute('href');
       if (targetId === '#') return;
+      if (targetId === '#top') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
         e.preventDefault();
@@ -42,3 +55,4 @@ export function initMobileMenu() {
     });
   });
 }
+

@@ -151,14 +151,9 @@ function renderModalContent() {
       </div>
     </div>
 
-    <!-- Size Options Selector & Size Chart Modal Trigger -->
+    <!-- Size Options Selector & Inline Size Chart Image -->
     <div class="bg-surface-container-lowest p-4 rounded-2xl shadow-xs border border-surface-container-high/40 flex flex-col gap-3">
-      <div class="flex items-center justify-between">
-        <label class="text-xs font-bold text-on-surface">Kích thước (Size cho bé):</label>
-        <button type="button" id="open-size-chart-btn" class="text-xs font-bold text-secondary flex items-center gap-1 hover:underline cursor-pointer">
-          <span class="material-symbols-outlined text-[16px]">straighten</span> Bảng Size Chuẩn LQK Kids 📐
-        </button>
-      </div>
+      <label class="text-xs font-bold text-on-surface">Kích thước (Size cho bé):</label>
 
       <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
         ${currentProduct.sizeOptions.map(opt => `
@@ -167,6 +162,17 @@ function renderModalContent() {
             <span class="text-[11px] opacity-90">${opt.weight}</span>
           </button>
         `).join('')}
+      </div>
+
+      <!-- Direct Size Chart Image Preview -->
+      <div class="mt-2 pt-3 border-t border-surface-container-high/50 flex flex-col gap-2">
+        <div class="flex items-center gap-1.5 text-xs font-bold text-primary">
+          <span class="material-symbols-outlined text-[18px]">straighten</span>
+          <span>Bảng Size Chuẩn LQK Kids:</span>
+        </div>
+        <div class="w-full rounded-2xl overflow-hidden bg-surface-container-low border border-surface-container-high shadow-xs">
+          <img src="./assets/images/size-chart.jpg" data-cms-img="site.sizeChart" alt="Bảng Size Quần Áo Trẻ Em LQK Kids" class="w-full h-auto object-contain" />
+        </div>
       </div>
     </div>
 
