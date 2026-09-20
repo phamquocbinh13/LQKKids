@@ -374,7 +374,7 @@
 
       container.innerHTML = imagesList.map((img, idx) => `
         <div class="relative w-20 h-24 rounded-xl overflow-hidden border border-slate-700 bg-slate-900 group">
-          <img src="${img}" class="w-full h-full object-cover" onerror="this.src='./assets/images/category-be-trai.jpg'" />
+          <img src="${img}" class="w-full h-full object-cover" onerror="this.src='../assets/images/logo.png'" />
           <button type="button" data-idx="${idx}" class="remove-img-btn absolute top-1 right-1 w-5 h-5 rounded-full bg-red-600 text-white flex items-center justify-center opacity-90 hover:opacity-100">
             <span class="material-symbols-outlined text-[14px]">close</span>
           </button>
