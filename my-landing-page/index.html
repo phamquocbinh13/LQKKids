@@ -844,102 +844,106 @@
         <p class="text-xs sm:text-sm font-semibold text-secondary mt-1" data-cms="contact.subtitle">Hãy để LQK Kids hỗ trợ bạn</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-        <div class="p-6 rounded-3xl bg-surface-container-lowest shadow-md border border-surface-container-high/40">
-          <h3 class="text-base font-bold text-on-surface mb-2" data-cms="contact.formTitle">ĐĂNG KÝ TƯ VẤN SIZE CHO BÉ</h3>
-          <p class="text-xs text-on-surface-variant mb-4 leading-relaxed" data-cms="contact.description">Bạn chỉ cần gửi: 👦 Bé trai hay bé gái, 🎂 Tuổi của bé, 📏 Chiều cao, ⚖️ Cân nặng. LQK Kids sẽ hỗ trợ tư vấn mẫu và size phù hợp.</p>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+        <div class="p-6 rounded-3xl bg-surface-container-lowest shadow-md border border-surface-container-high/40 flex flex-col justify-between gap-4">
+          <div>
+            <h3 class="text-base font-bold text-on-surface mb-2" data-cms="contact.formTitle">ĐĂNG KÝ TƯ VẤN SIZE CHO BÉ</h3>
+            <p class="text-xs text-on-surface-variant mb-4 leading-relaxed" data-cms="contact.description">Bạn chỉ cần gửi: 👦 Bé trai hay bé gái, 🎂 Tuổi của bé, 📏 Chiều cao, ⚖️ Cân nặng. LQK Kids sẽ hỗ trợ tư vấn mẫu và size phù hợp.</p>
 
-          <form id="consultation-form" class="flex flex-col gap-3">
-            <div class="grid grid-cols-2 gap-2">
-              <div>
-                <label class="block text-[11px] font-bold text-on-surface mb-1">Giới tính bé</label>
-                <select name="gender"
-                  class="w-full h-10 px-3 rounded-xl bg-surface-container-low text-xs border border-surface-container-high text-on-surface focus:outline-none focus:ring-2 focus:ring-primary">
-                  <option value="Bé trai">👦 Bé trai</option>
-                  <option value="Bé gái">👧 Bé gái</option>
-                </select>
+            <form id="consultation-form" class="flex flex-col gap-3">
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-[11px] font-bold text-on-surface mb-1">Giới tính bé</label>
+                  <select name="gender"
+                    class="w-full h-10 px-3 rounded-xl bg-surface-container-low text-xs border border-surface-container-high text-on-surface focus:outline-none focus:ring-2 focus:ring-primary">
+                    <option value="Bé trai">👦 Bé trai</option>
+                    <option value="Bé gái">👧 Bé gái</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-on-surface mb-1">🎂 Tuổi của bé</label>
+                  <input type="text" name="age" placeholder="Ví dụ: 3 tuổi" required
+                    class="w-full h-10 px-3 rounded-xl bg-surface-container-low text-xs border border-surface-container-high text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" />
+                </div>
               </div>
+
               <div>
-                <label class="block text-[11px] font-bold text-on-surface mb-1">🎂 Tuổi của bé</label>
-                <input type="text" name="age" placeholder="Ví dụ: 3 tuổi" required
+                <label class="block text-[11px] font-bold text-on-surface mb-1.5">📐 BẢNG SIZE THAM KHẢO (Chọn size cho bé):</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 p-2.5 rounded-xl bg-surface-container-low border border-surface-container-high text-xs">
+                  <label class="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-surface-container/60">
+                    <input type="checkbox" name="sizes" value="Size 90 (7-9kg, 75-85cm)" class="rounded text-primary focus:ring-primary accent-primary" />
+                    <span><strong>Size 90:</strong> 7–9kg | 75-85 cm</span>
+                  </label>
+                  <label class="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-surface-container/60">
+                    <input type="checkbox" name="sizes" value="Size 100 (9-11kg, 85-95cm)" class="rounded text-primary focus:ring-primary accent-primary" />
+                    <span><strong>Size 100:</strong> 9–11kg | 85-95 cm</span>
+                  </label>
+                  <label class="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-surface-container/60">
+                    <input type="checkbox" name="sizes" value="Size 110 (11-14kg, 95-105cm)" class="rounded text-primary focus:ring-primary accent-primary" />
+                    <span><strong>Size 110:</strong> 11–14kg | 95-105 cm</span>
+                  </label>
+                  <label class="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-surface-container/60">
+                    <input type="checkbox" name="sizes" value="Size 120 (14-17kg, 105-115cm)" class="rounded text-primary focus:ring-primary accent-primary" />
+                    <span><strong>Size 120:</strong> 14–17kg | 105-115 cm</span>
+                  </label>
+                  <label class="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-surface-container/60">
+                    <input type="checkbox" name="sizes" value="Size 130 (17-20kg, 115-125cm)" class="rounded text-primary focus:ring-primary accent-primary" />
+                    <span><strong>Size 130:</strong> 17–20kg | 115-125 cm</span>
+                  </label>
+                  <label class="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-surface-container/60">
+                    <input type="checkbox" name="sizes" value="Size 140 (20-23kg, 125-135cm)" class="rounded text-primary focus:ring-primary accent-primary" />
+                    <span><strong>Size 140:</strong> 20–23kg | 125-135 cm</span>
+                  </label>
+                  <label class="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-surface-container/60 sm:col-span-2">
+                    <input type="checkbox" name="sizes" value="Size 150 (23-26kg, 135-145cm)" class="rounded text-primary focus:ring-primary accent-primary" />
+                    <span><strong>Size 150:</strong> 23–25/26kg | 135-145 cm</span>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-on-surface mb-1">Số điện thoại / Zalo của mẹ</label>
+                <input type="tel" name="phone" placeholder="Nhập SĐT để shop Zalo tư vấn" required
                   class="w-full h-10 px-3 rounded-xl bg-surface-container-low text-xs border border-surface-container-high text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" />
               </div>
-            </div>
 
-            <div>
-              <label class="block text-[11px] font-bold text-on-surface mb-1.5">📐 BẢNG SIZE THAM KHẢO (Chọn size cho bé):</label>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5 p-2.5 rounded-xl bg-surface-container-low border border-surface-container-high text-xs">
-                <label class="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-surface-container/60">
-                  <input type="checkbox" name="sizes" value="Size 90 (7-9kg, 75-85cm)" class="rounded text-primary focus:ring-primary accent-primary" />
-                  <span><strong>Size 90:</strong> 7–9kg | 75-85 cm</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-surface-container/60">
-                  <input type="checkbox" name="sizes" value="Size 100 (9-11kg, 85-95cm)" class="rounded text-primary focus:ring-primary accent-primary" />
-                  <span><strong>Size 100:</strong> 9–11kg | 85-95 cm</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-surface-container/60">
-                  <input type="checkbox" name="sizes" value="Size 110 (11-14kg, 95-105cm)" class="rounded text-primary focus:ring-primary accent-primary" />
-                  <span><strong>Size 110:</strong> 11–14kg | 95-105 cm</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-surface-container/60">
-                  <input type="checkbox" name="sizes" value="Size 120 (14-17kg, 105-115cm)" class="rounded text-primary focus:ring-primary accent-primary" />
-                  <span><strong>Size 120:</strong> 14–17kg | 105-115 cm</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-surface-container/60">
-                  <input type="checkbox" name="sizes" value="Size 130 (17-20kg, 115-125cm)" class="rounded text-primary focus:ring-primary accent-primary" />
-                  <span><strong>Size 130:</strong> 17–20kg | 115-125 cm</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-surface-container/60">
-                  <input type="checkbox" name="sizes" value="Size 140 (20-23kg, 125-135cm)" class="rounded text-primary focus:ring-primary accent-primary" />
-                  <span><strong>Size 140:</strong> 20–23kg | 125-135 cm</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer p-1 rounded hover:bg-surface-container/60 sm:col-span-2">
-                  <input type="checkbox" name="sizes" value="Size 150 (23-26kg, 135-145cm)" class="rounded text-primary focus:ring-primary accent-primary" />
-                  <span><strong>Size 150:</strong> 23–25/26kg | 135-145 cm</span>
-                </label>
+              <div class="grid grid-cols-2 gap-2 mt-2">
+                <a href="https://zalo.me/0934498685" data-cms-href="site.zaloUrl" target="_blank" rel="noopener"
+                  class="min-h-[44px] px-3 py-2 rounded-full bg-primary text-on-primary font-bold text-xs flex items-center justify-center gap-1 shadow-xs hover:brightness-110 active:scale-98 transition-all">
+                  <span class="material-symbols-outlined text-[16px]">chat_bubble</span>
+                  <span data-cms="contact.zaloCta">NHẮN ZALO NGAY</span>
+                </a>
+                <a href="tel:0934498685" data-cms-href="site.phonePrimaryRaw"
+                  class="min-h-[44px] px-3 py-2 rounded-full bg-secondary-container text-on-secondary-fixed font-bold text-xs flex items-center justify-center gap-1 shadow-xs hover:brightness-105 active:scale-98 transition-all">
+                  <span class="material-symbols-outlined text-[16px]">call</span>
+                  <span data-cms="contact.callCta">GỌI NGAY</span>
+                </a>
               </div>
-            </div>
-
-            <div>
-              <label class="block text-[11px] font-bold text-on-surface mb-1">Số điện thoại / Zalo của mẹ</label>
-              <input type="tel" name="phone" placeholder="Nhập SĐT để shop Zalo tư vấn" required
-                class="w-full h-10 px-3 rounded-xl bg-surface-container-low text-xs border border-surface-container-high text-on-surface focus:outline-none focus:ring-2 focus:ring-primary" />
-            </div>
-
-            <div class="grid grid-cols-2 gap-2 mt-2">
-              <a href="https://zalo.me/0934498685" data-cms-href="site.zaloUrl" target="_blank" rel="noopener"
-                class="min-h-[44px] px-3 py-2 rounded-full bg-primary text-on-primary font-bold text-xs flex items-center justify-center gap-1 shadow-xs hover:brightness-110 active:scale-98 transition-all">
-                <span class="material-symbols-outlined text-[16px]">chat_bubble</span>
-                <span data-cms="contact.zaloCta">NHẮN ZALO NGAY</span>
-              </a>
-              <a href="tel:0934498685" data-cms-href="site.phonePrimaryRaw"
-                class="min-h-[44px] px-3 py-2 rounded-full bg-secondary-container text-on-secondary-fixed font-bold text-xs flex items-center justify-center gap-1 shadow-xs hover:brightness-105 active:scale-98 transition-all">
-                <span class="material-symbols-outlined text-[16px]">call</span>
-                <span data-cms="contact.callCta">GỌI NGAY</span>
-              </a>
-            </div>
-          </form>
-          <div id="form-feedback" class="hidden"></div>
+            </form>
+            <div id="form-feedback" class="hidden"></div>
+          </div>
         </div>
 
         <!-- MUA HÀNG TRỰC TIẾP -->
         <div
-          class="p-6 rounded-3xl bg-surface-container shadow-xs border border-surface-container-high/60 flex flex-col gap-4">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
-              <span class="material-symbols-outlined text-primary text-[22px]">storefront</span>
+          class="p-6 rounded-3xl bg-surface-container shadow-xs border border-surface-container-high/60 flex flex-col justify-between gap-4 h-full">
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-primary text-[22px]">storefront</span>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-on-surface" data-cms="contact.directShopTitle">MUA HÀNG TRỰC TIẾP</h3>
+                <p class="text-xs text-outline" data-cms="contact.directShopSub">LQK KIDS – PHỐ HOA LÂM</p>
+              </div>
             </div>
-            <div>
-              <h3 class="text-base font-bold text-on-surface" data-cms="contact.directShopTitle">MUA HÀNG TRỰC TIẾP</h3>
-              <p class="text-xs text-outline" data-cms="contact.directShopSub">LQK KIDS – PHỐ HOA LÂM</p>
-            </div>
-          </div>
 
-          <p class="text-xs text-on-surface-variant leading-relaxed" data-cms="contact.directShopDesc">Phố Hoa Lâm, Phường Việt Hưng, Hà Nội. Nếu bạn ở khu vực Hà Nội và muốn liên hệ trực tiếp với LQK Kids, vui lòng gọi điện hoặc nhắn Zalo trước khi đến để được hỗ trợ.</p>
+            <p class="text-xs text-on-surface-variant leading-relaxed" data-cms="contact.directShopDesc">Phố Hoa Lâm, Phường Việt Hưng, Hà Nội. Nếu bạn ở khu vực Hà Nội và muốn liên hệ trực tiếp với LQK Kids, vui lòng gọi điện hoặc nhắn Zalo trước khi đến để được hỗ trợ.</p>
+          </div>
 
           <!-- Interactive Live Google Maps Display -->
           <div
-            class="w-full h-56 rounded-2xl shadow-inner relative overflow-hidden group border border-surface-container-high bg-surface-container-low">
+            class="w-full flex-1 min-h-[300px] rounded-2xl shadow-inner relative overflow-hidden group border border-surface-container-high bg-surface-container-low">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1861.8105021239843!2d105.8951207!3d21.057062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135a99924d49007%3A0x44859efc7e9b5b02!2zUC4gSG9hIEzDom0sIFZp4buHdCBIErGsG5nLCBIw6AgTuG7mWksIFZpZXRuYW0!5e0!3m2!1svi!2s!4v1710000000000!5m2!1svi!2s"
               class="w-full h-full border-0 opacity-95 group-hover:opacity-100 transition-opacity" allowfullscreen=""

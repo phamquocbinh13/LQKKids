@@ -214,14 +214,60 @@
       
       const urlParams = new URLSearchParams(window.location.search);
       currentId = urlParams.get('id');
+      const copyId = urlParams.get('copyId');
+      const templateId = urlParams.get('templateId');
 
       setupDragAndDrop();
       setupDiscountCalculator();
+
+      const default7Sizes = [
+        { size: 'Size 90', weight: '7–9kg', detail: '1-2 tuổi' },
+        { size: 'Size 100', weight: '9–11kg', detail: '2-3 tuổi' },
+        { size: 'Size 110', weight: '11–14kg', detail: '3-4 tuổi' },
+        { size: 'Size 120', weight: '14–17kg', detail: '4-5 tuổi' },
+        { size: 'Size 130', weight: '17–20kg', detail: '5-6 tuổi' },
+        { size: 'Size 140', weight: '20-23kg', detail: '6-7 tuổi' },
+        { size: 'Size 150', weight: '23–25,26kg', detail: '7-9 tuổi' }
+      ];
 
       if (currentId) {
         document.getElementById('page-title').textContent = 'CHỈNH SỬA SẢN PHẨM';
         const p = products.find(item => item.id === currentId);
         if (p) populateForm(p);
+      } else if (copyId) {
+        document.getElementById('page-title').textContent = 'NHÂN BẢN SẢN PHẨM (SAO CHÉP TOÀN BỘ THUỘC TÍNH)';
+        const p = products.find(item => item.id === copyId);
+        if (p) {
+          populateForm(p);
+          currentId = null; // New entry
+          const baseCode = p.code || 'SP-LQK';
+          let newCode = `${baseCode}-COPY`;
+          let count = 1;
+          while (products.some(prod => prod.code && prod.code.toLowerCase() === newCode.toLowerCase())) {
+            count++;
+            newCode = `${baseCode}-COPY${count}`;
+          }
+          document.getElementById('p-code').value = newCode;
+        }
+      } else if (templateId) {
+        document.getElementById('page-title').textContent = 'TẠO SẢN PHẨM MỚI TỪ MẪU';
+        const p = products.find(item => item.id === templateId);
+        if (p) {
+          populateForm(p);
+          currentId = null; // New entry
+          document.getElementById('p-name').value = '';
+          
+          let nextNum = products.length + 1;
+          let suggestedCode = `SP-LQK${String(nextNum).padStart(2, '0')}`;
+          while (products.some(prod => prod.code && prod.code.toLowerCase() === suggestedCode.toLowerCase())) {
+            nextNum++;
+            suggestedCode = `SP-LQK${String(nextNum).padStart(2, '0')}`;
+          }
+          document.getElementById('p-code').value = suggestedCode;
+
+          imagesList = [];
+          renderImagePreviews();
+        }
       } else {
         document.getElementById('page-title').textContent = 'THÊM SẢN PHẨM MỚI';
         document.getElementById('p-rating').value = 5.0;
@@ -237,17 +283,15 @@
         document.getElementById('p-code').value = suggestedCode;
 
         imagesList = [];
-        sizeOptions = [
-          { size: 'Size 90', weight: '7–9kg', detail: '1-2 tuổi' },
-          { size: 'Size 100', weight: '9–11kg', detail: '2-3 tuổi' }
-        ];
+        sizeOptions = JSON.parse(JSON.stringify(default7Sizes));
         renderImagePreviews();
         renderSizeRows();
       }
 
       document.getElementById('product-form').addEventListener('submit', handleFormSubmit);
       document.getElementById('add-size-row-btn').addEventListener('click', () => {
-        sizeOptions.push({ size: 'Size 110', weight: '11–14kg', detail: '3-4 tuổi' });
+        let nextSizeNum = sizeOptions.length + 9; // Size 90, 100, 110...
+        sizeOptions.push({ size: `Size ${nextSizeNum}0`, weight: '', detail: '' });
         renderSizeRows();
       });
     });
@@ -314,8 +358,16 @@
       document.getElementById('p-description').value = p.description || '';
       document.getElementById('p-colors').value = (p.colors || []).join(', ');
 
-      imagesList = p.images || [];
-      sizeOptions = p.sizeOptions || [];
+      imagesList = Array.isArray(p.images) ? [...p.images] : [];
+      sizeOptions = Array.isArray(p.sizeOptions) && p.sizeOptions.length ? JSON.parse(JSON.stringify(p.sizeOptions)) : [
+        { size: 'Size 90', weight: '7–9kg', detail: '1-2 tuổi' },
+        { size: 'Size 100', weight: '9–11kg', detail: '2-3 tuổi' },
+        { size: 'Size 110', weight: '11–14kg', detail: '3-4 tuổi' },
+        { size: 'Size 120', weight: '14–17kg', detail: '4-5 tuổi' },
+        { size: 'Size 130', weight: '17–20kg', detail: '5-6 tuổi' },
+        { size: 'Size 140', weight: '20-23kg', detail: '6-7 tuổi' },
+        { size: 'Size 150', weight: '23–25,26kg', detail: '7-9 tuổi' }
+      ];
 
       renderImagePreviews();
       renderSizeRows();
@@ -356,12 +408,21 @@
     }
 
     async function processFiles(files) {
-      for (const file of files) {
-        if (file.type.startsWith('image/')) {
-          const base64 = await fileToBase64(file);
-          imagesList.push(base64);
-        }
+      const imageFiles = files.filter(f => f.type.startsWith('image/'));
+      if (imageFiles.length === 0) return;
+
+      const previewContainer = document.getElementById('images-preview');
+      const originalText = previewContainer.innerHTML;
+      previewContainer.innerHTML = `<div class="flex items-center gap-2 text-xs text-amber-400 font-bold py-2"><span class="animate-spin material-symbols-outlined text-[18px]">sync</span> Đang nén & xử lý ${imageFiles.length} ảnh siêu nhanh...</div>`;
+
+      try {
+        const processedBase64List = await Promise.all(imageFiles.map(file => fileToBase64(file)));
+        imagesList.push(...processedBase64List);
+      } catch (err) {
+        console.error('Error processing image files:', err);
+        alert('Có lỗi khi xử lý một số tệp hình ảnh. Vui lòng thử lại!');
       }
+
       renderImagePreviews();
     }
 
@@ -372,20 +433,98 @@
         return;
       }
 
-      container.innerHTML = imagesList.map((img, idx) => `
-        <div class="relative w-20 h-24 rounded-xl overflow-hidden border border-slate-700 bg-slate-900 group">
-          <img src="${img}" class="w-full h-full object-cover" onerror="this.src='../assets/images/logo.png'" />
-          <button type="button" data-idx="${idx}" class="remove-img-btn absolute top-1 right-1 w-5 h-5 rounded-full bg-red-600 text-white flex items-center justify-center opacity-90 hover:opacity-100">
-            <span class="material-symbols-outlined text-[14px]">close</span>
-          </button>
-        </div>
-      `).join('');
+      container.innerHTML = imagesList.map((img, idx) => {
+        const isPrimary = idx === 0;
+        return `
+          <div class="relative w-28 h-36 rounded-xl overflow-hidden border ${isPrimary ? 'border-amber-400 ring-2 ring-amber-400/40 bg-slate-900' : 'border-slate-700 bg-slate-900'} flex flex-col justify-between p-1.5 shadow-md group">
+            <div class="relative w-full flex-1 rounded-lg overflow-hidden bg-slate-950">
+              <img src="${img}" class="w-full h-full object-cover" onerror="this.src='../assets/images/logo.png'" />
+              
+              <!-- Badge Primary / Main Image -->
+              ${isPrimary ? `
+                <span class="absolute top-1 left-1 px-1.5 py-0.5 rounded-md bg-amber-500 text-slate-950 font-extrabold text-[9px] shadow-xs flex items-center gap-0.5">
+                  <span class="material-symbols-outlined text-[10px]">star</span> Hiển thị chính
+                </span>
+              ` : `
+                <span class="absolute top-1 left-1 px-1.5 py-0.5 rounded-md bg-slate-900/80 text-slate-300 font-bold text-[9px]">
+                  Ảnh ${idx + 1}/${imagesList.length}
+                </span>
+              `}
 
+              <!-- Close Delete Button -->
+              <button type="button" data-idx="${idx}" class="remove-img-btn absolute top-1 right-1 w-5 h-5 rounded-full bg-red-600/90 text-white flex items-center justify-center opacity-90 hover:opacity-100 shadow-xs">
+                <span class="material-symbols-outlined text-[13px]">close</span>
+              </button>
+            </div>
+
+            <!-- Controls Row -->
+            <div class="mt-1 flex items-center justify-between gap-1">
+              ${!isPrimary ? `
+                <button type="button" data-set-primary="${idx}" class="set-primary-btn text-[9px] font-bold text-amber-400 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 px-1.5 py-0.5 rounded-md flex-1 truncate transition-colors text-center">
+                  Đặt làm ảnh chính
+                </button>
+              ` : `
+                <span class="text-[9px] font-bold text-amber-300 px-1 py-0.5">Bìa sản phẩm</span>
+              `}
+
+              <div class="flex items-center gap-0.5 shrink-0">
+                ${idx > 0 ? `
+                  <button type="button" data-move-left="${idx}" title="Chuyển sang trái" class="move-left-btn w-5 h-5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[12px]">chevron_left</span>
+                  </button>
+                ` : ''}
+                ${idx < imagesList.length - 1 ? `
+                  <button type="button" data-move-right="${idx}" title="Chuyển sang phải" class="move-right-btn w-5 h-5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[12px]">chevron_right</span>
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Event handlers
       container.querySelectorAll('.remove-img-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const idx = parseInt(btn.getAttribute('data-idx'));
           imagesList.splice(idx, 1);
           renderImagePreviews();
+        });
+      });
+
+      container.querySelectorAll('.set-primary-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.getAttribute('data-set-primary'));
+          if (idx > 0 && idx < imagesList.length) {
+            const targetImg = imagesList.splice(idx, 1)[0];
+            imagesList.unshift(targetImg); // Move to 1st slot
+            renderImagePreviews();
+          }
+        });
+      });
+
+      container.querySelectorAll('.move-left-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.getAttribute('data-move-left'));
+          if (idx > 0) {
+            const temp = imagesList[idx];
+            imagesList[idx] = imagesList[idx - 1];
+            imagesList[idx - 1] = temp;
+            renderImagePreviews();
+          }
+        });
+      });
+
+      container.querySelectorAll('.move-right-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.getAttribute('data-move-right'));
+          if (idx < imagesList.length - 1) {
+            const temp = imagesList[idx];
+            imagesList[idx] = imagesList[idx + 1];
+            imagesList[idx + 1] = temp;
+            renderImagePreviews();
+          }
         });
       });
     }
@@ -427,6 +566,7 @@
         });
       });
     }
+
 
     async function handleFormSubmit(e) {
       e.preventDefault();

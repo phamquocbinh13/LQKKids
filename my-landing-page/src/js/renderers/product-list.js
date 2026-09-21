@@ -184,6 +184,14 @@ function renderGrid(products) {
               ${product.badge}
             </span>
           </div>
+
+          ${product.images && product.images.length > 1 ? `
+            <span class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded-md bg-slate-950/75 text-white text-[10px] font-extrabold backdrop-blur-md border border-white/20 shadow-xs flex items-center gap-1 z-10 pointer-events-none">
+              <span class="material-symbols-outlined text-[12px]">photo_library</span>
+              <span>1/${product.images.length}</span>
+            </span>
+          ` : ''}
+
           <button 
             aria-label="Thêm vào yêu thích ${product.name}" 
             class="wishlist-btn absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-surface-container-lowest/90 backdrop-blur-xs flex items-center justify-center text-on-surface-variant hover:text-error transition-colors shadow-xs active:scale-90"

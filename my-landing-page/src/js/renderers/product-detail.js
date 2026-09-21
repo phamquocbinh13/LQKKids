@@ -85,8 +85,8 @@ function renderModalContent() {
     </a>
 
     <!-- Product Image Carousel Container -->
-    <div class="relative w-full aspect-[4/5] bg-surface-container-low rounded-3xl overflow-hidden shadow-sm">
-      <img id="detail-main-image" src="${currentProduct.images[0]}" alt="${currentProduct.name}" class="w-full h-full object-cover" />
+    <div id="detail-main-image-wrapper" class="relative w-full aspect-[4/5] bg-surface-container-low rounded-3xl overflow-hidden shadow-sm group touch-pan-y select-none">
+      <img id="detail-main-image" src="${currentProduct.images[0]}" alt="${currentProduct.name}" class="w-full h-full object-cover transition-opacity duration-200" />
       
       <div class="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
         <span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-xs font-extrabold rounded-full shadow-xs flex items-center gap-1">
@@ -99,13 +99,28 @@ function renderModalContent() {
           </span>
         ` : ''}
       </div>
+
+      ${currentProduct.images.length > 1 ? `
+        <!-- Chevron Navigation Arrows -->
+        <button type="button" id="prev-detail-img-btn" aria-label="Ảnh trước" class="absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-surface-container-lowest/85 text-on-surface backdrop-blur-md flex items-center justify-center opacity-80 hover:opacity-100 transition-all shadow-md z-10 active:scale-90">
+          <span class="material-symbols-outlined text-[22px]">chevron_left</span>
+        </button>
+        <button type="button" id="next-detail-img-btn" aria-label="Ảnh tiếp theo" class="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-surface-container-lowest/85 text-on-surface backdrop-blur-md flex items-center justify-center opacity-80 hover:opacity-100 transition-all shadow-md z-10 active:scale-90">
+          <span class="material-symbols-outlined text-[22px]">chevron_right</span>
+        </button>
+
+        <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 text-white text-[11px] font-extrabold backdrop-blur-md border border-white/20 shadow-xs flex items-center gap-1 z-10 pointer-events-none">
+          <span class="material-symbols-outlined text-[13px]">photo_library</span>
+          <span id="detail-img-counter-text">1/${currentProduct.images.length}</span>
+        </span>
+      ` : ''}
     </div>
 
     <!-- Thumbnails Gallery -->
     ${currentProduct.images.length > 1 ? `
       <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
         ${currentProduct.images.map((img, idx) => `
-          <button data-img="${img}" class="detail-thumb-btn w-16 h-16 rounded-xl overflow-hidden border-2 transition-all shrink-0 ${idx === 0 ? 'border-primary ring-2 ring-primary/30' : 'border-transparent opacity-70'}">
+          <button data-img="${img}" data-idx="${idx}" class="detail-thumb-btn w-16 h-16 rounded-xl overflow-hidden border-2 transition-all shrink-0 ${idx === 0 ? 'border-primary ring-2 ring-primary/30' : 'border-transparent opacity-70'}">
             <img src="${img}" class="w-full h-full object-cover" />
           </button>
         `).join('')}
@@ -218,21 +233,80 @@ function setupModalInteractions() {
     });
   }
 
-  // Thumbnails
-  container.querySelectorAll('.detail-thumb-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const src = btn.getAttribute('data-img');
-      const mainImg = document.getElementById('detail-main-image');
-      if (mainImg) mainImg.src = src;
+  let currentImgIdx = 0;
 
-      container.querySelectorAll('.detail-thumb-btn').forEach(b => {
+  function setDetailImageIndex(idx) {
+    if (!currentProduct || !currentProduct.images || currentProduct.images.length === 0) return;
+    if (idx < 0) idx = currentProduct.images.length - 1;
+    if (idx >= currentProduct.images.length) idx = 0;
+
+    currentImgIdx = idx;
+    const mainImg = document.getElementById('detail-main-image');
+    if (mainImg) mainImg.src = currentProduct.images[idx];
+
+    const counterText = document.getElementById('detail-img-counter-text');
+    if (counterText) counterText.textContent = `${idx + 1}/${currentProduct.images.length}`;
+
+    container.querySelectorAll('.detail-thumb-btn').forEach(b => {
+      const bIdx = parseInt(b.getAttribute('data-idx'));
+      if (bIdx === idx) {
+        b.classList.remove('border-transparent', 'opacity-70');
+        b.classList.add('border-primary', 'ring-2', 'ring-primary/30');
+        b.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } else {
         b.classList.remove('border-primary', 'ring-2', 'ring-primary/30');
         b.classList.add('border-transparent', 'opacity-70');
-      });
-      btn.classList.remove('border-transparent', 'opacity-70');
-      btn.classList.add('border-primary', 'ring-2', 'ring-primary/30');
+      }
+    });
+  }
+
+  // Thumbnails click
+  container.querySelectorAll('.detail-thumb-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.getAttribute('data-idx')) || 0;
+      setDetailImageIndex(idx);
     });
   });
+
+  // Touch Swipe & Chevron Navigation
+  const imgWrapper = document.getElementById('detail-main-image-wrapper');
+  if (imgWrapper && currentProduct && currentProduct.images && currentProduct.images.length > 1) {
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    imgWrapper.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    imgWrapper.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 35) {
+        if (diff < 0) {
+          setDetailImageIndex(currentImgIdx + 1); // Next image
+        } else {
+          setDetailImageIndex(currentImgIdx - 1); // Previous image
+        }
+      }
+    }, { passive: true });
+
+    const prevBtn = document.getElementById('prev-detail-img-btn');
+    const nextBtn = document.getElementById('next-detail-img-btn');
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setDetailImageIndex(currentImgIdx - 1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setDetailImageIndex(currentImgIdx + 1);
+      });
+    }
+  }
 
   // Colors
   container.querySelectorAll('.color-option-btn').forEach(btn => {

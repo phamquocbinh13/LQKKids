@@ -34,32 +34,54 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     let products = [];
 
-    // A. Fetch from Supabase site_content store
-    const resContent = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
-      headers: {
-        'apikey': SUPABASE_CONFIG.anonKey,
-        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+    // A. Fetch from Supabase site_content store with cache-busting timestamp
+    try {
+      const resContent = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*&_t=${Date.now()}`, {
+        headers: {
+          'apikey': SUPABASE_CONFIG.anonKey,
+          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+          'Cache-Control': 'no-cache'
+        }
+      });
+      if (resContent.ok) {
+        const rows = await resContent.json();
+        if (rows && rows.length > 0 && rows[0].content_data && Array.isArray(rows[0].content_data.products)) {
+          products = rows[0].content_data.products;
+          localStorage.setItem('lqk_kids_admin_products_v1', JSON.stringify(products));
+        }
       }
-    });
-    if (resContent.ok) {
-      const rows = await resContent.json();
-      if (rows && rows.length > 0 && rows[0].content_data && Array.isArray(rows[0].content_data.products)) {
-        products = rows[0].content_data.products;
-      }
+    } catch (e) {
+      console.warn('Supabase fetch site_content products warning', e);
     }
 
     // B. Fetch from Supabase standalone products table if site_content product list is empty
     if (!products || products.length === 0) {
-      const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?select=*`, {
-        headers: {
-          'apikey': SUPABASE_CONFIG.anonKey,
-          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+      try {
+        const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?select=*`, {
+          headers: {
+            'apikey': SUPABASE_CONFIG.anonKey,
+            'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+          }
+        });
+        if (res.ok) {
+          const rows = await res.json();
+          if (rows && rows.length > 0) {
+            products = rows;
+          }
         }
-      });
-      if (res.ok) {
-        const rows = await res.json();
-        if (rows && rows.length > 0) {
-          products = rows;
+      } catch (e) {
+        console.warn('Supabase fetch products warning', e);
+      }
+    }
+
+    // C. Check localStorage fallback if network is offline or empty
+    if (!products || products.length === 0) {
+      const localProd = localStorage.getItem('lqk_kids_admin_products_v1');
+      if (localProd) {
+        try {
+          products = JSON.parse(localProd);
+        } catch (e) {
+          console.error('Failed to parse local products fallback', e);
         }
       }
     }

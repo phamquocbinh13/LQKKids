@@ -421,74 +421,72 @@
       document.getElementById('content-form').addEventListener('submit', handleFormSubmit);
     });
 
+    function setVal(id, val) {
+      const el = document.getElementById(id);
+      if (el) el.value = val !== undefined && val !== null ? val : '';
+    }
+
+    function getVal(id, defaultVal = '') {
+      const el = document.getElementById(id);
+      return el ? el.value.trim() : defaultVal;
+    }
+
     function populateForm(data) {
+      if (!data) return;
+
       if (data.site) {
-        document.getElementById('site-title').value = data.site.title || '';
-        document.getElementById('site-logo-subtitle').value = data.site.logoSubtitle || '';
-        document.getElementById('site-logo').value = data.site.logo || '';
-        document.getElementById('site-size-chart').value = data.site.sizeChart || '';
-        document.getElementById('phone-1').value = data.site.phonePrimary || '';
-        document.getElementById('phone-2').value = data.site.phoneSecondary || '';
-        document.getElementById('site-address').value = data.site.address || '';
-        document.getElementById('link-tiktok').value = data.site.tiktokUrl || '';
-        document.getElementById('link-shopee').value = data.site.shopeeUrl || '';
-        document.getElementById('link-facebook').value = data.site.facebookUrl || '';
-        document.getElementById('link-facebook-group').value = data.site.facebookGroupUrl || '';
-        document.getElementById('link-zalo').value = data.site.zaloUrl || '';
-        const zaloGrpInput = document.getElementById('link-zalo-group');
-        if (zaloGrpInput) zaloGrpInput.value = data.site.zaloGroupUrl || '';
+        setVal('site-title', data.site.title);
+        setVal('site-logo-subtitle', data.site.logoSubtitle);
+        setVal('site-logo', data.site.logo);
+        setVal('site-size-chart', data.site.sizeChart);
+        setVal('phone-1', data.site.phonePrimary);
+        setVal('phone-2', data.site.phoneSecondary);
+        setVal('site-address', data.site.address);
+        setVal('link-tiktok', data.site.tiktokUrl);
+        setVal('link-shopee', data.site.shopeeUrl);
+        setVal('link-facebook', data.site.facebookUrl);
+        setVal('link-facebook-group', data.site.facebookGroupUrl);
+        setVal('link-zalo', data.site.zaloUrl);
+        setVal('link-zalo-group', data.site.zaloGroupUrl);
       }
 
       if (data.popup) {
-        const pTitle = document.getElementById('popup-title');
-        if (pTitle) pTitle.value = data.popup.title || '';
-        const pDesc = document.getElementById('popup-desc');
-        if (pDesc) pDesc.value = data.popup.description || '';
-        const pBtn = document.getElementById('popup-btn-text');
-        if (pBtn) pBtn.value = data.popup.buttonText || '';
-        const pImg = document.getElementById('popup-img');
-        if (pImg) pImg.value = data.popup.image || '';
+        setVal('popup-title', data.popup.title);
+        setVal('popup-desc', data.popup.description);
+        setVal('popup-btn-text', data.popup.buttonText);
+        setVal('popup-img', data.popup.image);
       }
 
       if (data.hero) {
-        document.getElementById('hero-badge').value = data.hero.badge || '';
-        document.getElementById('hero-headline').value = data.hero.headline || '';
-        document.getElementById('hero-subheadline').value = data.hero.subheadline || '';
-        document.getElementById('hero-description').value = data.hero.description || '';
-        document.getElementById('hero-image').value = data.hero.image || '';
-
-        const callCtaInp = document.getElementById('hero-call-cta');
-        if (callCtaInp) callCtaInp.value = data.hero.callCta || 'GỌI NGAY';
-        const zaloCtaInp = document.getElementById('hero-zalo-cta');
-        if (zaloCtaInp) zaloCtaInp.value = data.hero.zaloCta || 'NHẮN ZALO';
-        const zaloGrpCtaInp = document.getElementById('hero-zalo-group-cta');
-        if (zaloGrpCtaInp) zaloGrpCtaInp.value = data.hero.zaloGroupCta || 'Nhóm Zalo Bán Sỉ Lẻ';
-        const tiktokCtaInp = document.getElementById('hero-tiktok-cta');
-        if (tiktokCtaInp) tiktokCtaInp.value = data.hero.tiktokCta || 'XEM TIKTOK';
-        const tag1Inp = document.getElementById('hero-banner-tag1');
-        if (tag1Inp) tag1Inp.value = data.hero.bannerTag1 || 'BST Xuân Hè Mới Nhất';
-        const tag2Inp = document.getElementById('hero-banner-tag2');
-        if (tag2Inp) tag2Inp.value = data.hero.bannerTag2 || '100% Cotton';
+        setVal('hero-headline', data.hero.headline);
+        setVal('hero-subheadline', data.hero.subheadline);
+        setVal('hero-description', data.hero.description);
+        setVal('hero-image', data.hero.image);
+        setVal('hero-call-cta', data.hero.callCta || 'GỌI NGAY');
+        setVal('hero-zalo-cta', data.hero.zaloCta || 'NHẮN ZALO');
+        setVal('hero-zalo-group-cta', data.hero.zaloGroupCta || 'Nhóm Zalo Bán Sỉ Lẻ');
+        setVal('hero-tiktok-cta', data.hero.tiktokCta || 'XEM TIKTOK');
+        setVal('hero-banner-tag1', data.hero.bannerTag1 || 'BST Xuân Hè Mới Nhất');
+        setVal('hero-banner-tag2', data.hero.bannerTag2 || '100% Cotton');
       }
 
       if (data.realImages) {
-        document.getElementById('real-title').value = data.realImages.title || '';
-        document.getElementById('real-sub').value = data.realImages.subtitle || '';
+        setVal('real-title', data.realImages.title);
+        setVal('real-sub', data.realImages.subtitle);
         if (Array.isArray(data.realImages.gallery)) {
           data.realImages.gallery.forEach((item, idx) => {
             if (idx < 4) {
-              document.getElementById(`real-title-${idx}`).value = item.title || '';
-              document.getElementById(`real-img-${idx}`).value = item.image || '';
-              const vidInp = document.getElementById(`real-video-${idx}`);
-              if (vidInp) vidInp.value = item.videoUrl || '';
+              setVal(`real-title-${idx}`, item.title);
+              setVal(`real-img-${idx}`, item.image);
+              setVal(`real-video-${idx}`, item.videoUrl);
             }
           });
         }
       }
 
       if (data.finalCta) {
-        document.getElementById('final-title').value = data.finalCta.title || '';
-        document.getElementById('final-desc').value = data.finalCta.description || '';
+        setVal('final-title', data.finalCta.title);
+        setVal('final-desc', data.finalCta.description);
       }
     }
 
@@ -501,65 +499,55 @@
       if (!contentData.realImages) contentData.realImages = {};
       if (!contentData.finalCta) contentData.finalCta = {};
 
-      contentData.site.title = document.getElementById('site-title').value.trim();
-      contentData.site.logoSubtitle = document.getElementById('site-logo-subtitle').value.trim();
-      contentData.site.logo = document.getElementById('site-logo').value.trim();
-      contentData.site.sizeChart = document.getElementById('site-size-chart').value.trim();
-      contentData.site.phonePrimary = document.getElementById('phone-1').value.trim();
-      contentData.site.phoneSecondary = document.getElementById('phone-2').value.trim();
-      contentData.site.address = document.getElementById('site-address').value.trim();
+      contentData.site.title = getVal('site-title') || contentData.site.title || '';
+      contentData.site.logoSubtitle = getVal('site-logo-subtitle') || contentData.site.logoSubtitle || '';
+      contentData.site.logo = getVal('site-logo') || contentData.site.logo || '';
+      contentData.site.sizeChart = getVal('site-size-chart') || contentData.site.sizeChart || '';
+      contentData.site.phonePrimary = getVal('phone-1') || contentData.site.phonePrimary || '';
+      contentData.site.phoneSecondary = getVal('phone-2') || contentData.site.phoneSecondary || '';
+      contentData.site.address = getVal('site-address') || contentData.site.address || '';
+      contentData.site.tiktokUrl = getVal('link-tiktok') || contentData.site.tiktokUrl || '';
+      contentData.site.shopeeUrl = getVal('link-shopee') || contentData.site.shopeeUrl || '';
+      contentData.site.facebookUrl = getVal('link-facebook') || contentData.site.facebookUrl || '';
+      contentData.site.facebookGroupUrl = getVal('link-facebook-group') || contentData.site.facebookGroupUrl || '';
+      contentData.site.zaloUrl = getVal('link-zalo') || contentData.site.zaloUrl || '';
+      contentData.site.zaloGroupUrl = getVal('link-zalo-group') || contentData.site.zaloGroupUrl || '';
 
-      contentData.site.tiktokUrl = document.getElementById('link-tiktok').value.trim();
-      contentData.site.shopeeUrl = document.getElementById('link-shopee').value.trim();
-      contentData.site.facebookUrl = document.getElementById('link-facebook').value.trim();
-      contentData.site.facebookGroupUrl = document.getElementById('link-facebook-group').value.trim();
-      contentData.site.zaloUrl = document.getElementById('link-zalo').value.trim();
-      const zaloGrpInput = document.getElementById('link-zalo-group');
-      if (zaloGrpInput) contentData.site.zaloGroupUrl = zaloGrpInput.value.trim();
+      contentData.popup.title = getVal('popup-title') || contentData.popup.title || '';
+      contentData.popup.description = getVal('popup-desc') || contentData.popup.description || '';
+      contentData.popup.buttonText = getVal('popup-btn-text') || contentData.popup.buttonText || '';
+      contentData.popup.image = getVal('popup-img') || contentData.popup.image || '';
 
-      const pTitle = document.getElementById('popup-title');
-      if (pTitle) contentData.popup.title = pTitle.value.trim();
-      const pDesc = document.getElementById('popup-desc');
-      if (pDesc) contentData.popup.description = pDesc.value.trim();
-      const pBtn = document.getElementById('popup-btn-text');
-      if (pBtn) contentData.popup.buttonText = pBtn.value.trim();
-      const pImg = document.getElementById('popup-img');
-      if (pImg) contentData.popup.image = pImg.value.trim();
+      contentData.hero.headline = getVal('hero-headline') || contentData.hero.headline || '';
+      contentData.hero.subheadline = getVal('hero-subheadline') || contentData.hero.subheadline || '';
+      contentData.hero.description = getVal('hero-description') || contentData.hero.description || '';
+      contentData.hero.image = getVal('hero-image') || contentData.hero.image || '';
+      contentData.hero.callCta = getVal('hero-call-cta') || contentData.hero.callCta || 'GỌI NGAY';
+      contentData.hero.zaloCta = getVal('hero-zalo-cta') || contentData.hero.zaloCta || 'NHẮN ZALO';
+      contentData.hero.zaloGroupCta = getVal('hero-zalo-group-cta') || contentData.hero.zaloGroupCta || 'Nhóm Zalo Bán Sỉ Lẻ';
+      contentData.hero.tiktokCta = getVal('hero-tiktok-cta') || contentData.hero.tiktokCta || 'XEM TIKTOK';
+      contentData.hero.bannerTag1 = getVal('hero-banner-tag1') || contentData.hero.bannerTag1 || 'BST Xuân Hè Mới Nhất';
+      contentData.hero.bannerTag2 = getVal('hero-banner-tag2') || contentData.hero.bannerTag2 || '100% Cotton';
 
-      contentData.hero.badge = document.getElementById('hero-badge').value.trim();
-      contentData.hero.headline = document.getElementById('hero-headline').value.trim();
-      contentData.hero.subheadline = document.getElementById('hero-subheadline').value.trim();
-      contentData.hero.description = document.getElementById('hero-description').value.trim();
-      contentData.hero.image = document.getElementById('hero-image').value.trim();
+      contentData.realImages.title = getVal('real-title') || contentData.realImages.title || '';
+      contentData.realImages.subtitle = getVal('real-sub') || contentData.realImages.subtitle || '';
 
-      const callCtaInp = document.getElementById('hero-call-cta');
-      if (callCtaInp) contentData.hero.callCta = callCtaInp.value.trim();
-      const zaloCtaInp = document.getElementById('hero-zalo-cta');
-      if (zaloCtaInp) contentData.hero.zaloCta = zaloCtaInp.value.trim();
-      const zaloGrpCtaInp = document.getElementById('hero-zalo-group-cta');
-      if (zaloGrpCtaInp) contentData.hero.zaloGroupCta = zaloGrpCtaInp.value.trim();
-      const tiktokCtaInp = document.getElementById('hero-tiktok-cta');
-      if (tiktokCtaInp) contentData.hero.tiktokCta = tiktokCtaInp.value.trim();
-
-      const tag1Inp = document.getElementById('hero-banner-tag1');
-      if (tag1Inp) contentData.hero.bannerTag1 = tag1Inp.value.trim();
-      const tag2Inp = document.getElementById('hero-banner-tag2');
-      if (tag2Inp) contentData.hero.bannerTag2 = tag2Inp.value.trim();
-
-      contentData.realImages.title = document.getElementById('real-title').value.trim();
-      contentData.realImages.subtitle = document.getElementById('real-sub').value.trim();
+      const existingGallery = Array.isArray(contentData.realImages.gallery) ? contentData.realImages.gallery : [];
       contentData.realImages.gallery = [0, 1, 2, 3].map(idx => {
-        const vidInp = document.getElementById(`real-video-${idx}`);
+        const origItem = existingGallery[idx] || {};
+        const titleVal = getVal(`real-title-${idx}`);
+        const imgVal = getVal(`real-img-${idx}`);
+        const vidVal = getVal(`real-video-${idx}`);
         return {
-          title: document.getElementById(`real-title-${idx}`).value.trim(),
-          image: document.getElementById(`real-img-${idx}`).value.trim(),
-          videoUrl: vidInp ? vidInp.value.trim() : '',
-          alt: document.getElementById(`real-title-${idx}`).value.trim()
+          title: titleVal || origItem.title || '',
+          image: imgVal || origItem.image || '',
+          videoUrl: vidVal || origItem.videoUrl || '',
+          alt: titleVal || origItem.alt || ''
         };
       });
 
-      contentData.finalCta.title = document.getElementById('final-title').value.trim();
-      contentData.finalCta.description = document.getElementById('final-desc').value.trim();
+      contentData.finalCta.title = getVal('final-title') || contentData.finalCta.title || '';
+      contentData.finalCta.description = getVal('final-desc') || contentData.finalCta.description || '';
 
       await saveAdminContent(contentData);
       alert('Đã cập nhật toàn bộ nội dung & hình ảnh Landing Page thành công!');

@@ -94,25 +94,16 @@ export async function getAdminProducts() {
 }
 
 export async function saveAdminProducts(products) {
+  // 1. Instant optimistic local update (0ms UI latency)
   localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(products));
 
-  // Sync to Supabase Cloud JSON Store (site_content) to support all dynamic product fields (gallery, sizes, colors, etc.)
+  // 2. Background sync to Supabase Cloud JSON Store (site_content)
   try {
-    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
-      headers: {
-        'apikey': SUPABASE_CONFIG.anonKey,
-        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
-      }
-    });
-    let currentContent = {};
-    if (res.ok) {
-      const rows = await res.json();
-      if (rows && rows.length > 0 && rows[0].content_data) {
-        currentContent = rows[0].content_data;
-      }
-    }
+    const localContentRaw = localStorage.getItem(STORAGE_CONTENT_KEY);
+    let currentContent = localContentRaw ? JSON.parse(localContentRaw) : {};
 
     currentContent.products = products;
+    localStorage.setItem(STORAGE_CONTENT_KEY, JSON.stringify(currentContent));
 
     await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content`, {
       method: 'POST',
@@ -173,8 +164,10 @@ export async function getAdminContent() {
 }
 
 export async function saveAdminContent(content) {
+  // 1. Instant optimistic local commit
   localStorage.setItem(STORAGE_CONTENT_KEY, JSON.stringify(content));
 
+  // 2. Background sync to Supabase Cloud
   try {
     await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content`, {
       method: 'POST',
@@ -197,10 +190,10 @@ export async function saveAdminContent(content) {
 
 /**
  * Client-side Automatic Image Processing Protocol
- * Automatically resizes high-resolution camera uploads down to max 1000px,
+ * Automatically resizes high-resolution camera uploads down to max 750px width,
  * compresses visual artifacts, and converts to lightweight WebP data URL format.
  */
-export function compressAndProcessImage(file, maxWidth = 1000, quality = 0.82) {
+export function compressAndProcessImage(file, maxWidth = 750, quality = 0.72) {
   return new Promise((resolve, reject) => {
     // If input is already a string URL or data URL
     if (typeof file === 'string') {
@@ -245,3 +238,4 @@ export function compressAndProcessImage(file, maxWidth = 1000, quality = 0.82) {
 export function fileToBase64(file) {
   return compressAndProcessImage(file);
 }
+

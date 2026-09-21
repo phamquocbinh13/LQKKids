@@ -12,12 +12,13 @@ export async function initContentRenderer() {
   try {
     let data = null;
 
-    // 1. Try Supabase cloud content
+    // 1. Try Supabase cloud content with cache-busting timestamp
     try {
-      const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
+      const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*&_t=${Date.now()}`, {
         headers: {
           'apikey': SUPABASE_CONFIG.anonKey,
-          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+          'Cache-Control': 'no-cache'
         }
       });
       if (res.ok) {
