@@ -194,7 +194,7 @@ function renderModalContent() {
     <!-- Description Card -->
     <div class="bg-surface-container-lowest p-4 rounded-2xl shadow-xs border border-surface-container-high/40 flex flex-col gap-2">
       <h3 class="text-xs font-bold text-on-surface uppercase tracking-wider">Mô tả sản phẩm</h3>
-      <p class="text-xs text-on-surface-variant leading-relaxed">${currentProduct.description}</p>
+      <div class="text-xs text-on-surface-variant leading-relaxed whitespace-pre-line font-normal">${currentProduct.description}</div>
     </div>
 
     <!-- Bottom Actions Stack -->
