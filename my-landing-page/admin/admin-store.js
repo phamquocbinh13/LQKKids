@@ -264,7 +264,7 @@ export async function saveAdminProducts(products) {
 }
 
 export async function getAdminContent() {
-  // Pure Direct Fetch from Supabase Cloud DB
+  // Pure Direct Fetch from Supabase Cloud DB (100% Single Source of Truth)
   try {
     const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
       headers: {
@@ -287,7 +287,33 @@ export async function getAdminContent() {
 }
 
 export async function saveAdminContent(content) {
-  // Direct Commit to Supabase Cloud DB (Single Source of Truth)
+  // 1. Fetch latest site_content structure to preserve all sections (products, about, whyChoose, etc.)
+  let currentContent = {};
+  try {
+    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
+      headers: {
+        'apikey': SUPABASE_CONFIG.anonKey,
+        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+        'Cache-Control': 'no-cache'
+      }
+    });
+    if (res.ok) {
+      const rows = await res.json();
+      if (rows && rows.length > 0 && rows[0].content_data) {
+        currentContent = rows[0].content_data;
+      }
+    }
+  } catch (e) {
+    console.warn('Could not fetch existing site_content before CMS content save:', e);
+  }
+
+  // 2. Merge updated content into currentContent without wiping other sections
+  const updatedContent = {
+    ...currentContent,
+    ...content
+  };
+
+  // 3. Direct Commit to Supabase Cloud DB (Single Source of Truth)
   try {
     const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content`, {
       method: 'POST',
@@ -299,15 +325,17 @@ export async function saveAdminContent(content) {
       },
       body: JSON.stringify({
         id: 'default',
-        content_data: content,
+        content_data: updatedContent,
         updated_at: new Date().toISOString()
       })
     });
     if (!res.ok) {
       console.error('Supabase save site_content failed:', res.statusText);
+      throw new Error(`Lưu nội dung lên Supabase thất bại (${res.statusText})`);
     }
   } catch (e) {
     console.error('Failed to sync site content to Supabase cloud', e);
+    throw e;
   }
 }
 
