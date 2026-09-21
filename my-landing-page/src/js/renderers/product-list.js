@@ -134,6 +134,7 @@ function renderGrid(products) {
 
   if (countBadge) {
     countBadge.textContent = `${products.length} sản phẩm`;
+    countBadge.classList.remove('opacity-0');
   }
 
   if (!gridContainer) return;
