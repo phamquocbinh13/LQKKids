@@ -8,8 +8,6 @@ export const SUPABASE_CONFIG = {
   anonKey: 'sb_publishable_J4W7j-jiaOCehXj4Btb23w_jnDGlLoU'
 };
 
-const STORAGE_PRODUCTS_KEY = 'lqk_kids_admin_products_v1';
-const STORAGE_CONTENT_KEY = 'lqk_kids_admin_content_v1';
 const STORAGE_AUTH_KEY = 'lqk_kids_admin_auth_token_v1';
 const STORAGE_CUSTOM_PASS_KEY = 'lqk_kids_admin_pass_v1';
 
@@ -54,8 +52,6 @@ export function requireAdminAuth() {
     window.location.href = 'login.html';
   }
 }
-
-const STORAGE_PRODUCTS_TIMESTAMP_KEY = 'lqk_kids_admin_products_ts_v1';
 
 export function compressAndProcessImage(file, maxWidth = 600, quality = 0.60) {
   return new Promise((resolve, reject) => {
@@ -174,9 +170,9 @@ export async function uploadImageToSupabaseStorage(file, folder = 'products') {
 }
 
 export async function getAdminProducts() {
-  // Direct fetch from Supabase Cloud DB (Single Source of Truth)
+  // Pure Direct Fetch from Supabase Cloud DB (100% Single Source of Truth)
   try {
-    const resContent = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*&_t=${Date.now()}`, {
+    const resContent = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
       headers: {
         'apikey': SUPABASE_CONFIG.anonKey,
         'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
@@ -187,23 +183,11 @@ export async function getAdminProducts() {
     if (resContent.ok) {
       const rows = await resContent.json();
       if (rows && rows.length > 0 && rows[0].content_data && Array.isArray(rows[0].content_data.products)) {
-        const cloudProducts = rows[0].content_data.products;
-        try {
-          localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(cloudProducts));
-        } catch (e) {}
-        return cloudProducts;
+        return rows[0].content_data.products;
       }
     }
   } catch (err) {
     console.warn('Supabase fetch site_content products warning:', err);
-  }
-
-  // Fallback to local memory cache if offline
-  const localDataRaw = localStorage.getItem(STORAGE_PRODUCTS_KEY);
-  if (localDataRaw) {
-    try {
-      return JSON.parse(localDataRaw);
-    } catch (e) {}
   }
 
   return [];
@@ -212,7 +196,7 @@ export async function getAdminProducts() {
 export async function saveAdminProducts(products) {
   const nowTs = Date.now();
 
-  // Re-compress any raw Base64 images inside products to keep total JSON footprint tiny (< 500KB total)
+  // Re-compress any raw Base64 images inside products to keep total JSON footprint tiny (< 300KB total)
   for (const prod of products) {
     if (Array.isArray(prod.images)) {
       for (let i = 0; i < prod.images.length; i++) {
@@ -245,14 +229,6 @@ export async function saveAdminProducts(products) {
   }
 
   currentContent.products = products;
-
-  // Safe local memory cache update
-  try {
-    localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(products));
-    localStorage.setItem(STORAGE_CONTENT_KEY, JSON.stringify(currentContent));
-  } catch (err) {
-    console.warn('LocalStorage cache notice:', err);
-  }
 
   // 2. Direct Commit to Supabase Cloud DB (Single Source of Truth)
   const controller = new AbortController();
@@ -288,17 +264,18 @@ export async function saveAdminProducts(products) {
 }
 
 export async function getAdminContent() {
+  // Pure Direct Fetch from Supabase Cloud DB
   try {
     const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
       headers: {
         'apikey': SUPABASE_CONFIG.anonKey,
-        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+        'Cache-Control': 'no-cache'
       }
     });
     if (res.ok) {
       const rows = await res.json();
       if (rows && rows.length > 0 && rows[0].content_data) {
-        localStorage.setItem(STORAGE_CONTENT_KEY, JSON.stringify(rows[0].content_data));
         return rows[0].content_data;
       }
     }
@@ -306,33 +283,13 @@ export async function getAdminContent() {
     console.warn('Supabase fetch site content error', err);
   }
 
-  const localData = localStorage.getItem(STORAGE_CONTENT_KEY);
-  if (localData) {
-    try {
-      return JSON.parse(localData);
-    } catch (e) {
-      console.error('Error parsing admin content from localStorage', e);
-    }
-  }
-
-  try {
-    const res = await fetch('../src/data/content.json');
-    const defaultContent = await res.json();
-    localStorage.setItem(STORAGE_CONTENT_KEY, JSON.stringify(defaultContent));
-    return defaultContent;
-  } catch (e) {
-    console.error('Error fetching default content.json', e);
-    return {};
-  }
+  return {};
 }
 
 export async function saveAdminContent(content) {
-  // 1. Instant optimistic local commit
-  localStorage.setItem(STORAGE_CONTENT_KEY, JSON.stringify(content));
-
-  // 2. Background sync to Supabase Cloud
+  // Direct Commit to Supabase Cloud DB (Single Source of Truth)
   try {
-    await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content`, {
+    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content`, {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_CONFIG.anonKey,
@@ -346,6 +303,9 @@ export async function saveAdminContent(content) {
         updated_at: new Date().toISOString()
       })
     });
+    if (!res.ok) {
+      console.error('Supabase save site_content failed:', res.statusText);
+    }
   } catch (e) {
     console.error('Failed to sync site content to Supabase cloud', e);
   }

@@ -340,5 +340,76 @@
     "categoriesList": "Bé trai • Bé gái • Set bộ • Phụ kiện",
     "brandSub": "Đẹp cho bé – An tâm cho mẹ",
     "copyright": "© 2026 LQK Kids. All rights reserved."
-  }
+  },
+  "products": [
+    {
+      "id": "lqk-1789987010305",
+      "code": "SP-LQK06",
+      "name": "SET ÁO POLO ĐEN IN Ô TÔ MIXX QUẦN KAKI NÂU KÈM MŨ CHO BÉ NEW",
+      "badge": "Bán chạy",
+      "badgeColor": "secondary",
+      "category": "be-trai",
+      "categoryName": "Đồ Bé Trai",
+      "price": 155000,
+      "originalPrice": 220000,
+      "discount": "-30%",
+      "description": "Set bộ áo polo cotton thoáng mát in hình ô tô ngộ nghĩnh phối quần kaki túi hộp nâu kèm mũ lưỡi trai cực ngầu cho bé trai.",
+      "rating": 5,
+      "soldCount": 180,
+      "colors": ["Đen"],
+      "images": ["./assets/images/category-boy.jpg"],
+      "sizeOptions": [
+        { "size": "Size 90", "weight": "7–9kg", "detail": "1-2 tuổi" },
+        { "size": "Size 100", "weight": "9–11kg", "detail": "2-3 tuổi" },
+        { "size": "Size 110", "weight": "11–14kg", "detail": "3-4 tuổi" },
+        { "size": "Size 120", "weight": "14–17kg", "detail": "4-5 tuổi" },
+        { "size": "Size 130", "weight": "17–20kg", "detail": "5-6 tuổi" }
+      ]
+    },
+    {
+      "id": "lqk-1789977665318",
+      "code": "SP-LQK03",
+      "name": "SET BỘ TIỂU THƯ THỎ CUTE GIRLS FOR BÉ GÁI",
+      "badge": "BST Mới",
+      "badgeColor": "tertiary",
+      "category": "be-gai",
+      "categoryName": "Đồ Bé Gái",
+      "price": 185000,
+      "originalPrice": 240000,
+      "discount": "-23%",
+      "description": "Set áo phối nơ xinh xắn kết hợp chân váy xòe bồng bềnh phong cách tiểu thư Hàn Quốc cho bé gái đi chơi, đi sinh nhật.",
+      "rating": 5,
+      "soldCount": 240,
+      "colors": ["Hồng Pastel", "Kem Sữa"],
+      "images": ["./assets/images/category-girl.jpg"],
+      "sizeOptions": [
+        { "size": "Size 90", "weight": "7–9kg", "detail": "1-2 tuổi" },
+        { "size": "Size 100", "weight": "9–11kg", "detail": "2-3 tuổi" },
+        { "size": "Size 110", "weight": "11–14kg", "detail": "3-4 tuổi" },
+        { "size": "Size 120", "weight": "14–17kg", "detail": "4-5 tuổi" }
+      ]
+    },
+    {
+      "id": "lqk-1789650461021",
+      "code": "LQK-DBT01",
+      "name": "SET ÁO COTTON MÙA HÈ NĂNG ĐỘNG CHO BÉ TRAI",
+      "badge": "Hot",
+      "badgeColor": "error",
+      "category": "ban-chay",
+      "categoryName": "Bán Chạy",
+      "price": 145000,
+      "originalPrice": 190000,
+      "discount": "-24%",
+      "description": "Set trang phục mùa hè chất liệu 100% Cotton thun co giãn 4 chiều siêu mát, thấm hút mồ hôi tốt cho bé vận động cả ngày.",
+      "rating": 4.9,
+      "soldCount": 310,
+      "colors": ["Xanh Dương", "Vàng Chanh"],
+      "images": ["./assets/images/category-set.jpg"],
+      "sizeOptions": [
+        { "size": "Size 90", "weight": "7–9kg", "detail": "1-2 tuổi" },
+        { "size": "Size 100", "weight": "9–11kg", "detail": "2-3 tuổi" },
+        { "size": "Size 110", "weight": "11–14kg", "detail": "3-4 tuổi" }
+      ]
+    }
+  ]
 }
