@@ -34,11 +34,11 @@ export function initMobileMenu() {
     });
   }
 
-  // Smooth scroll for anchor links
+  // Smooth scroll for anchor links with sticky header offset calculation
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
+      if (!targetId || targetId === '#') return;
       if (targetId === '#top') {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -47,9 +47,14 @@ export function initMobileMenu() {
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
         e.preventDefault();
-        targetElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
+        const header = document.querySelector('header');
+        const headerHeight = header ? header.offsetHeight : 80;
+        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerHeight - 16; // 16px breathing padding below sticky header
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
         });
       }
     });
