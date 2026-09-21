@@ -87,3 +87,14 @@ function initZaloPromoPopup() {
     modal.classList.remove('hidden');
   }, 30000);
 }
+
+function getNestedValue(obj, path) {
+  if (!obj || !path) return null;
+  const keys = path.split('.');
+  let current = obj;
+  for (const key of keys) {
+    if (current === null || current === undefined) return null;
+    current = current[key];
+  }
+  return current;
+}
