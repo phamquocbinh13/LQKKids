@@ -57,6 +57,79 @@ export function requireAdminAuth() {
 
 const STORAGE_PRODUCTS_TIMESTAMP_KEY = 'lqk_kids_admin_products_ts_v1';
 
+export function compressAndProcessImage(file, maxWidth = 600, quality = 0.60) {
+  return new Promise((resolve, reject) => {
+    // If input is already a URL or string
+    if (typeof file === 'string') {
+      // Re-compress if it's an uncompressed heavy base64 image
+      if (file.startsWith('data:image/') && file.length > 80000) {
+        const img = new Image();
+        img.src = file;
+        img.onload = () => {
+          let width = img.naturalWidth || img.width;
+          let height = img.naturalHeight || img.height;
+
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext('2d');
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(img, 0, 0, width, height);
+
+          resolve(canvas.toDataURL('image/webp', quality));
+        };
+        img.onerror = () => resolve(file);
+        return;
+      }
+      resolve(file);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        let width = img.naturalWidth || img.width;
+        let height = img.naturalHeight || img.height;
+
+        // Calculate responsive scaling aspect ratio
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Convert to highly optimized WebP format
+        const compressedBase64 = canvas.toDataURL('image/webp', quality);
+        resolve(compressedBase64);
+      };
+      img.onerror = (err) => reject(err);
+    };
+    reader.onerror = (err) => reject(err);
+  });
+}
+
+export function fileToBase64(file) {
+  return compressAndProcessImage(file);
+}
+
 export async function uploadImageToSupabaseStorage(file, folder = 'products') {
   try {
     if (!file) return '';
@@ -66,9 +139,9 @@ export async function uploadImageToSupabaseStorage(file, folder = 'products') {
     }
 
     // 1. Compress image down to WebP
-    const compressedBase64 = await compressAndProcessImage(file, 850, 0.78);
+    const compressedBase64 = await compressAndProcessImage(file, 600, 0.60);
     
-    // 2. Try uploading blob to Supabase Storage Bucket
+    // 2. Try uploading blob to Supabase Storage Bucket if available
     try {
       const resBlob = await fetch(compressedBase64);
       const blob = await resBlob.blob();
@@ -92,7 +165,7 @@ export async function uploadImageToSupabaseStorage(file, folder = 'products') {
       console.warn('Supabase Storage direct upload warning:', e);
     }
 
-    // Fallback: return optimized compressed webp data URL
+    // Fallback: return lightweight compressed webp data URL (< 20KB)
     return compressedBase64;
   } catch (err) {
     console.warn('Image upload processing warning:', err);
@@ -139,6 +212,19 @@ export async function getAdminProducts() {
 export async function saveAdminProducts(products) {
   const nowTs = Date.now();
 
+  // Re-compress any raw Base64 images inside products to keep total JSON footprint tiny (< 500KB total)
+  for (const prod of products) {
+    if (Array.isArray(prod.images)) {
+      for (let i = 0; i < prod.images.length; i++) {
+        if (typeof prod.images[i] === 'string' && prod.images[i].startsWith('data:image/') && prod.images[i].length > 80000) {
+          try {
+            prod.images[i] = await compressAndProcessImage(prod.images[i], 600, 0.60);
+          } catch (e) {}
+        }
+      }
+    }
+  }
+
   // 1. Fetch latest site_content structure to preserve sections
   let currentContent = {};
   try {
@@ -170,7 +256,7 @@ export async function saveAdminProducts(products) {
 
   // 2. Direct Commit to Supabase Cloud DB (Single Source of Truth)
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 10000);
+  const timeoutId = setTimeout(() => controller.abort(), 30000);
 
   try {
     const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content`, {
@@ -265,54 +351,5 @@ export async function saveAdminContent(content) {
   }
 }
 
-/**
- * Client-side Automatic Image Processing Protocol
- * Automatically resizes high-resolution camera uploads down to max 750px width,
- * compresses visual artifacts, and converts to lightweight WebP data URL format.
- */
-export function compressAndProcessImage(file, maxWidth = 750, quality = 0.72) {
-  return new Promise((resolve, reject) => {
-    // If input is already a string URL or data URL
-    if (typeof file === 'string') {
-      resolve(file);
-      return;
-    }
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (event) => {
-      const img = new Image();
-      img.src = event.target.result;
-      img.onload = () => {
-        let width = img.naturalWidth || img.width;
-        let height = img.naturalHeight || img.height;
-
-        // Calculate responsive scaling aspect ratio
-        if (width > maxWidth) {
-          height = Math.round((height * maxWidth) / width);
-          width = maxWidth;
-        }
-
-        const canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-
-        const ctx = canvas.getContext('2d');
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-        ctx.drawImage(img, 0, 0, width, height);
-
-        // Convert to highly optimized WebP format (or fall back to JPEG if WebP unsupported)
-        const compressedBase64 = canvas.toDataURL('image/webp', quality);
-        resolve(compressedBase64);
-      };
-      img.onerror = (err) => reject(err);
-    };
-    reader.onerror = (err) => reject(err);
-  });
-}
-
-export function fileToBase64(file) {
-  return compressAndProcessImage(file);
-}
 
