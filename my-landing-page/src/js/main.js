@@ -3,6 +3,7 @@
  * Loads catalog data (with Admin panel & Supabase Cloud sync), initializes Product List, Detail popup, and Zalo Cart.
  */
 
+import { inject } from '@vercel/analytics';
 import { initContentRenderer } from './modules/content-renderer.js';
 import { initMobileMenu } from './modules/mobile-menu.js';
 import { initFormHandler } from './modules/form-handler.js';
@@ -11,6 +12,9 @@ import { initTikTokPlayer } from './modules/tiktok-player.js';
 import { initProductList } from './renderers/product-list.js';
 import { initProductDetailModal } from './renderers/product-detail.js';
 import { initCartDrawer } from './renderers/zalo-cart.js';
+
+// Auto-inject Vercel Web Analytics tracking script
+inject();
 
 const SUPABASE_CONFIG = {
   url: 'https://ycniwxepxlhgtvsmzsfk.supabase.co',

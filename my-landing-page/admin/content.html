@@ -346,7 +346,7 @@
   </main>
 
   <script type="module">
-    import { getAdminContent, saveAdminContent, requireAdminAuth, compressAndProcessImage } from './admin-store.js';
+    import { getAdminContent, saveAdminContent, requireAdminAuth, uploadImageToSupabaseStorage, compressAndProcessImage } from './admin-store.js';
 
     let contentData = {};
 
@@ -362,8 +362,8 @@
         logoFileInput.addEventListener('change', async (e) => {
           const file = e.target.files[0];
           if (file) {
-            const compressed = await compressAndProcessImage(file, 400, 0.90);
-            document.getElementById('site-logo').value = compressed;
+            const uploadedUrl = await uploadImageToSupabaseStorage(file, 'logo');
+            document.getElementById('site-logo').value = uploadedUrl;
           }
         });
       }
@@ -374,8 +374,8 @@
         sizeChartFileInput.addEventListener('change', async (e) => {
           const file = e.target.files[0];
           if (file) {
-            const compressed = await compressAndProcessImage(file, 1000, 0.85);
-            document.getElementById('site-size-chart').value = compressed;
+            const uploadedUrl = await uploadImageToSupabaseStorage(file, 'size-chart');
+            document.getElementById('site-size-chart').value = uploadedUrl;
           }
         });
       }
@@ -386,8 +386,8 @@
         heroFileInput.addEventListener('change', async (e) => {
           const file = e.target.files[0];
           if (file) {
-            const compressed = await compressAndProcessImage(file, 1200, 0.85);
-            document.getElementById('hero-image').value = compressed;
+            const uploadedUrl = await uploadImageToSupabaseStorage(file, 'hero');
+            document.getElementById('hero-image').value = uploadedUrl;
           }
         });
       }
@@ -398,8 +398,8 @@
         popupFileInput.addEventListener('change', async (e) => {
           const file = e.target.files[0];
           if (file) {
-            const compressed = await compressAndProcessImage(file, 1000, 0.85);
-            document.getElementById('popup-img').value = compressed;
+            const uploadedUrl = await uploadImageToSupabaseStorage(file, 'popup');
+            document.getElementById('popup-img').value = uploadedUrl;
           }
         });
       }
@@ -411,8 +411,8 @@
           fileInp.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (file) {
-              const compressed = await compressAndProcessImage(file, 800, 0.82);
-              document.getElementById(`real-img-${idx}`).value = compressed;
+              const uploadedUrl = await uploadImageToSupabaseStorage(file, 'gallery');
+              document.getElementById(`real-img-${idx}`).value = uploadedUrl;
             }
           });
         }

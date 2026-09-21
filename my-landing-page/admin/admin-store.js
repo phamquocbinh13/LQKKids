@@ -55,57 +55,125 @@ export function requireAdminAuth() {
   }
 }
 
-export async function getAdminProducts() {
+const STORAGE_PRODUCTS_TIMESTAMP_KEY = 'lqk_kids_admin_products_ts_v1';
+
+export async function uploadImageToSupabaseStorage(file, folder = 'products') {
   try {
-    // 1. First attempt to read products stored inside Supabase site_content document
-    const resContent = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
+    if (!file) return '';
+    // If input is already an HTTP URL, return as-is
+    if (typeof file === 'string' && file.startsWith('http')) {
+      return file;
+    }
+
+    // 1. Compress image down to WebP
+    const compressedBase64 = await compressAndProcessImage(file, 850, 0.78);
+    
+    // 2. Try uploading blob to Supabase Storage Bucket
+    try {
+      const resBlob = await fetch(compressedBase64);
+      const blob = await resBlob.blob();
+      const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).substring(2, 7)}.webp`;
+
+      const uploadRes = await fetch(`${SUPABASE_CONFIG.url}/storage/v1/object/products/${fileName}`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_CONFIG.anonKey,
+          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+          'Content-Type': 'image/webp',
+          'x-upsert': 'true'
+        },
+        body: blob
+      });
+
+      if (uploadRes.ok) {
+        return `${SUPABASE_CONFIG.url}/storage/v1/object/public/products/${fileName}`;
+      }
+    } catch (e) {
+      console.warn('Supabase Storage direct upload warning:', e);
+    }
+
+    // Fallback: return optimized compressed webp data URL
+    return compressedBase64;
+  } catch (err) {
+    console.warn('Image upload processing warning:', err);
+    return typeof file === 'string' ? file : '';
+  }
+}
+
+export async function getAdminProducts() {
+  // Direct fetch from Supabase Cloud DB (Single Source of Truth)
+  try {
+    const resContent = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*&_t=${Date.now()}`, {
       headers: {
         'apikey': SUPABASE_CONFIG.anonKey,
-        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+        'Cache-Control': 'no-cache'
       }
     });
+
     if (resContent.ok) {
       const rows = await resContent.json();
       if (rows && rows.length > 0 && rows[0].content_data && Array.isArray(rows[0].content_data.products)) {
-        const dbProducts = rows[0].content_data.products;
-        localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(dbProducts));
-        return dbProducts;
-      }
-    }
-    
-    // 2. Fallback attempt to read from standalone products table if present
-    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?select=*`, {
-      headers: {
-        'apikey': SUPABASE_CONFIG.anonKey,
-        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
-      }
-    });
-    if (res.ok) {
-      const dbProducts = await res.json();
-      if (dbProducts && dbProducts.length > 0) {
-        return dbProducts;
+        const cloudProducts = rows[0].content_data.products;
+        try {
+          localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(cloudProducts));
+        } catch (e) {}
+        return cloudProducts;
       }
     }
   } catch (err) {
-    console.error('Supabase fetch products error:', err);
+    console.warn('Supabase fetch site_content products warning:', err);
+  }
+
+  // Fallback to local memory cache if offline
+  const localDataRaw = localStorage.getItem(STORAGE_PRODUCTS_KEY);
+  if (localDataRaw) {
+    try {
+      return JSON.parse(localDataRaw);
+    } catch (e) {}
   }
 
   return [];
 }
 
 export async function saveAdminProducts(products) {
-  // 1. Instant optimistic local update (0ms UI latency)
-  localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(products));
+  const nowTs = Date.now();
 
-  // 2. Background sync to Supabase Cloud JSON Store (site_content)
+  // 1. Fetch latest site_content structure to preserve sections
+  let currentContent = {};
   try {
-    const localContentRaw = localStorage.getItem(STORAGE_CONTENT_KEY);
-    let currentContent = localContentRaw ? JSON.parse(localContentRaw) : {};
+    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
+      headers: {
+        'apikey': SUPABASE_CONFIG.anonKey,
+        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
+      }
+    });
+    if (res.ok) {
+      const rows = await res.json();
+      if (rows && rows.length > 0 && rows[0].content_data) {
+        currentContent = rows[0].content_data;
+      }
+    }
+  } catch (e) {
+    console.warn('Could not fetch existing site_content before product save:', e);
+  }
 
-    currentContent.products = products;
+  currentContent.products = products;
+
+  // Safe local memory cache update
+  try {
+    localStorage.setItem(STORAGE_PRODUCTS_KEY, JSON.stringify(products));
     localStorage.setItem(STORAGE_CONTENT_KEY, JSON.stringify(currentContent));
+  } catch (err) {
+    console.warn('LocalStorage cache notice:', err);
+  }
 
-    await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content`, {
+  // 2. Direct Commit to Supabase Cloud DB (Single Source of Truth)
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+  try {
+    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content`, {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_CONFIG.anonKey,
@@ -113,14 +181,23 @@ export async function saveAdminProducts(products) {
         'Content-Type': 'application/json',
         'Prefer': 'resolution=merge-duplicates'
       },
+      signal: controller.signal,
       body: JSON.stringify({
         id: 'default',
         content_data: currentContent,
-        updated_at: new Date().toISOString()
+        updated_at: new Date(nowTs).toISOString()
       })
     });
-  } catch (e) {
-    console.error('Failed to sync products to Supabase cloud', e);
+    clearTimeout(timeoutId);
+
+    if (!res.ok) {
+      console.error('Supabase save site_content failed:', res.status, res.statusText);
+      throw new Error(`Lưu dữ liệu lên Supabase không thành công (${res.statusText})`);
+    }
+  } catch (err) {
+    clearTimeout(timeoutId);
+    console.error('Background sync products to Supabase cloud warning:', err);
+    throw err;
   }
 }
 
