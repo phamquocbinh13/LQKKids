@@ -53,11 +53,17 @@ export function requireAdminAuth() {
   }
 }
 
-export function compressAndProcessImage(file, maxWidth = 600, quality = 0.60) {
+export function compressAndProcessImage(file, maxWidth = 800, quality = 0.78) {
   return new Promise((resolve, reject) => {
     // If input is already a URL or string
     if (typeof file === 'string') {
-      // Re-compress if it's an uncompressed heavy base64 image
+      // 1. If HTTP URL or already processed WebP Data URL, return immediately (never re-compress!)
+      if (file.startsWith('http://') || file.startsWith('https://') || file.startsWith('data:image/webp')) {
+        resolve(file);
+        return;
+      }
+
+      // Re-compress only if it's an uncompressed heavy base64 image (e.g. data:image/png or jpeg)
       if (file.startsWith('data:image/') && file.length > 80000) {
         const img = new Image();
         img.src = file;
@@ -112,7 +118,7 @@ export function compressAndProcessImage(file, maxWidth = 600, quality = 0.60) {
         ctx.imageSmoothingQuality = 'high';
         ctx.drawImage(img, 0, 0, width, height);
 
-        // Convert to highly optimized WebP format
+        // Convert to highly optimized WebP format with sharp HD quality (0.78)
         const compressedBase64 = canvas.toDataURL('image/webp', quality);
         resolve(compressedBase64);
       };
@@ -123,7 +129,7 @@ export function compressAndProcessImage(file, maxWidth = 600, quality = 0.60) {
 }
 
 export function fileToBase64(file) {
-  return compressAndProcessImage(file);
+  return compressAndProcessImage(file, 800, 0.78);
 }
 
 export async function uploadImageToSupabaseStorage(file, folder = 'products') {
@@ -134,8 +140,8 @@ export async function uploadImageToSupabaseStorage(file, folder = 'products') {
       return file;
     }
 
-    // 1. Compress image down to WebP
-    const compressedBase64 = await compressAndProcessImage(file, 600, 0.60);
+    // 1. Compress image down to HD WebP (800px max width, 0.78 high-definition quality)
+    const compressedBase64 = await compressAndProcessImage(file, 800, 0.78);
 
     // 2. Try uploading blob to Supabase Storage Bucket if available
     try {
@@ -161,7 +167,7 @@ export async function uploadImageToSupabaseStorage(file, folder = 'products') {
       console.warn('Supabase Storage direct upload warning:', e);
     }
 
-    // Fallback: return lightweight compressed webp data URL (< 20KB)
+    // Fallback: return crisp HD webp data URL
     return compressedBase64;
   } catch (err) {
     console.warn('Image upload processing warning:', err);
@@ -242,17 +248,6 @@ export async function getAdminProductById(id) {
 export async function saveAdminProduct(product) {
   if (!product || !product.name) {
     throw new Error('Thông tin sản phẩm không hợp lệ!');
-  }
-
-  // Ensure image optimization
-  if (Array.isArray(product.images)) {
-    for (let i = 0; i < product.images.length; i++) {
-      if (typeof product.images[i] === 'string' && product.images[i].startsWith('data:image/') && product.images[i].length > 15000) {
-        try {
-          product.images[i] = await compressAndProcessImage(product.images[i], 450, 0.45);
-        } catch (e) {}
-      }
-    }
   }
 
   const rowPayload = {
