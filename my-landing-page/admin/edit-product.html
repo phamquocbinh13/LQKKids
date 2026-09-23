@@ -203,17 +203,14 @@
   </main>
 
   <script type="module">
-    import { getAdminProducts, getAdminProductById, saveAdminProduct, uploadImageToSupabaseStorage, fileToBase64, requireAdminAuth } from './admin-store.js';
+    import { getAdminProductById, getAdminProductCodes, saveAdminProduct, uploadImageToSupabaseStorage, fileToBase64, requireAdminAuth } from './admin-store.js';
 
-    let products = [];
     let currentId = null;
     let imagesList = [];
     let sizeOptions = [];
 
     document.addEventListener('DOMContentLoaded', async () => {
       requireAdminAuth();
-
-      products = await getAdminProducts();
       
       const urlParams = new URLSearchParams(window.location.search);
       currentId = urlParams.get('id');
@@ -235,39 +232,25 @@
 
       if (currentId) {
         document.getElementById('page-title').textContent = 'CHỈNH SỬA SẢN PHẨM';
-        const p = products.find(item => item.id === currentId);
+        const p = await getAdminProductById(currentId);
         if (p) populateForm(p);
       } else if (copyId) {
         document.getElementById('page-title').textContent = 'NHÂN BẢN SẢN PHẨM (SAO CHÉP TOÀN BỘ THUỘC TÍNH)';
-        const p = products.find(item => item.id === copyId);
+        const p = await getAdminProductById(copyId);
         if (p) {
           populateForm(p);
           currentId = null; // New entry
           const baseCode = p.code || 'SP-LQK';
-          let newCode = `${baseCode}-COPY`;
-          let count = 1;
-          while (products.some(prod => prod.code && prod.code.toLowerCase() === newCode.toLowerCase())) {
-            count++;
-            newCode = `${baseCode}-COPY${count}`;
-          }
-          document.getElementById('p-code').value = newCode;
+          document.getElementById('p-code').value = `${baseCode}-COPY-${Date.now().toString().slice(-4)}`;
         }
       } else if (templateId) {
         document.getElementById('page-title').textContent = 'TẠO SẢN PHẨM MỚI TỪ MẪU';
-        const p = products.find(item => item.id === templateId);
+        const p = await getAdminProductById(templateId);
         if (p) {
           populateForm(p);
           currentId = null; // New entry
           document.getElementById('p-name').value = '';
-          
-          let nextNum = products.length + 1;
-          let suggestedCode = `SP-LQK${String(nextNum).padStart(2, '0')}`;
-          while (products.some(prod => prod.code && prod.code.toLowerCase() === suggestedCode.toLowerCase())) {
-            nextNum++;
-            suggestedCode = `SP-LQK${String(nextNum).padStart(2, '0')}`;
-          }
-          document.getElementById('p-code').value = suggestedCode;
-
+          document.getElementById('p-code').value = `SP-LQK${Date.now().toString().slice(-4)}`;
           imagesList = [];
           renderImagePreviews();
         }
@@ -275,15 +258,7 @@
         document.getElementById('page-title').textContent = 'THÊM SẢN PHẨM MỚI';
         document.getElementById('p-rating').value = 5.0;
         document.getElementById('p-sold-count').value = 120;
-        
-        // Auto suggest unique product code (e.g., SP-LQK03)
-        let nextNum = products.length + 1;
-        let suggestedCode = `SP-LQK${String(nextNum).padStart(2, '0')}`;
-        while (products.some(p => p.code && p.code.toLowerCase() === suggestedCode.toLowerCase())) {
-          nextNum++;
-          suggestedCode = `SP-LQK${String(nextNum).padStart(2, '0')}`;
-        }
-        document.getElementById('p-code').value = suggestedCode;
+        document.getElementById('p-code').value = `SP-LQK${Date.now().toString().slice(-4)}`;
 
         imagesList = [];
         sizeOptions = JSON.parse(JSON.stringify(default7Sizes));
@@ -619,9 +594,10 @@
         }
 
         // Strict validation for product code uniqueness
-        const duplicateCode = products.find(p => p.code && p.code.toLowerCase() === code.toLowerCase() && p.id !== currentId);
+        const existingCodes = await getAdminProductCodes();
+        const duplicateCode = existingCodes.find(p => p.code && p.code.toLowerCase() === code.toLowerCase() && p.id !== currentId);
         if (duplicateCode) {
-          alert(`Mã sản phẩm "${code}" đã bị trùng với sản phẩm "${duplicateCode.name}". Vui lòng nhập mã sản phẩm khác!`);
+          alert(`Mã sản phẩm "${code}" đã bị trùng lặp. Vui lòng nhập mã sản phẩm khác!`);
           document.getElementById('p-code').focus();
           unlockBtn();
           return;
@@ -682,14 +658,6 @@
           images: imagesList,
           sizeOptions: sizeOptions.length ? sizeOptions : [{ size: 'Size 100', weight: '9-11kg', detail: '2-3 tuổi' }]
         };
-
-        if (currentId) {
-          const idx = products.findIndex(p => p.id === currentId);
-          if (idx > -1) products[idx] = newProduct;
-        } else {
-          products.unshift(newProduct);
-          currentId = targetId; // Lock targetId for current form context
-        }
 
         await saveAdminProduct(newProduct);
         alert('Đã lưu sản phẩm thành công!');

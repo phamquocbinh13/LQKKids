@@ -199,8 +199,37 @@ export function mapDbProductToApp(p) {
   };
 }
 
-export async function getAdminProducts() {
-  // Pure Direct Fetch from Atomic products Table (100% Single Source of Truth)
+const PRODUCTS_CACHE_KEY = 'lqk_admin_products_cache_v2';
+
+export function getCachedProducts() {
+  try {
+    const raw = sessionStorage.getItem(PRODUCTS_CACHE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+export function setCachedProducts(products) {
+  try {
+    sessionStorage.setItem(PRODUCTS_CACHE_KEY, JSON.stringify(products));
+  } catch (e) {}
+}
+
+export function clearProductsCache() {
+  try {
+    sessionStorage.removeItem(PRODUCTS_CACHE_KEY);
+  } catch (e) {}
+}
+
+export async function getAdminProducts(forceRefresh = false) {
+  if (!forceRefresh) {
+    const cached = getCachedProducts();
+    if (cached && Array.isArray(cached) && cached.length > 0) {
+      return cached;
+    }
+  }
+
   try {
     const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?select=*&order=created_at.desc`, {
       headers: {
@@ -213,18 +242,46 @@ export async function getAdminProducts() {
     if (res.ok) {
       const rows = await res.json();
       if (Array.isArray(rows)) {
-        return rows.map(mapDbProductToApp);
+        const mapped = rows.map(mapDbProductToApp);
+        setCachedProducts(mapped);
+        return mapped;
       }
     }
   } catch (err) {
     console.warn('Supabase fetch products table warning:', err);
   }
 
+  return getCachedProducts() || [];
+}
+
+export async function getAdminProductCodes() {
+  try {
+    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?select=id,code`, {
+      headers: {
+        'apikey': SUPABASE_CONFIG.anonKey,
+        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+        'Cache-Control': 'no-cache'
+      }
+    });
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch (e) {
+    console.warn('Error fetching product codes:', e);
+  }
   return [];
 }
 
 export async function getAdminProductById(id) {
   if (!id) return null;
+  
+  // Try finding in fast local cache first
+  const cached = getCachedProducts();
+  if (cached && Array.isArray(cached)) {
+    const found = cached.find(p => p.id === id);
+    if (found) return found;
+  }
+
   try {
     const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?id=eq.${encodeURIComponent(id)}&select=*`, {
       headers: {
@@ -289,7 +346,19 @@ export async function saveAdminProduct(product) {
     throw new Error(`Lưu sản phẩm lên Supabase thất bại (${res.status} ${res.statusText || errText})`);
   }
 
-  return mapDbProductToApp(rowPayload);
+  const savedAppProduct = mapDbProductToApp(rowPayload);
+
+  // Update local session cache atomically
+  let cached = getCachedProducts() || [];
+  const existingIdx = cached.findIndex(p => p.id === savedAppProduct.id);
+  if (existingIdx > -1) {
+    cached[existingIdx] = savedAppProduct;
+  } else {
+    cached.unshift(savedAppProduct);
+  }
+  setCachedProducts(cached);
+
+  return savedAppProduct;
 }
 
 export async function deleteAdminProduct(id) {
@@ -302,7 +371,14 @@ export async function deleteAdminProduct(id) {
         'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
       }
     });
-    return res.ok;
+
+    if (res.ok) {
+      let cached = getCachedProducts() || [];
+      cached = cached.filter(p => p.id !== id);
+      setCachedProducts(cached);
+      return true;
+    }
+    return false;
   } catch (e) {
     console.error('Failed to delete product from Supabase products table:', e);
     return false;
