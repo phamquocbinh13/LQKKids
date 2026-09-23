@@ -136,7 +136,7 @@ export async function uploadImageToSupabaseStorage(file, folder = 'products') {
 
     // 1. Compress image down to WebP
     const compressedBase64 = await compressAndProcessImage(file, 600, 0.60);
-    
+
     // 2. Try uploading blob to Supabase Storage Bucket if available
     try {
       const resBlob = await fetch(compressedBase64);
@@ -169,10 +169,34 @@ export async function uploadImageToSupabaseStorage(file, folder = 'products') {
   }
 }
 
+export function mapDbProductToApp(p) {
+  if (!p) return null;
+  return {
+    id: p.id,
+    code: p.code || `LQK-${p.id}`,
+    name: p.name || '',
+    category: p.category || 'be-trai',
+    categoryName: p.category_name || p.categoryName || '',
+    price: typeof p.price === 'string' ? parseFloat(p.price) : (p.price || 0),
+    originalPrice: typeof p.original_price === 'string' ? parseFloat(p.original_price) : (p.original_price || p.originalPrice || 0),
+    discount: p.discount || '',
+    description: p.description || '',
+    badge: p.badge || '',
+    badgeColor: p.badge_color || p.badgeColor || 'primary',
+    rating: typeof p.rating === 'string' ? parseFloat(p.rating) : (p.rating || 5.0),
+    soldCount: p.sold_count !== undefined ? p.sold_count : (p.soldCount || 120),
+    images: Array.isArray(p.images) ? p.images : [],
+    colors: Array.isArray(p.colors) ? p.colors : [],
+    sizes: Array.isArray(p.sizes) ? p.sizes : [],
+    sizeOptions: Array.isArray(p.size_options) ? p.size_options : (Array.isArray(p.sizeOptions) ? p.sizeOptions : []),
+    createdAt: p.created_at || p.createdAt || new Date().toISOString()
+  };
+}
+
 export async function getAdminProducts() {
-  // Pure Direct Fetch from Supabase Cloud DB (100% Single Source of Truth)
+  // Pure Direct Fetch from Atomic products Table (100% Single Source of Truth)
   try {
-    const resContent = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
+    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?select=*&order=created_at.desc`, {
       headers: {
         'apikey': SUPABASE_CONFIG.anonKey,
         'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
@@ -180,86 +204,113 @@ export async function getAdminProducts() {
       }
     });
 
-    if (resContent.ok) {
-      const rows = await resContent.json();
-      if (rows && rows.length > 0 && rows[0].content_data && Array.isArray(rows[0].content_data.products)) {
-        return rows[0].content_data.products;
+    if (res.ok) {
+      const rows = await res.json();
+      if (Array.isArray(rows)) {
+        return rows.map(mapDbProductToApp);
       }
     }
   } catch (err) {
-    console.warn('Supabase fetch site_content products warning:', err);
+    console.warn('Supabase fetch products table warning:', err);
   }
 
   return [];
 }
 
-export async function saveAdminProducts(products) {
-  const nowTs = Date.now();
+export async function getAdminProductById(id) {
+  if (!id) return null;
+  try {
+    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?id=eq.${encodeURIComponent(id)}&select=*`, {
+      headers: {
+        'apikey': SUPABASE_CONFIG.anonKey,
+        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+        'Cache-Control': 'no-cache'
+      }
+    });
+    if (res.ok) {
+      const rows = await res.json();
+      if (rows && rows.length > 0) {
+        return mapDbProductToApp(rows[0]);
+      }
+    }
+  } catch (e) {
+    console.warn('Error fetching product by ID:', e);
+  }
+  return null;
+}
 
-  // Re-compress any raw Base64 images inside products to keep total JSON footprint tiny (< 300KB total)
-  for (const prod of products) {
-    if (Array.isArray(prod.images)) {
-      for (let i = 0; i < prod.images.length; i++) {
-        if (typeof prod.images[i] === 'string' && prod.images[i].startsWith('data:image/') && prod.images[i].length > 80000) {
-          try {
-            prod.images[i] = await compressAndProcessImage(prod.images[i], 600, 0.60);
-          } catch (e) {}
-        }
+export async function saveAdminProduct(product) {
+  if (!product || !product.name) {
+    throw new Error('Thông tin sản phẩm không hợp lệ!');
+  }
+
+  // Ensure image optimization
+  if (Array.isArray(product.images)) {
+    for (let i = 0; i < product.images.length; i++) {
+      if (typeof product.images[i] === 'string' && product.images[i].startsWith('data:image/') && product.images[i].length > 15000) {
+        try {
+          product.images[i] = await compressAndProcessImage(product.images[i], 450, 0.45);
+        } catch (e) {}
       }
     }
   }
 
-  // 1. Fetch latest site_content structure to preserve sections
-  let currentContent = {};
+  const rowPayload = {
+    id: String(product.id || `lqk-${Date.now()}`),
+    code: product.code || `LQK-${Date.now()}`,
+    name: product.name,
+    category: product.category || 'be-trai',
+    category_name: product.categoryName || '',
+    price: parseFloat(product.price) || 0,
+    original_price: parseFloat(product.originalPrice) || 0,
+    discount: product.discount || '',
+    description: product.description || '',
+    badge: product.badge || '',
+    badge_color: product.badgeColor || 'primary',
+    rating: parseFloat(product.rating) || 5.0,
+    sold_count: parseInt(product.soldCount) || 120,
+    images: Array.isArray(product.images) ? product.images : [],
+    colors: Array.isArray(product.colors) ? product.colors : [],
+    sizes: Array.isArray(product.sizes) ? product.sizes : [],
+    size_options: Array.isArray(product.sizeOptions) ? product.sizeOptions : [],
+    is_active: true,
+    updated_at: new Date().toISOString()
+  };
+
+  const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products`, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_CONFIG.anonKey,
+      'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates'
+    },
+    body: JSON.stringify(rowPayload)
+  });
+
+  if (!res.ok) {
+    const errText = await res.text().catch(() => '');
+    console.error('Supabase atomic product save failed:', res.status, res.statusText, errText);
+    throw new Error(`Lưu sản phẩm lên Supabase thất bại (${res.status} ${res.statusText || errText})`);
+  }
+
+  return mapDbProductToApp(rowPayload);
+}
+
+export async function deleteAdminProduct(id) {
+  if (!id) return false;
   try {
-    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
+    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?id=eq.${encodeURIComponent(id)}`, {
+      method: 'DELETE',
       headers: {
         'apikey': SUPABASE_CONFIG.anonKey,
         'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`
       }
     });
-    if (res.ok) {
-      const rows = await res.json();
-      if (rows && rows.length > 0 && rows[0].content_data) {
-        currentContent = rows[0].content_data;
-      }
-    }
+    return res.ok;
   } catch (e) {
-    console.warn('Could not fetch existing site_content before product save:', e);
-  }
-
-  currentContent.products = products;
-
-  // 2. Direct Commit to Supabase Cloud DB (Single Source of Truth)
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 30000);
-
-  try {
-    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content`, {
-      method: 'POST',
-      headers: {
-        'apikey': SUPABASE_CONFIG.anonKey,
-        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'resolution=merge-duplicates'
-      },
-      signal: controller.signal,
-      body: JSON.stringify({
-        id: 'default',
-        content_data: currentContent,
-        updated_at: new Date(nowTs).toISOString()
-      })
-    });
-    clearTimeout(timeoutId);
-
-    if (!res.ok) {
-      console.error('Supabase save site_content failed:', res.status, res.statusText);
-      throw new Error(`Lưu dữ liệu lên Supabase không thành công (${res.statusText})`);
-    }
-  } catch (err) {
-    clearTimeout(timeoutId);
-    console.error('Background sync products to Supabase cloud warning:', err);
-    throw err;
+    console.error('Failed to delete product from Supabase products table:', e);
+    return false;
   }
 }
 

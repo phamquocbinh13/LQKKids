@@ -107,7 +107,7 @@
   </div>
 
   <script type="module">
-    import { getAdminProducts, saveAdminProducts, requireAdminAuth, logoutAdmin, updateAdminPassword } from './admin-store.js';
+    import { getAdminProducts, deleteAdminProduct, requireAdminAuth, logoutAdmin, updateAdminPassword } from './admin-store.js';
 
     let products = [];
 
@@ -197,9 +197,13 @@
         btn.addEventListener('click', async () => {
           const id = btn.getAttribute('data-id');
           if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi website?')) {
-            products = products.filter(p => p.id !== id);
-            await saveAdminProducts(products);
-            filterProducts();
+            const ok = await deleteAdminProduct(id);
+            if (ok) {
+              products = products.filter(p => p.id !== id);
+              filterProducts();
+            } else {
+              alert('Không thể xóa sản phẩm khỏi Database!');
+            }
           }
         });
       });

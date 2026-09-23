@@ -24,30 +24,67 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 2. Pure Direct Fetch from Supabase Cloud DB (100% Single Source of Truth)
   try {
-    const res = await fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
-      headers: {
-        'apikey': SUPABASE_CONFIG.anonKey,
-        'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
-        'Cache-Control': 'no-cache'
-      }
-    });
-
-    if (res.ok) {
-      const rows = await res.json();
-      if (rows && rows.length > 0 && rows[0].content_data) {
-        const liveData = rows[0].content_data;
-
-        // Render 100% live DB data instantly
-        hydrateElements(liveData);
-        if (Array.isArray(liveData.products)) {
-          initProductList(liveData.products);
-          initProductDetailModal();
-          initCartDrawer();
+    const [resContent, resProducts] = await Promise.all([
+      fetch(`${SUPABASE_CONFIG.url}/rest/v1/site_content?id=eq.default&select=*`, {
+        headers: {
+          'apikey': SUPABASE_CONFIG.anonKey,
+          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+          'Cache-Control': 'no-cache'
         }
+      }),
+      fetch(`${SUPABASE_CONFIG.url}/rest/v1/products?select=*&order=created_at.desc`, {
+        headers: {
+          'apikey': SUPABASE_CONFIG.anonKey,
+          'Authorization': `Bearer ${SUPABASE_CONFIG.anonKey}`,
+          'Cache-Control': 'no-cache'
+        }
+      })
+    ]);
+
+    let liveContent = null;
+    let liveProducts = [];
+
+    if (resContent.ok) {
+      const rows = await resContent.json();
+      if (rows && rows.length > 0 && rows[0].content_data) {
+        liveContent = rows[0].content_data;
       }
-    } else {
-      console.error('Supabase DB fetch failed with status:', res.status);
     }
+
+    if (resProducts.ok) {
+      const rows = await resProducts.json();
+      if (Array.isArray(rows)) {
+        liveProducts = rows.map(p => ({
+          id: p.id,
+          code: p.code || `LQK-${p.id}`,
+          name: p.name || '',
+          category: p.category || 'be-trai',
+          categoryName: p.category_name || p.categoryName || '',
+          price: typeof p.price === 'string' ? parseFloat(p.price) : (p.price || 0),
+          originalPrice: typeof p.original_price === 'string' ? parseFloat(p.original_price) : (p.original_price || p.originalPrice || 0),
+          discount: p.discount || '',
+          description: p.description || '',
+          badge: p.badge || '',
+          badgeColor: p.badge_color || p.badgeColor || 'primary',
+          rating: typeof p.rating === 'string' ? parseFloat(p.rating) : (p.rating || 5.0),
+          soldCount: p.sold_count !== undefined ? p.sold_count : (p.soldCount || 120),
+          images: Array.isArray(p.images) ? p.images : [],
+          colors: Array.isArray(p.colors) ? p.colors : [],
+          sizes: Array.isArray(p.sizes) ? p.sizes : [],
+          sizeOptions: Array.isArray(p.size_options) ? p.size_options : (Array.isArray(p.sizeOptions) ? p.sizeOptions : []),
+          createdAt: p.created_at || p.createdAt || new Date().toISOString()
+        }));
+      }
+    }
+
+    if (liveContent) {
+      hydrateElements(liveContent);
+    }
+
+    // Render live atomic row-level products
+    initProductList(liveProducts);
+    initProductDetailModal();
+    initCartDrawer();
   } catch (err) {
     console.error('Error fetching live data from Supabase DB:', err);
   }
