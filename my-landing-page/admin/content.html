@@ -331,6 +331,26 @@
         </div>
       </div>
 
+      <!-- 5. Tracking & Analytics Custom Scripts (Meta Pixel, Google Analytics, Zalo...) -->
+      <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 flex flex-col gap-4 shadow-md">
+        <h2 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-slate-700/60 pb-3">
+          <span class="material-symbols-outlined text-[18px]">code_blocks</span>
+          5. Quản Lý Mã Tracking & Analytics (Facebook Pixel, Google Tag Manager, Zalo...)
+        </h2>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Mã Script Thẻ Header (&lt;head&gt;)</label>
+          <p class="text-[11px] text-slate-400 mb-2">Dán mã Meta Pixel, Google Analytics, Google Tag Manager... Mã sẽ tự động được kích hoạt trên trang chủ.</p>
+          <textarea id="custom-header-script" rows="6" placeholder="<script>&#10;  !function(f,b,e,v,n,t,s)...&#10;</script>" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-200 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Mã Script Thẻ Body (&lt;body&gt;)</label>
+          <p class="text-[11px] text-slate-400 mb-2">Dán mã Chat Widget (Zalo OA, Facebook Chat Popup, TikTok Pixel noscript...)</p>
+          <textarea id="custom-body-script" rows="4" placeholder="<noscript>...</noscript>" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-200 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+        </div>
+      </div>
+
       <!-- Action Buttons Bar -->
       <div class="flex items-center justify-end gap-3 pt-2">
         <a href="index.html" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition-colors">
@@ -488,6 +508,11 @@
         setVal('final-title', data.finalCta.title);
         setVal('final-desc', data.finalCta.description);
       }
+
+      if (data.scripts) {
+        setVal('custom-header-script', data.scripts.headerScript);
+        setVal('custom-body-script', data.scripts.bodyScript);
+      }
     }
 
     async function handleFormSubmit(e) {
@@ -498,6 +523,7 @@
       if (!contentData.hero) contentData.hero = {};
       if (!contentData.realImages) contentData.realImages = {};
       if (!contentData.finalCta) contentData.finalCta = {};
+      if (!contentData.scripts) contentData.scripts = {};
 
       contentData.site.title = getVal('site-title') || contentData.site.title || '';
       contentData.site.logoSubtitle = getVal('site-logo-subtitle') || contentData.site.logoSubtitle || '';
@@ -548,6 +574,9 @@
 
       contentData.finalCta.title = getVal('final-title') || contentData.finalCta.title || '';
       contentData.finalCta.description = getVal('final-desc') || contentData.finalCta.description || '';
+
+      contentData.scripts.headerScript = getVal('custom-header-script');
+      contentData.scripts.bodyScript = getVal('custom-body-script');
 
       await saveAdminContent(contentData);
       alert('Đã cập nhật toàn bộ nội dung & hình ảnh Landing Page thành công!');

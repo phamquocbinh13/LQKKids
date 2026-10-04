@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400..700,0..1,0" rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <script type="module" crossorigin src="/assets/adminContent-DriLUWoE.js"></script>
+  <script type="module" crossorigin src="/assets/adminContent-BIguF09n.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
   <link rel="modulepreload" crossorigin href="/assets/admin-store-DiWBbNBM.js">
 </head>
@@ -331,6 +331,26 @@
         <div>
           <label class="block text-xs font-bold text-slate-300 mb-1.5">Lời Cảm Ơn / Lời Chúc</label>
           <textarea id="final-desc" rows="3" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+        </div>
+      </div>
+
+      <!-- 5. Tracking & Analytics Custom Scripts (Meta Pixel, Google Analytics, Zalo...) -->
+      <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 flex flex-col gap-4 shadow-md">
+        <h2 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-400 flex items-center gap-2 border-b border-slate-700/60 pb-3">
+          <span class="material-symbols-outlined text-[18px]">code_blocks</span>
+          5. Quản Lý Mã Tracking & Analytics (Facebook Pixel, Google Tag Manager, Zalo...)
+        </h2>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Mã Script Thẻ Header (&lt;head&gt;)</label>
+          <p class="text-[11px] text-slate-400 mb-2">Dán mã Meta Pixel, Google Analytics, Google Tag Manager... Mã sẽ tự động được kích hoạt trên trang chủ.</p>
+          <textarea id="custom-header-script" rows="6" placeholder="<script>&#10;  !function(f,b,e,v,n,t,s)...&#10;</script>" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-200 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1">Mã Script Thẻ Body (&lt;body&gt;)</label>
+          <p class="text-[11px] text-slate-400 mb-2">Dán mã Chat Widget (Zalo OA, Facebook Chat Popup, TikTok Pixel noscript...)</p>
+          <textarea id="custom-body-script" rows="4" placeholder="<noscript>...</noscript>" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 text-xs text-amber-200 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
         </div>
       </div>
 

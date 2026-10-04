@@ -62,8 +62,49 @@ export function hydrateElements(data) {
     });
   }
 
+  // Inject dynamic CMS custom header & body scripts if configured
+  if (data.scripts) {
+    injectDynamicScripts(data.scripts);
+  }
+
   // Initialize 30-second Popup trigger
   initZaloPromoPopup();
+}
+
+function injectDynamicScripts(scripts) {
+  if (!scripts) return;
+
+  if (scripts.headerScript && typeof scripts.headerScript === 'string') {
+    injectHtmlBlock(scripts.headerScript, document.head, 'cms-custom-header-scripts');
+  }
+
+  if (scripts.bodyScript && typeof scripts.bodyScript === 'string') {
+    injectHtmlBlock(scripts.bodyScript, document.body, 'cms-custom-body-scripts');
+  }
+}
+
+function injectHtmlBlock(htmlContent, targetParent, uniqueId) {
+  if (!htmlContent || !htmlContent.trim()) return;
+  
+  // Prevent duplicate injections
+  if (document.getElementById(uniqueId)) return;
+
+  const container = document.createElement('div');
+  container.id = uniqueId;
+  container.style.display = 'none';
+  container.innerHTML = htmlContent;
+
+  const scriptTags = container.querySelectorAll('script');
+  scriptTags.forEach(oldScript => {
+    const newScript = document.createElement('script');
+    Array.from(oldScript.attributes).forEach(attr => {
+      newScript.setAttribute(attr.name, attr.value);
+    });
+    newScript.text = oldScript.innerHTML;
+    oldScript.parentNode.replaceChild(newScript, oldScript);
+  });
+
+  targetParent.appendChild(container);
 }
 
 function initZaloPromoPopup() {

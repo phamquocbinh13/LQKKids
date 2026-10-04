@@ -29,6 +29,22 @@
     content="LQK Kids cung cấp quần áo trẻ em bé trai và bé gái chất lượng cao, thiết kế đẹp, thoải mái và năng động. Giao hàng toàn quốc, đổi size tận tâm." />
   <meta property="og:image" content="https://lqk.vn/assets/images/logo.png" />
 
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '4654818168090761');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><style>img{display:inline!important;}</style></noscript>
+  <!-- End Meta Pixel Code -->
+
   <!-- Google Fonts & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -74,6 +90,11 @@
 </head>
 
 <body class="bg-surface text-on-surface font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- Meta Pixel Fallback -->
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=4654818168090761&ev=PageView&noscript=1"
+  /></noscript>
 
   <!-- ==================== HEADER & NAVIGATION ==================== -->
   <header class="header-fixed-pinned pt-safe bg-[#fff8f5] shadow-[0_4px_16px_rgba(0,0,0,0.06)] border-b border-slate-200/90">
