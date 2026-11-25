@@ -209,19 +209,6 @@
     let imagesList = [];
     let sizeOptions = [];
 
-    async function getNextProductCode() {
-      const codes = await getAdminProductCodes();
-      let maxNum = 0;
-      for (const code of codes) {
-        const match = String(code || '').trim().match(/^SP-LQK(\d+)$/i);
-        if (match) {
-          const num = parseInt(match[1], 10);
-          if (num > maxNum) maxNum = num;
-        }
-      }
-      return `SP-LQK${String(maxNum + 1).padStart(2, '0')}`;
-    }
-
     document.addEventListener('DOMContentLoaded', async () => {
       requireAdminAuth();
       
@@ -253,8 +240,7 @@
         if (p) {
           populateForm(p);
           currentId = null; // New entry
-          const baseCode = p.code || 'SP-LQK';
-          document.getElementById('p-code').value = `${baseCode}-COPY-${Date.now().toString().slice(-4)}`;
+          document.getElementById('p-code').value = `${p.code || 'LQK'}-COPY`;
         }
       } else if (templateId) {
         document.getElementById('page-title').textContent = 'TẠO SẢN PHẨM MỚI TỪ MẪU';
@@ -263,7 +249,7 @@
           populateForm(p);
           currentId = null; // New entry
           document.getElementById('p-name').value = '';
-          document.getElementById('p-code').value = await getNextProductCode();
+          document.getElementById('p-code').value = 'LQK';
           imagesList = [];
           renderImagePreviews();
         }
@@ -271,7 +257,7 @@
         document.getElementById('page-title').textContent = 'THÊM SẢN PHẨM MỚI';
         document.getElementById('p-rating').value = 5.0;
         document.getElementById('p-sold-count').value = 120;
-        document.getElementById('p-code').value = await getNextProductCode();
+        document.getElementById('p-code').value = 'LQK';
 
         imagesList = [];
         sizeOptions = JSON.parse(JSON.stringify(default7Sizes));
