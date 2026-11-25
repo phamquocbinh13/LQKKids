@@ -52,15 +52,15 @@
     <!-- Sidebar Navigation -->
     <aside class="w-full md:w-64 bg-slate-800/40 border-b md:border-b-0 md:border-r border-slate-700/60 p-3 sm:p-4 shrink-0">
       <nav class="flex md:flex-col gap-2 overflow-x-auto no-scrollbar pb-1 md:pb-0">
-        <a href="index.html" class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs shadow-md transition-all whitespace-nowrap shrink-0">
+        <a href="/admin/index.html" class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs shadow-md transition-all whitespace-nowrap shrink-0">
           <span class="material-symbols-outlined text-[18px]">inventory_2</span>
           <span>Sản Phẩm</span>
         </a>
-        <a href="edit-product.html" class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white font-semibold text-xs transition-all whitespace-nowrap shrink-0">
+        <a href="/admin/edit-product.html" class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white font-semibold text-xs transition-all whitespace-nowrap shrink-0">
           <span class="material-symbols-outlined text-[18px]">add_circle</span>
           <span>Thêm Sản Phẩm</span>
         </a>
-        <a href="content.html" class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white font-semibold text-xs transition-all whitespace-nowrap shrink-0">
+        <a href="/admin/content.html" class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white font-semibold text-xs transition-all whitespace-nowrap shrink-0">
           <span class="material-symbols-outlined text-[18px]">edit_note</span>
           <span>Landing Page Edit</span>
         </a>
@@ -77,7 +77,7 @@
           <p class="text-xs text-slate-400 mt-0.5">Quản lý, chỉnh sửa giá, tên, hình ảnh và thuộc tính sản phẩm trên website LQK Kids</p>
         </div>
 
-        <a href="edit-product.html" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold flex items-center gap-2 shadow-md active:scale-95 transition-all">
+        <a href="/admin/edit-product.html" class="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold flex items-center gap-2 shadow-md active:scale-95 transition-all">
           <span class="material-symbols-outlined text-[18px]">add</span>
           <span>Thêm Sản Phẩm Mới</span>
         </a>
@@ -208,15 +208,15 @@
           </div>
 
           <div class="pt-2 border-t border-slate-700/50 flex items-center justify-between gap-1.5">
-            <a href="edit-product.html?id=${p.id}" title="Chỉnh sửa thông tin" class="flex-1 h-9 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 transition-colors">
+            <a href="/admin/edit-product.html?id=${p.id}" title="Chỉnh sửa thông tin" class="flex-1 h-9 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 transition-colors">
               <span class="material-symbols-outlined text-[15px]">edit</span>
               <span>Sửa</span>
             </a>
-            <a href="edit-product.html?copyId=${p.id}" title="Copy nhân bản toàn bộ thuộc tính sản phẩm" class="h-9 px-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 transition-colors border border-amber-500/20">
+            <a href="/admin/edit-product.html?copyId=${p.id}" title="Copy nhân bản toàn bộ thuộc tính sản phẩm" class="h-9 px-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 transition-colors border border-amber-500/20">
               <span class="material-symbols-outlined text-[15px]">content_copy</span>
               <span>Copy</span>
             </a>
-            <a href="edit-product.html?templateId=${p.id}" title="Tạo sản phẩm mới giữ nguyên khung mẫu (Giá, Size, Màu)" class="h-9 px-2 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 font-semibold text-[11px] flex items-center justify-center gap-1 transition-colors border border-purple-500/20">
+            <a href="/admin/edit-product.html?templateId=${p.id}" title="Tạo sản phẩm mới giữ nguyên khung mẫu (Giá, Size, Màu)" class="h-9 px-2 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 font-semibold text-[11px] flex items-center justify-center gap-1 transition-colors border border-purple-500/20">
               <span class="material-symbols-outlined text-[15px]">dataset</span>
               <span class="hidden xl:inline">Tạo mẫu</span>
             </a>

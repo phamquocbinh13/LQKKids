@@ -21,7 +21,7 @@
   <!-- Top Admin Bar -->
   <header class="h-16 bg-slate-800/90 backdrop-blur-md border-b border-slate-700/60 px-3.5 sm:px-6 flex items-center justify-between sticky top-0 z-40">
     <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-      <a href="index.html" aria-label="Quay lại" class="w-9 h-9 rounded-xl bg-slate-700 hover:bg-slate-600 text-white flex items-center justify-center transition-colors shrink-0">
+      <a href="/admin/index.html" aria-label="Quay lại" class="w-9 h-9 rounded-xl bg-slate-700 hover:bg-slate-600 text-white flex items-center justify-center transition-colors shrink-0">
         <span class="material-symbols-outlined text-[20px]">arrow_back</span>
       </a>
       <div class="min-w-0">
@@ -353,7 +353,7 @@
 
       <!-- Action Buttons Bar -->
       <div class="flex items-center justify-end gap-3 pt-2">
-        <a href="index.html" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition-colors">
+        <a href="/admin/index.html" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition-colors">
           Hủy Bỏ
         </a>
         <button type="submit" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs shadow-lg active:scale-95 transition-all flex items-center gap-2">
@@ -580,7 +580,7 @@
 
       await saveAdminContent(contentData);
       alert('Đã cập nhật toàn bộ nội dung & hình ảnh Landing Page thành công!');
-      window.location.href = 'index.html';
+      window.location.href = '/admin/index.html';
     }
   </script>
 </body>

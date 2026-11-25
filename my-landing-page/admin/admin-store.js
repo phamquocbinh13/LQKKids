@@ -44,12 +44,12 @@ export function loginAdmin(username, password) {
 
 export function logoutAdmin() {
   localStorage.removeItem(STORAGE_AUTH_KEY);
-  window.location.href = 'login.html';
+  window.location.href = '/admin/login.html';
 }
 
 export function requireAdminAuth() {
   if (!checkAdminAuth()) {
-    window.location.href = 'login.html';
+    window.location.href = '/admin/login.html';
   }
 }
 
